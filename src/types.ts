@@ -61,12 +61,17 @@ export interface StrategyChartProps {
     t: Translation;
 }
 
-export interface AiInsightViewProps {
+export interface AiInsightProps {
     data: AppData;
     setData: ( data: AppData ) => void;
     t: Translation;
     type: aiInsights;
     title: string;
+}
+
+export interface TangiblesProps {
+    data: AppData;
+    t: Translation;
 }
 
 
