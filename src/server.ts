@@ -6,6 +6,7 @@ import { createServer, loadEnv } from 'vite';
 
 import { INFLATION_RATES } from './constants/inflation.js';
 
+
 async function startServer () : Promise< void > {
     const app = express();
     const { PORT = 3000 } = loadEnv( process.env.NODE_ENV || 'development', process.cwd() );
