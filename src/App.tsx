@@ -1,8 +1,6 @@
-import { clsx, type ClassValue } from 'clsx';
 import { LayoutDashboard, TrendingUp, PieChart, ClipboardList, BarChart3, BookOpen, Cpu, Gem, Settings2, ChevronRight, Globe, Coins } from 'lucide-react';
 import { useState, useEffect } from 'react';
 import { BrowserRouter, Routes, Route, Link, useLocation } from 'react-router-dom';
-import { twMerge } from 'tailwind-merge';
 
 import { AppData, CURRENCIES, LANGUAGES } from './types';
 import { cn } from './utils';
@@ -81,3 +79,74 @@ const Sidebar = ( { data, t, onUpdateSettings }: { data: AppData | null, t: any,
         </div>
     </aside> );
 };
+
+export default function App () {
+    const [ data, setData ] = useState< AppData | null >( null );
+    const [ translations, setTranslations ] = useState<any>( null );
+    const [ loading, setLoading ] = useState( true );
+
+    const fetchData = async () => {
+        try {
+            const res = await fetch( '/api/data' );
+            const json = await res.json();
+            setData( json );
+
+            const tRes = await fetch( `/locals/${json.settings.language}.json` );
+            const tJson = await tRes.json();
+            setTranslations( tJson );
+        } catch ( err ) {
+            console.error( 'Failed to fetch data', err );
+        } finally {
+            setLoading( false );
+        }
+    };
+
+    const updateSettings = async ( newSettings: any ) => {
+        if ( ! data ) return;
+
+        const newData = { ...data, settings: newSettings };
+        await fetch( '/api/data', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify( newData )
+        } );
+
+        fetchData();
+    };
+
+    useEffect( () => { fetchData() }, [] );
+
+    if ( loading || !translations ) return ( <div className="h-screen w-screen flex items-center justify-center bg-brand-50">
+        <div className="flex flex-col items-center gap-4">
+            <div className="w-12 h-12 border-4 border-brand-200 border-t-brand-900 rounded-full animate-spin" />
+            <p className="text-brand-400 font-medium tracking-widest uppercase text-[10px]">Loading Workspace</p>
+        </div>
+    </div> );
+
+    const t = translations;
+
+    return ( <BrowserRouter>
+        <div className="flex min-h-screen bg-brand-50">
+            <Sidebar data={data} t={t} onUpdateSettings={updateSettings} />
+            <main className="flex-1 overflow-y-auto">
+                <Routes>
+                    <Route path="/" element={ <Snapshot data={data!} t={t} /> } />
+                    <Route path="/momentum" element={ <Momentum data={data!} t={t} /> } />
+                    <Route path="/allocation" element={ <Allocation data={data!} t={t} /> } />
+                    <Route path="/inventory" element={ <Inventory data={data!} t={t} /> } />
+                    <Route path="/analysis" element={
+                        <Insight data={data!} setData={setData} t={t} type="analysis" title={t.nav.analysis} />
+                    } />
+                    <Route path="/narrative" element={
+                        <Insight data={data!} setData={setData} t={t} type="narrative" title={t.nav.narrative} />
+                    } />
+                    <Route path="/strategy" element={
+                        <Insight data={data!} setData={setData} t={t} type="strategy" title={t.nav.strategy} />
+                    } />
+                    <Route path="/tangibles" element={ <Tangibles data={data!} t={t} /> } />
+                    <Route path="/editor" element={ <Editor data={data!} t={t} onUpdate={fetchData} /> } />
+                </Routes>
+            </main>
+        </div>
+    </BrowserRouter> );
+}
