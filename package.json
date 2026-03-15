@@ -11,7 +11,7 @@
   },
   "type": "module",
   "scripts": {
-    "dev": "tsx server.ts",
+    "dev": "tsx src/server.ts",
     "build": "vite build",
     "preview": "vite preview",
     "clean": "rm -rf dist",
