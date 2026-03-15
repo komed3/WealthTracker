@@ -1,5 +1,7 @@
 export type Rubric = 'liquid' | 'funds' | 'bound' | 'tangibles' | 'liabilities' | 'pension';
 
+export type aiInsights = 'analysis' | 'narrative' | 'strategy';
+
 export interface Category {
     id: string;
     name: string;
@@ -29,7 +31,7 @@ export interface AppData {
         yearly: Record< string, YearlyStats >;
     };
     aiInsights?: {
-        [ key in 'analysis' | 'narrative' | 'strategy' ]?: {
+        [ key in aiInsights ]?: {
             content: string;
             lastUpdated: string;
             dataHash: string;
