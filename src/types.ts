@@ -90,6 +90,11 @@ export interface MomentumProps {
     t: Translation;
 }
 
+export interface SnapshotProps {
+    data: AppData;
+    t: Translation;
+}
+
 export interface TangiblesProps {
     data: AppData;
     t: Translation;

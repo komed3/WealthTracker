@@ -80,6 +80,7 @@
   "snapshot": {
     "annualGrowth": "Jahreswachstum",
     "history": "Vermögensverlauf",
+    "inflation": "Inflationsbereinigt",
     "netWorth": "Gesamtvermögen",
     "stability": "Stabilität",
     "topAsset": "Größter Posten"

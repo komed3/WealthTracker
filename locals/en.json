@@ -80,6 +80,7 @@
   "snapshot": {
     "annualGrowth": "Annual Growth",
     "history": "Wealth History",
+    "inflation": "Inflation Adjusted",
     "netWorth": "Net Worth",
     "stability": "Stability",
     "topAsset": "Top Asset"
