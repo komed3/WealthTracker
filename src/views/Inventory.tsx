@@ -6,6 +6,7 @@ import { ICON_MAP } from '../constants/icons';
 
 import PageHeader from '../components/PageHeader';
 
+
 export default function Inventory ( { data, t }: InventoryProps ) {
     const years = Object.keys( data.stats?.yearly || {} ).sort();
     const latestYear = years[ years.length - 1 ];
