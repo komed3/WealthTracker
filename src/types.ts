@@ -91,4 +91,5 @@ export interface TangiblesProps {
 
 
 export const CURRENCIES = [ 'EUR', 'USD', 'GBP', 'CHF', 'JPY' ];
+export const RUBRICS = [ 'liquid', 'funds', 'bound', 'tangibles', 'liabilities', 'pension' ];
 export const LANGUAGES = [ 'en', 'de' ];
