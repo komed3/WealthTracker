@@ -74,6 +74,11 @@ export interface InventoryProps {
     t: Translation;
 }
 
+export interface MomentumProps {
+    data: AppData;
+    t: Translation;
+}
+
 export interface TangiblesProps {
     data: AppData;
     t: Translation;
