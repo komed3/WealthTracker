@@ -8,7 +8,7 @@ import PageHeader from '../components/PageHeader';
 import StrategyChart from '../components/StrategyChart';
 
 
-export default function AiInsightView ( { data, setData, t, type, title }: AiInsightProps ) {
+export default function AiInsight ( { data, setData, t, type, title }: AiInsightProps ) {
     const [ loading, setLoading ] = useState( false );
     const [ error, setError ] = useState< string | null >( null );
 
