@@ -69,6 +69,11 @@ export interface AiInsightProps {
     title: string;
 }
 
+export interface InventoryProps {
+    data: AppData;
+    t: Translation;
+}
+
 export interface TangiblesProps {
     data: AppData;
     t: Translation;
