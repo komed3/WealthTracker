@@ -66,6 +66,12 @@ export interface AllocationProps {
     t: Translation;
 }
 
+export interface EditorProps {
+    data: AppData;
+    t: Translation;
+    onUpdate: () => void;
+}
+
 export interface InsightProps {
     data: AppData;
     setData: ( data: AppData ) => void;

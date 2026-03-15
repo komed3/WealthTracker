@@ -2,12 +2,9 @@ import { Plus, X, Wallet } from 'lucide-react';
 
 import { Rubric, RUBRICS } from '../types';
 import { cn } from '../utils';
+import { COLORS } from '../constants/colors';
 import { ICON_MAP, AVAILABLE_ICONS } from '../constants/icons';
 
-const COLORS = [
-    '#0f172a', '#334155', '#64748b', '#ef4444', '#f97316', '#f59e0b',
-    '#10b981', '#06b6d4', '#3b82f6', '#6366f1', '#8b5cf6', '#d946ef'
-];
 
 export default function CategoryForm ( { form, setForm, t, newYear, setNewYear, newValue, setNewValue, onAddYear, onRemoveYear, onSave, onCancel }: any ) {
     return ( <div className="space-y-8">
