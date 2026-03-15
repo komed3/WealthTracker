@@ -1,14 +1,14 @@
 import fs from 'node:fs/promises';
 import { join } from 'node:path';
 
-import express from 'express';
+import express, { static as static_ } from 'express';
 import { createServer, loadEnv } from 'vite';
 
 import { INFLATION_RATES } from './constants/inflation.js';
 
 async function startServer () : Promise< void > {
     const app = express();
-    const { PORT } = loadEnv( process.env.NODE_ENV || 'development', process.cwd() );
+    const { PORT = 3000 } = loadEnv( process.env.NODE_ENV || 'development', process.cwd() );
     const DB_PATH = join( process.cwd(), 'data/db.json' );
 
     app.use( express.json() );
@@ -104,6 +104,25 @@ async function startServer () : Promise< void > {
             res.status( 500 ).json( { error: 'Failed to write database' } );
         }
     } );
+
+    // Vite middleware for development
+    if ( process.env.NODE_ENV !== 'production' ) {
+        const vite = await createServer( {
+            server: { middlewareMode: true },
+            appType: 'spa'
+        } );
+
+        app.use( vite.middlewares );
+    } else {
+        const distPath = join( process.cwd(), 'dist' );
+            app.use( static_( distPath ) );
+            app.get( '*', ( _, res ) => {
+            res.sendFile( join( distPath, 'index.html' ) );
+        } );
+    }
+
+    // Start Server
+    app.listen( Number( PORT ), () => console.log( `Server running on http://localhost:${PORT}` ) );
 }
 
 startServer();
