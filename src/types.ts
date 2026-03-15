@@ -1,5 +1,6 @@
 import type React from 'react';
 
+export type Translation = any;
 export type Rubric = 'liquid' | 'funds' | 'bound' | 'tangibles' | 'liabilities' | 'pension';
 export type aiInsights = 'analysis' | 'narrative' | 'strategy';
 
@@ -57,8 +58,16 @@ export interface StrategyChartProps {
     totalWealth: number;
     currentYear: number;
     currency: string;
-    t: any;
-};
+    t: Translation;
+}
+
+export interface AiInsightViewProps {
+    data: AppData;
+    setData: ( data: AppData ) => void;
+    t: Translation;
+    type: aiInsights;
+    title: string;
+}
 
 
 export const CURRENCIES = [ 'EUR', 'USD', 'GBP', 'CHF', 'JPY' ];
