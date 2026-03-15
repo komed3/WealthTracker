@@ -28,6 +28,7 @@
     "currency": "Currency",
     "currentValue": "Current Value",
     "growth": "Growth",
+    "inflLoss": "Infl. Loss",
     "language": "Language",
     "latestValue": "Latest Value",
     "momentum": "Momentum",
