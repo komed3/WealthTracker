@@ -61,7 +61,7 @@ export interface StrategyChartProps {
     t: Translation;
 }
 
-export interface AiInsightProps {
+export interface InsightProps {
     data: AppData;
     setData: ( data: AppData ) => void;
     t: Translation;

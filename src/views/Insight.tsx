@@ -2,13 +2,13 @@ import { Sparkles, RefreshCw, AlertCircle, Clock } from 'lucide-react';
 import { useState, useEffect } from 'react';
 import Markdown from 'react-markdown';
 
-import { AiInsightProps } from '../types';
+import { InsightProps } from '../types';
 import { calculateDataHash, generateAiInsights } from '../services/geminiService';
 import PageHeader from '../components/PageHeader';
 import StrategyChart from '../components/StrategyChart';
 
 
-export default function AiInsight ( { data, setData, t, type, title }: AiInsightProps ) {
+export default function Insight ( { data, setData, t, type, title }: InsightProps ) {
     const [ loading, setLoading ] = useState( false );
     const [ error, setError ] = useState< string | null >( null );
 
