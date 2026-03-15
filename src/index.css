@@ -3,24 +3,24 @@
 
 @font-face {
     font-family: 'Inter';
-    src: url( '/public/Inter.woff2' ) format( 'woff2' );
+    src: url( '/Inter.woff2' ) format( 'woff2' );
 }
 
 @font-face {
     font-family: 'Inter';
     font-style: italic;
-    src: url( '/public/Inter-Italic.woff2' ) format( 'woff2' );
+    src: url( '/Inter-Italic.woff2' ) format( 'woff2' );
 }
 
 @font-face {
     font-family: 'JetBrains Mono';
-    src: url( '/public/JetBrainsMono.woff2' ) format( 'woff2' );
+    src: url( '/JetBrainsMono.woff2' ) format( 'woff2' );
 }
 
 @font-face {
     font-family: 'JetBrains Mono';
     font-style: italic;
-    src: url( '/public/JetBrainsMono-Italic.woff2' ) format( 'woff2' );
+    src: url( '/JetBrainsMono-Italic.woff2' ) format( 'woff2' );
 }
 
 @theme {
