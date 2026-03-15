@@ -1,15 +1,18 @@
 import fs from 'node:fs/promises';
 import { join } from 'node:path';
 
+import dotenv from 'dotenv';
 import express, { static as static_ } from 'express';
-import { createServer, loadEnv } from 'vite';
+import { createServer } from 'vite';
 
 import { INFLATION_RATES } from './constants/inflation.js';
 
 
+dotenv.config( { quiet: true } );
+
 async function startServer () : Promise< void > {
     const app = express();
-    const { PORT = 3000 } = loadEnv( process.env.NODE_ENV || 'development', process.cwd() );
+    const PORT = process.env.PORT || '3000';
     const DB_PATH = join( process.cwd(), 'data/db.json' );
 
     app.use( express.json() );
