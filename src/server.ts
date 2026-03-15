@@ -13,6 +13,16 @@ async function startServer () : Promise< void > {
 
     app.use( express.json() );
     app.use( express.urlencoded( { extended: true } ) );
+
+    // API Routes
+    app.get( '/api/data', async ( _, res ) => {
+        try {
+            const raw = await fs.readFile( DB_PATH, 'utf-8' );
+            res.json( JSON.parse( raw ) );
+        } catch ( error ) {
+            res.status( 500 ).json( { error: 'Failed to read database' } );
+        }
+    } );
 }
 
 startServer();
