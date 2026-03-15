@@ -1,0 +1,68 @@
+@import 'tailwindcss';
+@plugin '@tailwindcss/typography';
+
+@font-face {
+    font-family: 'Inter';
+    src: url( '/public/Inter.woff2' ) format( 'woff2' );
+}
+
+@font-face {
+    font-family: 'Inter';
+    font-style: italic;
+    src: url( '/public/Inter-Italic.woff2' ) format( 'woff2' );
+}
+
+@font-face {
+    font-family: 'JetBrains Mono';
+    src: url( '/public/JetBrainsMono.woff2' ) format( 'woff2' );
+}
+
+@font-face {
+    font-family: 'JetBrains Mono';
+    font-style: italic;
+    src: url( '/public/JetBrainsMono-Italic.woff2' ) format( 'woff2' );
+}
+
+@theme {
+    --font-sans: 'Inter', sans-serif;
+    --font-mono: 'JetBrains Mono', monospace;
+
+    --color-brand-50: #f8fafc;
+    --color-brand-100: #f1f5f9;
+    --color-brand-200: #e2e8f0;
+    --color-brand-300: #cbd5e1;
+    --color-brand-400: #94a3b8;
+    --color-brand-500: #64748b;
+    --color-brand-600: #475569;
+    --color-brand-700: #334155;
+    --color-brand-800: #1e293b;
+    --color-brand-900: #0f172a;
+}
+
+@layer base {
+    body {
+        @apply bg-brand-50 text-brand-900 font-sans antialiased;
+    }
+    
+    button, a, select, input[type='checkbox'], input[type='radio'] {
+        @apply cursor-pointer;
+    }
+}
+
+@layer utilities {
+    .rounded-3xl {
+        border-radius: 0.5rem !important;
+    }
+
+    .rounded-2xl {
+        border-radius: 0.25rem !important;
+    }
+
+    .rounded-xl {
+        border-radius: 0.125rem !important;
+    }
+
+    .sidebar-rounded {
+        border-radius: 0.75rem !important;
+    }
+}
