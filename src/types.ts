@@ -41,6 +41,11 @@ export interface AppData {
     };
 }
 
+export interface PageHeaderProps {
+    title: string;
+    subtitle?: string;
+}
+
 export interface StatCardProps {
     label: string;
     value: string | React.ReactNode;
