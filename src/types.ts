@@ -53,6 +53,13 @@ export interface StatCardProps {
     color: string;
 }
 
+export interface StrategyChartProps {
+    totalWealth: number;
+    currentYear: number;
+    currency: string;
+    t: any;
+};
+
 
 export const CURRENCIES = [ 'EUR', 'USD', 'GBP', 'CHF', 'JPY' ];
 export const LANGUAGES = [ 'en', 'de' ];
