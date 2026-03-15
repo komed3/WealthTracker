@@ -1,5 +1,6 @@
-export type Rubric = 'liquid' | 'funds' | 'bound' | 'tangibles' | 'liabilities' | 'pension';
+import type React from 'react';
 
+export type Rubric = 'liquid' | 'funds' | 'bound' | 'tangibles' | 'liabilities' | 'pension';
 export type aiInsights = 'analysis' | 'narrative' | 'strategy';
 
 export interface Category {
@@ -38,6 +39,13 @@ export interface AppData {
             language: string;
         };
     };
+}
+
+export interface StatCardProps {
+    label: string;
+    value: string | React.ReactNode;
+    icon: React.ReactNode;
+    color: string;
 }
 
 
