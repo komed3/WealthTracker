@@ -71,7 +71,7 @@
   },
   "rubrics": {
     "bound": "Gebundenes Kapital",
-    "fund-bound": "Fondsgebunden",
+    "funds": "Fondsgebunden",
     "liabilities": "Verbindlichkeiten / Schulden",
     "liquid": "Barvermögen / Liquide Mittel",
     "pension": "Altersvorsorge / Renten",

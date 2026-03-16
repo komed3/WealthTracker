@@ -25,9 +25,7 @@ export default function CategoryForm ( { form, setForm, t, newYear, setNewYear, 
                     value={ form.rubric || 'liquid' }
                     onChange={ e => setForm( { ...form, rubric: e.target.value as Rubric } ) }
                     className="w-full px-4 py-3 rounded-lg border border-brand-200 focus:outline-none focus:ring-2 focus:ring-brand-900/10 focus:border-brand-900 transition-all bg-white"
-                >{ Object.entries( RUBRICS ).map( ( [ key ]: [ any, any ] ) => (
-                    <option key={key} value={key}>{ t.rubrics[ key ] }</option>
-                ) ) }</select>
+                >{ RUBRICS.map( ( key ) => ( <option key={key} value={key}>{ t.rubrics[ key ] }</option> ) ) }</select>
             </div>
         </div>
 

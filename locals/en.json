@@ -71,7 +71,7 @@
   },
   "rubrics": {
     "bound": "Bound Assets",
-    "fund-bound": "Fund-bound",
+    "funds": "Fund-bound",
     "liabilities": "Liabilities",
     "liquid": "Liquid Assets",
     "pension": "Pension / Retirement",
