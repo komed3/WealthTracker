@@ -11,7 +11,7 @@ export default defineConfig( ( { mode } ) => {
         plugins: [ react(), tailwindcss() ],
         define: { 'process.env.GEMINI_API_KEY': JSON.stringify( env.GEMINI_API_KEY || '' ) },
         resolve: { alias: { '@': resolve( __dirname, '.' ) } },
-        server: { hmr: process.env.DISABLE_HMR !== 'true' },
+        server: { hmr: { host: 'localhost', protocol: 'ws' } },
         build: { rollupOptions: { output: { manualChunks( id ) {
             if ( id.includes( 'node_modules' ) ) {
                 return id.toString().split( 'node_modules/' )[ 1 ].split( '/' )[ 0 ].toString();
