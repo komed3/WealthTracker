@@ -1,0 +1,23 @@
+import type { COLOR, CURRENCY, ICON } from '@/src/config/constants';
+import type { resources } from '@/src/lib/i18n';
+
+export interface AppSettings {
+  language: keyof typeof resources;
+  name: string;
+  dateOfBirth: string;
+  currency: CURRENCY;
+  digits: number;
+}
+
+export interface Asset {
+  readonly id: string;
+  name: string;
+  description: string;
+  icon: ICON;
+  color: COLOR;
+}
+
+export interface Data {
+  settings: AppSettings;
+  assets: Asset[];
+}
