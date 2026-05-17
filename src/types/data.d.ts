@@ -1,4 +1,4 @@
-import type { CLASS, COLOR, CURRENCY, ICON } from '@/src/config/constants';
+import type { CLASS, COLOR, CURRENCY, ICON, LIQUIDITY } from '@/src/config/constants';
 import type { resources } from '@/src/lib/i18n';
 
 export interface AppSettings {
@@ -9,7 +9,8 @@ export interface AppSettings {
   digits: number;
 }
 
-export interface AssetYear {
+export interface AssetYear< K extends `${ number }` > {
+  year: K;
   value: number;
   min?: number;
   max?: number;
@@ -18,12 +19,15 @@ export interface AssetYear {
 
 export interface Asset {
   readonly id: string;
-  class: CLASS;
   name: string;
   description: string;
+  liquidity: LIQUIDITY;
+  class: CLASS;
   icon: ICON;
   color: COLOR;
-  data: Record< `${ number }`, AssetYear >;
+  data: {
+    [ K in `${ number }` ]: AssetYear< K >;
+  };
 }
 
 export interface Data {
