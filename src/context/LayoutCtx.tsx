@@ -1,6 +1,7 @@
 import { createContext, useContext, useState } from 'react';
-import type { LayoutCtxType } from '../types/context';
-import type { LayoutProps } from '../types/props';
+
+import type { LayoutCtxType } from '@/src/types/context';
+import type { LayoutProps } from '@/src/types/props';
 
 const LayoutCtx = createContext < LayoutCtxType | undefined > ( undefined );
 
@@ -17,7 +18,7 @@ export function LayoutProvider ( { children }: LayoutProps ) {
   );
 }
 
-export function useLayout () {
+export function useLayout () : LayoutCtxType {
   const context = useContext( LayoutCtx );
 
   if ( context === undefined ) throw new Error( 'useLayout must be used within a LayoutProvider' );
