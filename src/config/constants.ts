@@ -1,9 +1,13 @@
 export const CURRENCY = [ 'EUR', 'USD', 'CHF' ] as const;
 export type CURRENCY = ( typeof CURRENCY )[ number ];
 
-export const CLASS = [ 'cash', 'account', 'moneyMarket',
-  'stocks', 'funds', 'bonds', 'interest', 'pension',
-  'realEstate', 'commodities', 'tangibles', 'crypto'
+export const LIQUIDITY = [ 1, 2, 3, 4, 5 ] as const;
+export type LIQUIDITY = ( typeof LIQUIDITY )[ number ];
+
+export const CLASS = [
+  'cash', 'accounts', 'moneyMarket', 'stocks', 'funds',
+  'bonds', 'interest', 'pension', 'realEstate', 'commodities',
+  'tangibles', 'crypto', 'loans', 'other'
 ] as const;
 export type CLASS = ( typeof CLASS )[ number ];
 
