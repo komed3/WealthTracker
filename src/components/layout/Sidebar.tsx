@@ -35,8 +35,8 @@ export const Sidebar = () => {
             ) }
           >
             <r.icon
-              className= 'shrink-0'
-              size={ 20 }
+              className= 'shrink-0 group-hover:scale-110 transition-transform duration-200'
+              size= { 20 }
               strokeWidth= { 2 }
             />
             <span className= 'truncate font-medium'>
