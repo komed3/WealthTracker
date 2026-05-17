@@ -22,7 +22,7 @@ export const Sidebar = () => {
         </span>
       </div>
 
-      <nav className="flex-1 px-4 py-6 space-y-1">
+      <nav className= 'flex-1 px-4 py-6 space-y-1'>
         { routes.map( r => (
           <NavLink
             key= { r.to }
