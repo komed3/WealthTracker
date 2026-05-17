@@ -11,6 +11,7 @@
   },
   "type": "module",
   "scripts": {
+    "dev": "tsx src/server.ts",
     "build": "vite build",
     "lint": "tsc --noEmit"
   },
