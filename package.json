@@ -1,0 +1,13 @@
+{
+  "name": "@komed3/wealthtracker",
+  "description": "Modern, multi-currency wealth tracking application with yearly analysis and deep insights",
+  "private": true,
+  "license": "MIT",
+  "version": "0.2.0-alpha",
+  "author": {
+    "name": "komed3 (Paul Köhler)",
+    "email": "webmaster@komed3.de",
+    "url": "https://komed3.de"
+  },
+  "type": "module"
+}
