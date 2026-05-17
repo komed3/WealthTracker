@@ -9,12 +9,20 @@ export interface AppSettings {
   digits: number;
 }
 
+export interface AssetYear {
+  value: number;
+  min?: number;
+  max?: number;
+  share: number;
+}
+
 export interface Asset {
   readonly id: string;
   name: string;
   description: string;
   icon: ICON;
   color: COLOR;
+  data: Record< `${ number }`, AssetYear >;
 }
 
 export interface Data {
