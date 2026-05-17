@@ -1,7 +1,13 @@
 export default ( {
   translation: {
     nav: {
-      dashboard: 'Dashboard'
+      assets: 'Assets',
+      breakdown: 'Breakdown',
+      dashboard: 'Dashboard',
+      editor: 'Editor',
+      momentum: 'Momentum',
+      report: 'Report',
+      stats: 'Statistics'
     }
   }
 } ) as const;
