@@ -1,6 +1,12 @@
 export const CURRENCY = [ 'EUR', 'USD', 'CHF' ] as const;
 export type CURRENCY = ( typeof CURRENCY )[ number ];
 
+export const CLASS = [ 'cash', 'account', 'moneyMarket',
+  'stocks', 'funds', 'bonds', 'interest', 'pension',
+  'realEstate', 'commodities', 'tangibles', 'crypto'
+] as const;
+export type CLASS = ( typeof CLASS )[ number ];
+
 export const ICON = [
   'Wallet', 'WalletCards', 'Vault', 'PiggyBank', 'Landmark',
   'Coins', 'Bitcoin', 'Banknote', 'House', 'Car', 'Watch', 'Gem',

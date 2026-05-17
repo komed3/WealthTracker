@@ -1,4 +1,4 @@
-import type { COLOR, CURRENCY, ICON } from '@/src/config/constants';
+import type { CLASS, COLOR, CURRENCY, ICON } from '@/src/config/constants';
 import type { resources } from '@/src/lib/i18n';
 
 export interface AppSettings {
@@ -18,6 +18,7 @@ export interface AssetYear {
 
 export interface Asset {
   readonly id: string;
+  class: CLASS;
   name: string;
   description: string;
   icon: ICON;
