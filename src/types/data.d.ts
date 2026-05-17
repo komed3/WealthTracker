@@ -9,13 +9,16 @@ export interface AppSettings {
   digits: number;
 }
 
-export interface AssetYear< K extends `${ number }` > {
-  year: K;
+export interface Year {
   value: number;
   min?: number;
   max?: number;
   share: number;
 }
+
+export type AnnualData = {
+  [ K in `${ number }` ]: Year;
+};
 
 export interface Asset {
   readonly id: string;
@@ -25,12 +28,19 @@ export interface Asset {
   class: CLASS;
   icon: ICON;
   color: COLOR;
-  data: {
-    [ K in `${ number }` ]: AssetYear< K >;
-  };
+  data: AnnualData;
 }
 
 export interface Data {
   settings: AppSettings;
   assets: Asset[];
+  breakdown: {
+    liquidity: {
+      [ K in LIQUIDITY ]?: AnnualData;
+    };
+    class: {
+      [ K in CLASS ]?: AnnualData;
+    }
+  };
+  stats: {};
 }
