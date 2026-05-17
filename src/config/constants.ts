@@ -1,7 +1,13 @@
 export const CURRENCY = [ 'EUR', 'USD', 'CHF' ] as const;
 export type CURRENCY = ( typeof CURRENCY )[ number ];
 
-export const ICON = [] as const;
+export const ICON = [
+  'Wallet', 'WalletCards', 'Vault', 'PiggyBank', 'Landmark',
+  'Coins', 'Bitcoin', 'Banknote', 'House', 'Car', 'Watch', 'Gem',
+  'Trophy', 'Handbag', 'ChartCandlestick', 'ShieldCheck', 'Gift',
+  'HeartHandshake', 'CreditCard', 'Building2', 'Briefcase',
+  'TrendingUp', 'PieChart', 'Plane', 'Ship', 'Smartphone'
+] as const;
 export type ICON = ( typeof ICON )[ number ];
 
 export const COLOR = [
