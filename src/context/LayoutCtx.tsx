@@ -7,7 +7,7 @@ export interface LayoutCtxType {
   toggleSidebar: () => void;
 }
 
-const LayoutCtx = createContext< LayoutCtxType | undefined >( undefined );
+const LayoutCtx = createContext < LayoutCtxType | undefined > ( undefined );
 
 export function LayoutProvider ( { children }: MainLayoutProps ) {
   const [ sidebarOpen, setSidebarOpen ] = useState( true );
@@ -15,9 +15,16 @@ export function LayoutProvider ( { children }: MainLayoutProps ) {
 
   return (
     <LayoutCtx.Provider
-      value={ { sidebarOpen, setSidebarOpen, toggleSidebar } }
+      value= { { sidebarOpen, setSidebarOpen, toggleSidebar } }
     >
       { children }
     </LayoutCtx.Provider>
   );
+}
+
+export function useLayout () {
+  const context = useContext( LayoutCtx );
+
+  if ( context === undefined ) throw new Error( 'useLayout must be used within a LayoutProvider' );
+  return context;
 }
