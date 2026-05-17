@@ -1,15 +1,10 @@
 import { createContext, useContext, useState } from 'react';
-import { MainLayoutProps } from '../components/layout/MainLayout';
-
-export interface LayoutCtxType {
-  sidebarOpen: boolean;
-  setSidebarOpen: ( open: boolean ) => void;
-  toggleSidebar: () => void;
-}
+import type { LayoutCtxType } from '../types/context';
+import type { LayoutProps } from '../types/props';
 
 const LayoutCtx = createContext < LayoutCtxType | undefined > ( undefined );
 
-export function LayoutProvider ( { children }: MainLayoutProps ) {
+export function LayoutProvider ( { children }: LayoutProps ) {
   const [ sidebarOpen, setSidebarOpen ] = useState( true );
   const toggleSidebar = () => setSidebarOpen( prev => ! prev );
 

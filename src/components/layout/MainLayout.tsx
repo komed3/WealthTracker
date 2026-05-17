@@ -1,9 +1,5 @@
-import type React from 'react';
+import type { LayoutProps } from '../../types/props';
 
-export interface MainLayoutProps {
-  children: React.ReactNode;
-}
-
-export const MainLayout = ( { children }: MainLayoutProps ) => {
+export const MainLayout = ( { children }: LayoutProps ) => {
   return ( <>{ children }</> );
 };
