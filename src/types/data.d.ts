@@ -35,12 +35,8 @@ export interface Data {
   settings: AppSettings;
   assets: Asset[];
   breakdown: {
-    liquidity: {
-      [ K in LIQUIDITY ]?: AnnualData;
-    };
-    class: {
-      [ K in CLASS ]?: AnnualData;
-    }
+    liquidity: { [ K in LIQUIDITY ]?: AnnualData };
+    class: { [ K in CLASS ]?: AnnualData };
   };
   stats: {};
 }
