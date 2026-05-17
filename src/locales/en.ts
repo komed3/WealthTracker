@@ -1,5 +1,7 @@
 export default ( {
-  nav: {
-    dashboard: 'Dashboard'
+  translation: {
+    nav: {
+      dashboard: 'Dashboard'
+    }
   }
 } ) as const;

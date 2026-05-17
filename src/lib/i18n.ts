@@ -6,14 +6,17 @@ import { initReactI18next } from 'react-i18next';
 import en from '@/src/locales/en';
 import de from '@/src/locales/de';
 
+export const resources = { en, de } as const;
+
 i18n
   .use( Backend )
   .use( LanguageDetector )
   .use( initReactI18next )
   .init( {
-    resources: { en, de },
+    resources,
     fallbackLng: 'en',
     lng: 'en',
+    enableSelector: true,
     interpolation: {
       escapeValue: false
     }
