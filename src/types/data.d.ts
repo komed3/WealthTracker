@@ -1,12 +1,20 @@
-import type { CATEGORY, CLASS, COLOR, CONFIDENCE, CURRENCY, ICON, LIQUIDITY } from '@/src/config/constants';
+import type { CATEGORY, CLASS, COLOR, CONFIDENCE, CURRENCY, GENDER, ICON, LIQUIDITY } from '@/src/config/constants';
 import type { resources } from '@/src/lib/i18n';
 
-export interface AppSettings {
+export interface DisplaySettings {
   language: keyof typeof resources;
-  name: string;
-  dateOfBirth: string;
   currency: CURRENCY;
-  digits: number;
+  decimals: number;
+}
+
+export interface Profile {
+  birthDate: string;
+  gender: GENDER;
+}
+
+export interface Settings {
+  display: DisplaySettings;
+  profile: Profile;
 }
 
 export interface Entry {
@@ -62,7 +70,7 @@ export interface Growth {
   relative: number;
 }
 
-export interface Snapshot {
+export interface YearSnapshot {
   year: number;
   assets: number;
   liabilities: number;
@@ -73,4 +81,40 @@ export interface Snapshot {
   byCategory: CategoryBreakdown;
   byLiquidity: LiquidityBreakdown;
   byClass: ClassBreakdown;
+}
+
+export interface EntryStats {
+  entryId: string;
+  firstYear: number;
+  lastYear: number;
+  latestValue: number;
+  growth?: Growth;
+  highestValue?: number;
+  lowestValue?: number;
+  averageValue?: number;
+  averageAnnualGrowth?: number;
+  volatility?: number;
+}
+
+export interface PortfolioStats {
+  firstYear: number;
+  lastYear: number;
+  latestNetWorth: value;
+  highestNetWorth?: value;
+  lowestNetWorth?: value;
+  totalGrowth?: Growth;
+  averageAnnualGrowth?: number;
+  bestYear?: number;
+  worstYear?: number;
+  averageLiquidity?: number;
+  assetCount: number;
+  liabilityCount: number;
+  archivedCount: number;
+}
+
+export interface ComputedData {
+  version: number;
+  years: Record< number, YearSnapshot >;
+  entries: Record< string, EntryStats >;
+  portfolio: PortfolioStats;
 }
