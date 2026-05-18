@@ -53,7 +53,9 @@ export const ICON = [
   'Coins', 'Bitcoin', 'Banknote', 'House', 'Car', 'Watch', 'Gem',
   'Trophy', 'Handbag', 'ChartCandlestick', 'ShieldCheck', 'Gift',
   'HeartHandshake', 'CreditCard', 'Building2', 'Briefcase',
-  'TrendingUp', 'PieChart', 'Plane', 'Ship', 'Smartphone'
+  'TrendingUp', 'PieChart', 'Plane', 'Ship', 'Smartphone',
+  'AlignHorizontalDistributeCenter', 'Archive', 'Astroid',
+  'Award', 'BadgeCheck', 'Barrel'
 ] as const;
 
 export type COLOR = ( typeof COLOR )[ number ];
