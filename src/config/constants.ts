@@ -32,6 +32,11 @@ export const LIABILITY_CLASS = [
 
 export type CLASS = ASSET_CLASS | LIABILITY_CLASS;
 
+export type CONFIDENCE = ( typeof CONFIDENCE )[ number ];
+export const CONFIDENCE = [
+  'low', 'medium', 'high'
+] as const;
+
 export type ICON = ( typeof ICON )[ number ];
 export const ICON = [
   'Wallet', 'WalletCards', 'Vault', 'PiggyBank', 'Landmark',

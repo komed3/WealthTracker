@@ -1,4 +1,4 @@
-import type { CATEGORY, CLASS, COLOR, CURRENCY, ICON, LIQUIDITY } from '@/src/config/constants';
+import type { CATEGORY, CLASS, COLOR, CONFIDENCE, CURRENCY, ICON, LIQUIDITY } from '@/src/config/constants';
 import type { resources } from '@/src/lib/i18n';
 
 export interface AppSettings {
@@ -28,6 +28,7 @@ export interface YearValue {
   value: Amount;
   min?: Amount;
   max?: Amount;
+  confidence?: CONFIDENCE;
   note?: string;
   updatedAt: string;
 }
