@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 
+import type { Settings as SettingsType } from '@/src/types/data';
 import { Button } from '@/src/components/ui/Button';
 import { Card } from '@/src/components/ui/Card';
 import { Heading } from '@/src/components/ui/Heading';
@@ -10,7 +11,6 @@ import { CURRENCY, GENDER } from '@/src/config/constants';
 import { useData } from '@/src/context/DataCtx';
 import { useLayout } from '@/src/context/LayoutCtx';
 import i18n from '@/src/lib/i18n';
-import type { Settings as SettingsType } from '@/src/types/data';
 
 export const Settings = () => {
   const { settings, updateSettings, loading } = useData();
