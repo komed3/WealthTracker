@@ -18,6 +18,8 @@
   --font-mono: 'JetBrains Mono', monospace;
 
   --color-primary: #2563eb;
+  --color-pos: #10b981;
+  --color-neg: #ef4444;
 }
 
 button, a, [role="button"], input[type="submit"], input[type="button"] {
