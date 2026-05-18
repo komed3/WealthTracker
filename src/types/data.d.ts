@@ -56,3 +56,21 @@ export interface CategoryBreakdown {
 export type LiquidityBreakdown = Partial< Record< LIQUIDITY, Breakdown > >;
 
 export type ClassBreakdown = Partial< Record< CLASS, Breakdown > >;
+
+export interface Growth {
+  absolute: number;
+  relative: number;
+}
+
+export interface Snapshot {
+  year: number;
+  assets: number;
+  liabilities: number;
+  netWorth: number;
+  minNetWorth?: number;
+  maxNetWorth?: number;
+  growth?: Growth;
+  byCategory: CategoryBreakdown;
+  byLiquidity: LiquidityBreakdown;
+  byClass: ClassBreakdown;
+}
