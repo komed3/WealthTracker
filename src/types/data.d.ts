@@ -25,10 +25,10 @@ export interface Entry {
 
 export interface YearValue {
   year: Year;
+  confidence: CONFIDENCE;
   value: Amount;
   min?: Amount;
   max?: Amount;
-  confidence?: CONFIDENCE;
   note?: string;
   updatedAt: string;
 }
