@@ -16,3 +16,18 @@ export function formatCurrency ( val: any, display?: DisplaySettings ) : string 
     maximumFractionDigits: decs
   } ).format( num );
 }
+
+export function formatPercent ( val: any, display?: DisplaySettings ) : string {
+  const num = Number( val );
+
+  if ( isNaN( num ) || val === '' || val === null || val === undefined ) return '';
+
+  const lang = display?.language || 'en';
+  const decs = display?.decimals !== undefined ? display.decimals : 2;
+
+  return new Intl.NumberFormat( lang === 'de' ? 'de-DE' : 'en-US', {
+    style: 'percent',
+    minimumFractionDigits: decs,
+    maximumFractionDigits: decs
+  } ).format( num );
+}
