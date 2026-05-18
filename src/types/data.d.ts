@@ -118,3 +118,12 @@ export interface ComputedData {
   entries: Record< string, EntryStats >;
   portfolio: PortfolioStats;
 }
+
+export interface Data {
+  readonly version: '0.2.0';
+  settings: Settings;
+  entries: EntryRecord[];
+  computed: ComputedData;
+  createdAt: string;
+  updatedAt: string;
+}
