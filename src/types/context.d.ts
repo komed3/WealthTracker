@@ -9,9 +9,11 @@ export interface DataCtxType {
 }
 
 export interface LayoutCtxType {
-  sidebarOpen: boolean;
-  setSidebarOpen: ( open: boolean ) => void;
-  toggleSidebar: () => void;
   title: string;
   setTitle: ( title: string ) => void;
+  loading: boolean;
+  setLoading: ( loading: boolean ) => void;
+  toggleSidebar: () => void;
+  sidebarOpen: boolean;
+  setSidebarOpen: ( open: boolean ) => void;
 }

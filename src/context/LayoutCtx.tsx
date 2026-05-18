@@ -1,5 +1,7 @@
+import { AnimatePresence } from 'motion/react';
 import { createContext, useContext, useEffect, useState } from 'react';
 
+import { Loading } from '@/src/components/ui/Loading';
 import type { LayoutCtxType } from '@/src/types/context';
 import type { LayoutProps } from '@/src/types/props';
 
@@ -20,6 +22,7 @@ export function LayoutProvider ( { children }: LayoutProps ) {
   } );
 
   const [ title, setTitleState ] = useState( '' );
+  const [ loading, setLoading ] = useState( false );
 
   const setTitle = ( newTitle: string ) => {
     setTitleState( newTitle );
@@ -51,17 +54,17 @@ export function LayoutProvider ( { children }: LayoutProps ) {
   return (
     <LayoutCtx.Provider
       value= { {
-        sidebarOpen,
-        setSidebarOpen: ( open: boolean ) => {
+        title, setTitle, loading, setLoading, toggleSidebar,
+        sidebarOpen, setSidebarOpen: ( open: boolean ) => {
           setSidebarOpen( open );
           localStorage.setItem( 'sidebarOpen', String( open ) );
-        },
-        toggleSidebar,
-        title,
-        setTitle
+        }
       } }
     >
       { children }
+      <AnimatePresence>
+        { loading && <Loading fullPage /> }
+      </AnimatePresence>
     </LayoutCtx.Provider>
   );
 }
