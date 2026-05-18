@@ -1,9 +1,9 @@
 import { AnimatePresence } from 'motion/react';
 import { createContext, useContext, useEffect, useState } from 'react';
 
-import { Loading } from '@/src/components/ui/Loading';
 import type { LayoutCtxType } from '@/src/types/context';
 import type { LayoutProps } from '@/src/types/props';
+import { Loading } from '@/src/components/ui/Loading';
 
 const LayoutCtx = createContext < LayoutCtxType | undefined > ( undefined );
 

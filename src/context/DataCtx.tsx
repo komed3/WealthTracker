@@ -1,9 +1,9 @@
-import { createContext, useContext, useEffect, useState } from 'react';
 import type { ReactNode } from 'react';
+import { createContext, useContext, useEffect, useState } from 'react';
 
-import i18n from '@/src/lib/i18n';
 import type { DataCtxType } from '@/src/types/context';
 import type { Data, Settings } from '@/src/types/data';
+import i18n from '@/src/lib/i18n';
 
 const DataCtx = createContext < DataCtxType | undefined > ( undefined );
 
