@@ -2,13 +2,13 @@
 
 @font-face {
   font-family: 'Inter';
-  src: url( '../../public/Inter.woff2' ) format( 'woff2' );
+  src: url( '/Inter.woff2' ) format( 'woff2' );
   font-weight: 100 900;
 }
 
 @font-face {
   font-family: 'JetBrains Mono';
-  src: url( '../../public/JetBrainsMono.woff2' ) format( 'woff2' );
+  src: url( '/JetBrainsMono.woff2' ) format( 'woff2' );
   font-weight: 100 900;
 }
 
