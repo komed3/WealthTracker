@@ -55,7 +55,6 @@ export function LayoutProvider ( { children }: LayoutProps ) {
 
 export function useLayout () : LayoutCtxType {
   const context = useContext( LayoutCtx );
-
   if ( context === undefined ) throw new Error( 'useLayout must be used within a LayoutProvider' );
   return context;
 }
