@@ -11,12 +11,23 @@ export function LayoutProvider ( { children }: LayoutProps ) {
   const [ sidebarOpen, setSidebarOpen ] = useState( () => {
     if ( typeof window !== 'undefined' ) {
       const saved = localStorage.getItem( 'sidebarOpen' );
+
       if ( saved !== null ) return saved === 'true';
       return window.innerWidth >= BREAKPOINT;
     }
 
     return true;
   } );
+
+  const [ title, setTitleState ] = useState( '' );
+
+  const setTitle = ( newTitle: string ) => {
+    setTitleState( newTitle );
+
+    if ( typeof window !== 'undefined' ) {
+      document.title = newTitle ? `${ newTitle } — WealthTracker` : 'WealthTracker';
+    }
+  };
 
   const toggleSidebar = () => setSidebarOpen( prev => {
     const next = ! prev;
@@ -45,7 +56,9 @@ export function LayoutProvider ( { children }: LayoutProps ) {
           setSidebarOpen( open );
           localStorage.setItem( 'sidebarOpen', String( open ) );
         },
-        toggleSidebar
+        toggleSidebar,
+        title,
+        setTitle
       } }
     >
       { children }

@@ -12,4 +12,6 @@ export interface LayoutCtxType {
   sidebarOpen: boolean;
   setSidebarOpen: ( open: boolean ) => void;
   toggleSidebar: () => void;
+  title: string;
+  setTitle: ( title: string ) => void;
 }
