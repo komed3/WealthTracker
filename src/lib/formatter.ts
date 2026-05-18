@@ -1,7 +1,8 @@
 import type { DisplaySettings } from '@/src/types/data';
 
 export function formatCurrency ( val: any, display?: DisplaySettings ) : string {
-  const num = Number( val );
+  const parsedVal = typeof val === 'string' ? val.replace( /,/g, '.' ) : val;
+  const num = Number( parsedVal );
 
   if ( isNaN( num ) || val === '' || val === null || val === undefined ) return '';
 
@@ -18,7 +19,8 @@ export function formatCurrency ( val: any, display?: DisplaySettings ) : string 
 }
 
 export function formatPercent ( val: any, display?: DisplaySettings ) : string {
-  const num = Number( val );
+  const parsedVal = typeof val === 'string' ? val.replace( /,/g, '.' ) : val;
+  const num = Number( parsedVal );
 
   if ( isNaN( num ) || val === '' || val === null || val === undefined ) return '';
 
