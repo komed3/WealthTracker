@@ -1,13 +1,13 @@
 import type { Request, Response } from 'express';
 import { Router } from 'express';
 
-import { getData, getSettings, saveData, saveSettings } from '@/src/server/db';
+import db from '@/src/server/db';
 
 const api = Router();
 
 api.get( '/settings', ( _, res: Response ) => {
   try {
-    res.json( getSettings() );
+    res.json( db.getSettings() );
   } catch ( error ) {
     res.status( 500 ).json( { error: 'Failed to load settings' } );
   }
@@ -15,7 +15,7 @@ api.get( '/settings', ( _, res: Response ) => {
 
 api.post( '/settings', ( req: Request, res: Response ) => {
   try {
-    const saved = saveSettings( req.body );
+    const saved = db.saveSettings( req.body );
     res.json( saved );
   } catch ( error ) {
     res.status( 500 ).json( { error: 'Failed to save settings' } );
@@ -24,7 +24,7 @@ api.post( '/settings', ( req: Request, res: Response ) => {
 
 api.get( '/data', ( _, res: Response ) => {
   try {
-    res.json( getData() );
+    res.json( db.getData() );
   } catch ( error ) {
     res.status( 500 ).json( { error: 'Failed to load data' } );
   }
@@ -32,7 +32,7 @@ api.get( '/data', ( _, res: Response ) => {
 
 api.post( '/data', ( req: Request, res: Response ) => {
   try {
-    saveData( req.body );
+    db.saveData( req.body );
     res.json( req.body );
   } catch ( error ) {
     res.status( 500 ).json( { error: 'Failed to save data' } );

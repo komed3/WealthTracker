@@ -2,13 +2,13 @@ import express from 'express';
 import { createServer } from 'vite';
 
 import api from '@/src/server/api';
-import { initDb } from '@/src/server/db';
+import db from '@/src/server/db';
 
 async function run () : Promise< void > {
   const port = process.env.PORT || 3000;
   const app = express();
 
-  initDb();
+  db.initDb();
 
   const vite = await createServer( {
     server: { middlewareMode: true }
