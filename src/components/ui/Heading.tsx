@@ -1,5 +1,5 @@
-import { cn } from '@/src/lib/utils';
 import type { HeadingProps } from '@/src/types/props';
+import { cn } from '@/src/lib/utils';
 
 export const Heading = ( { children, level = 1, className }: HeadingProps ) => {
   const Tag = `h${ level }` as const;

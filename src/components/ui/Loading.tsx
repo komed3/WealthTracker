@@ -1,7 +1,7 @@
 import { motion } from 'motion/react';
 
-import { cn } from '@/src/lib/utils';
 import type { LoadingProps } from '@/src/types/props';
+import { cn } from '@/src/lib/utils';
 
 export const Loading = ( { className }: LoadingProps ) => {
   return (

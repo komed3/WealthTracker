@@ -2,8 +2,8 @@ import { ChevronDown } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
 import { useEffect, useRef, useState } from 'react';
 
-import { cn } from '@/src/lib/utils';
 import type { SelectProps } from '@/src/types/props';
+import { cn } from '@/src/lib/utils';
 
 export const Select = ( { label, error, value, options, onChange, className }: SelectProps ) => {
   const [ isOpen, setIsOpen ] = useState( false );

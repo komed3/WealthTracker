@@ -1,6 +1,6 @@
-import { cn } from '@/src/lib/utils';
-import { Heading } from '@/src/components/ui/Heading';
 import type { IntroProps } from '@/src/types/props';
+import { Heading } from '@/src/components/ui/Heading';
+import { cn } from '@/src/lib/utils';
 
 export const Intro = ( { title, description, className }: IntroProps ) => {
   return (

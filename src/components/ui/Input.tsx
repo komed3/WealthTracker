@@ -1,10 +1,10 @@
 import { useState } from 'react';
 import { Calendar } from 'lucide-react';
 
+import type { InputProps } from '@/src/types/props';
 import { useData } from '@/src/context/DataCtx';
 import { formatCurrency } from '@/src/lib/formatter';
 import { cn } from '@/src/lib/utils';
-import type { InputProps } from '@/src/types/props';
 
 export const Input = ( {
   label, error, className, type = 'text', isCurrency,
