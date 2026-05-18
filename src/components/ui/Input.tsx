@@ -1,5 +1,5 @@
-import { Calendar } from 'lucide-react';
 import { useState } from 'react';
+import { Calendar } from 'lucide-react';
 
 import { useData } from '@/src/context/DataCtx';
 import { formatCurrency } from '@/src/lib/formatter';
@@ -27,7 +27,20 @@ export const Input = ( {
 
   const handleChange = ( e: React.ChangeEvent < HTMLInputElement > ) => {
     if ( isNumeric ) {
-      const val = e.target.value.replace( /,/g, '.' );
+      let val = e.target.value.replace( /,/g, '.' );
+
+      const isNegative = val.startsWith( '-' );
+      let clean = val.replace( /[^0-9.]/g, '' );
+
+      const dotIndex = clean.indexOf( '.' );
+
+      if ( dotIndex !== -1 ) {
+        const beforeDot = clean.slice( 0, dotIndex + 1 );
+        const afterDot = clean.slice( dotIndex + 1 ).replace( /\./g, '' );
+        clean = beforeDot + afterDot;
+      }
+
+      val = ( isNegative ? '-' : '' ) + clean;
       e.target.value = val;
     }
 
