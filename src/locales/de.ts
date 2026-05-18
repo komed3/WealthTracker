@@ -1,5 +1,35 @@
 export default ( {
   translation: {
+    assetClass: {
+      bank: 'Bankkonto',
+      bonds: 'Anleihen',
+      cash: 'Bargeld',
+      collectibles: 'Sammlerstücke',
+      commodities: 'Rohstoffe',
+      crypto: 'Kryptowährungen',
+      etf: 'ETFs',
+      funds: 'Fonds',
+      insurance: 'Versicherungen',
+      lending: 'Darlehen (vergeben)',
+      luxury: 'Luxusgüter',
+      moneyMarket: 'Geldmarkt',
+      other: 'Sonstiges',
+      pension: 'Altersvorsorge',
+      privateEquity: 'Private Equity',
+      realEstate: 'Immobilien',
+      stocks: 'Aktien',
+      vehicles: 'Fahrzeuge',
+      wallet: 'Wallet'
+    },
+    category: {
+      asset: 'Vermögenswert',
+      liability: 'Verbindlichkeit'
+    },
+    confidence: {
+      high: 'Hoch',
+      low: 'Niedrig',
+      medium: 'Mittel'
+    },
     currencies: {
       AED: 'Dirham (AED)',
       AUD: 'Australischer Dollar (AUD)',
@@ -31,6 +61,21 @@ export default ( {
     languages: {
       de: 'Deutsch',
       en: 'Englisch'
+    },
+    liabilityClass: {
+      creditCard: 'Kreditkarte',
+      leasing: 'Leasing',
+      loan: 'Kredit / Darlehen',
+      mortgage: 'Hypothek',
+      other: 'Sonstiges',
+      tax: 'Steuerschulden'
+    },
+    liquidity: {
+      1: 'Sofort verfügbar',
+      2: 'Kurzfristig (1–6M)',
+      3: 'Mittelfristig (6M–3J)',
+      4: 'Langfristig (3–10J)',
+      5: 'Illiquide (> 10J)'
     },
     nav: {
       assets: 'Vermögenswerte',
