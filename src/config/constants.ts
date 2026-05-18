@@ -32,7 +32,15 @@ export const LIABILITY_CLASS = [
   'mortgage', 'loan', 'creditCard', 'tax', 'leasing', 'other'
 ] as const;
 
+export const CLASS = [ ...ASSET_CLASS, ...LIABILITY_CLASS ] as const;
 export type CLASS = ASSET_CLASS | LIABILITY_CLASS;
+
+export const LIQUIDITY_DEFAULT: Record< ASSET_CLASS, LIQUIDITY > = {
+  cash: 1, bank: 1, moneyMarket: 2, stocks: 2, etf: 2, funds: 3,
+  bonds: 3, crypto: 2, commodities: 3, realEstate: 5, pension: 5,
+  insurance: 4, collectibles: 4, vehicles: 3, luxury: 4,
+  lending: 3, privateEquity: 5, other: 3
+};
 
 export type CONFIDENCE = ( typeof CONFIDENCE )[ number ];
 export const CONFIDENCE = [
