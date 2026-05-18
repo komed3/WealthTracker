@@ -1,4 +1,4 @@
-import type { CLASS, COLOR, CURRENCY, ICON, LIQUIDITY } from '@/src/config/constants';
+import type { CATEGORY, CLASS, COLOR, CURRENCY, ICON, LIQUIDITY } from '@/src/config/constants';
 import type { resources } from '@/src/lib/i18n';
 
 export interface AppSettings {
@@ -9,34 +9,25 @@ export interface AppSettings {
   digits: number;
 }
 
-export interface Year {
-  value: number;
-  min?: number;
-  max?: number;
-  share: number;
-}
-
-export type AnnualData = {
-  [ K in `${ number }` ]: Year;
-};
-
-export interface Asset {
-  readonly id: string;
-  name: string;
-  description: string;
-  liquidity: LIQUIDITY;
+export interface Entry {
+  id: string;
+  category: CATEGORY;
   class: CLASS;
+  liquidity: LIQUIDITY;
+  title: string;
+  description?: string;
   icon: ICON;
   color: COLOR;
-  data: AnnualData;
+  archived?: boolean;
+  createdAt: string;
+  updatedAt: string;
 }
 
-export interface Data {
-  settings: AppSettings;
-  assets: Asset[];
-  breakdown: {
-    liquidity: { [ K in LIQUIDITY ]?: AnnualData };
-    class: { [ K in CLASS ]?: AnnualData };
-  };
-  stats: {};
+export interface YearValue {
+  year: Year;
+  value: Amount;
+  min?: Amount;
+  max?: Amount;
+  note?: string;
+  updatedAt: string;
 }
