@@ -1,8 +1,25 @@
 export default ( {
   translation: {
     currencies: {
+      AED: 'Dirham (AED)',
+      AUD: 'Australian Dollar (AUD)',
+      CAD: 'Canadian Dollar (CAD)',
       CHF: 'Swiss Franc (CHF)',
+      CNY: 'Chinese Yuan (CNY)',
+      CZK: 'Czech Koruna (CZK)',
+      DKK: 'Danish Krone (DKK)',
       EUR: 'Euro (EUR)',
+      GBP: 'British Pound (GBP)',
+      HKD: 'Hong Kong Dollar (HKD)',
+      HUF: 'Hungarian Forint (HUF)',
+      INR: 'Indian Rupee (INR)',
+      JPY: 'Japanese Yen (JPY)',
+      NOK: 'Norwegian Krone (NOK)',
+      NZD: 'New Zealand Dollar (NZD)',
+      PLN: 'Polish Złoty (PLN)',
+      SEK: 'Swedish Krona (SEK)',
+      SGD: 'Singapore Dollar (SGD)',
+      TRY: 'Turkish Lira (TRY)',
       USD: 'US Dollar (USD)'
     },
     genders: {

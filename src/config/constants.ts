@@ -1,6 +1,8 @@
 export type CURRENCY = ( typeof CURRENCY )[ number ];
 export const CURRENCY = [
-  'EUR', 'USD', 'CHF'
+  'USD', 'EUR', 'CHF', 'GBP', 'JPY', 'CNY', 'CAD', 'AUD',
+  'SEK', 'NOK', 'DKK', 'PLN', 'CZK', 'HUF', 'SGD', 'HKD',
+  'NZD', 'TRY', 'AED', 'INR'
 ] as const;
 
 export type LIQUIDITY = ( typeof LIQUIDITY )[ number ];
@@ -9,7 +11,7 @@ export const LIQUIDITY = [
   2, // short term (1 week - 6 months)
   3, // medium term (6 months - 3 years)
   4, // long term (3 - 10 years)
-  5, // illiquid (> 10 years)
+  5  // illiquid (> 10 years)
 ] as const;
 
 export type CATEGORY = ( typeof CATEGORY )[ number ];
