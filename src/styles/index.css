@@ -22,6 +22,12 @@
   --color-neg: #ef4444;
 }
 
-button, a, [role="button"], input[type="submit"], input[type="button"] {
-  cursor: pointer;
+@layer base {
+  * {
+    @apply antialiased;
+  }
+
+  button, a, [role="button"], [type="submit"], [type="button"], [type="date"] {
+    @apply cursor-pointer;
+  }
 }
