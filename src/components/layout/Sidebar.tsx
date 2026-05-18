@@ -12,7 +12,7 @@ export const Sidebar = () => {
 
   return (
     <motion.aside
-      className= 'relative flex flex-col min-h-screen whitespace-nowrap bg-white border-r border-slate-200 shadow-sm overflow-hidden z-10'
+      className= 'relative flex flex-col h-full whitespace-nowrap bg-white border-r border-slate-200 shadow-sm overflow-hidden z-10'
       initial= { false }
       animate= { { width: sidebarOpen ? 320 : 80 } }
       transition= { { duration: 0.3, ease: 'easeIn' } }
