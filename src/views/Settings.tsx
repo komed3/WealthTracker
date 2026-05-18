@@ -4,6 +4,7 @@ import { Button } from '@/src/components/ui/Button';
 import { Card } from '@/src/components/ui/Card';
 import { Heading } from '@/src/components/ui/Heading';
 import { Input } from '@/src/components/ui/Input';
+import { Intro } from '@/src/components/ui/Intro';
 import { Select } from '@/src/components/ui/Select';
 import { CURRENCY, GENDER } from '@/src/config/constants';
 import { useData } from '@/src/context/DataCtx';
@@ -13,24 +14,18 @@ import type { Settings as SettingsType } from '@/src/types/data';
 
 export const Settings = () => {
   const { settings, updateSettings, loading } = useData();
-  const { setTitle } = useLayout();
+  const { setTitle, setLoading } = useLayout();
   const [ formState, setFormState ] = useState < SettingsType | null > ( null );
-  const [ saving, setSaving ] = useState( false );
   const [ success, setSuccess ] = useState( false );
 
-  useEffect( () => { if ( settings ) setFormState( settings ) }, [ settings ] );
+  useEffect( () => { if ( settings ) { setFormState( settings ) } }, [ settings ] );
+  useEffect( () => { setLoading( loading ) }, [ loading, setLoading ] );
 
   useEffect( () => {
     setTitle( i18n.t( $ => $.settings.title ) );
   }, [ setTitle, settings?.display.language ] );
 
-  if ( loading || ! formState ) {
-    return (
-      <div className= 'flex justify-center items-center h-64'>
-        <div className= 'w-10 h-10 border-b-2 border-primary rounded-full animate-spin' />
-      </div>
-    );
-  }
+  if ( ! formState ) return null;
 
   const handleDisplayChange = ( key: keyof SettingsType[ 'display' ], value: string | number ) => {
     setFormState( prev => {
@@ -49,10 +44,10 @@ export const Settings = () => {
   const handleSubmit = async ( e: React.SubmitEvent ) => {
     e.preventDefault();
 
-    setSaving( true );
+    setLoading( true );
     setSuccess( false );
     const ok = await updateSettings( formState );
-    setSaving( false );
+    setLoading( false );
 
     if ( ok ) {
       setSuccess( true );
@@ -78,14 +73,10 @@ export const Settings = () => {
 
   return (
     <div className= 'space-y-8 max-w-4xl mx-auto'>
-      <div className= 'flex flex-col gap-1.5'>
-        <Heading level= { 1 }>
-          { i18n.t( $ => $.settings.title ) }
-        </Heading>
-        <p className= 'text-base text-slate-500'>
-          { i18n.t( $ => $.settings.description ) }
-        </p>
-      </div>
+      <Intro
+        title= { i18n.t( $ => $.settings.title ) }
+        description= { i18n.t( $ => $.settings.description ) }
+      />
 
       <form onSubmit= { handleSubmit } className= 'space-y-6'>
         <Card className= 'space-y-6'>
@@ -145,11 +136,7 @@ export const Settings = () => {
               { i18n.t( $ => $.settings.savedSuccess ) }
             </span>
           ) }
-          <Button
-            type= 'submit'
-            variant= 'primary'
-            disabled= { saving }
-          >
+          <Button type= 'submit' variant= 'primary'>
             { i18n.t( $ => $.settings.save ) }
           </Button>
         </div>
