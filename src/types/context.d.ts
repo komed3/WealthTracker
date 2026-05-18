@@ -1,4 +1,4 @@
-import type { Data, Settings } from './data';
+import type { Data, Settings } from '@/src/types/data';
 
 export interface DataCtxType {
   loading: boolean;
