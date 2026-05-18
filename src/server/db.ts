@@ -1,7 +1,10 @@
 import { existsSync, mkdirSync, readFileSync, writeFileSync } from 'node:fs';
 import { dirname, resolve } from 'node:path';
 
-import type { Breakdown, ComputedData, Data, EntryRecord, EntryStats, PortfolioStats, Settings, YearSnapshot } from '@/src/types/data';
+import type {
+  Breakdown, ComputedData, Data, EntryRecord, EntryStats,
+  PortfolioStats, Settings, YearSnapshot
+} from '@/src/types/data';
 
 const DATA_FILE_PATH = resolve( process.cwd(), 'data', 'data.json' );
 
