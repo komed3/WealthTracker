@@ -24,11 +24,35 @@ export interface Entry {
 }
 
 export interface YearValue {
-  year: Year;
+  year: number;
   confidence: CONFIDENCE;
-  value: Amount;
-  min?: Amount;
-  max?: Amount;
+  value: number;
+  min?: number;
+  max?: number;
+  source?: string;
   note?: string;
   updatedAt: string;
 }
+
+export interface EntryRecord {
+  entry: Entry;
+  history: Record< number, YearValue >;
+}
+
+export interface Breakdown {
+  value: number;
+  min?: number;
+  max?: number;
+  percentage: number;
+  percentageMin?: number;
+  percentageMax?: number;
+}
+
+export interface CategoryBreakdown {
+  asset: Breakdown;
+  liability: Breakdown;
+}
+
+export type LiquidityBreakdown = Partial< Record< LIQUIDITY, Breakdown > >;
+
+export type ClassBreakdown = Partial< Record< CLASS, Breakdown > >;
