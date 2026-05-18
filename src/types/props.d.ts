@@ -4,6 +4,10 @@ export interface LayoutProps {
   children: React.ReactNode;
 }
 
+export interface LoadingProps {
+  className?: string;
+}
+
 export interface CardProps {
   children: ReactNode;
   className?: string;
@@ -12,6 +16,12 @@ export interface CardProps {
 export interface HeadingProps {
   children: ReactNode;
   level?: 1 | 2 | 3 | 4;
+  className?: string;
+}
+
+export interface IntroProps {
+  title: ReactNode;
+  description?: ReactNode;
   className?: string;
 }
 
