@@ -63,7 +63,7 @@ export function LayoutProvider ( { children }: LayoutProps ) {
     >
       { children }
       <AnimatePresence>
-        { loading && <Loading fullPage /> }
+        { loading && <Loading /> }
       </AnimatePresence>
     </LayoutCtx.Provider>
   );
