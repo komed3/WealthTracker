@@ -3,13 +3,16 @@ export default ( {
     nav: {
       assets: 'Vermögenswerte',
       breakdown: 'Aufschlüsselung',
-      collapse: 'Einklappen',
       dashboard: 'Dashboard',
       editor: 'Editor',
       momentum: 'Wachstum',
       report: 'Bericht',
-      settings: 'Einstellungen',
       stats: 'Statistiken'
+    },
+    sidebar: {
+      collapse: 'Einklappen',
+      expand: 'Aufklappen',
+      settings: 'Einstellungen'
     }
   }
 } ) as const;
