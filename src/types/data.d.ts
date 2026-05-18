@@ -1,4 +1,4 @@
-import type { CATEGORY, CLASS, COLOR, CONFIDENCE, CURRENCY, GENDER, ICON, LIQUIDITY } from '@/src/config/constants';
+import type { ASSET_CLASS, COLOR, CONFIDENCE, CURRENCY, GENDER, ICON, LIABILITY_CLASS, LIQUIDITY } from '@/src/config/constants';
 import type { resources } from '@/src/lib/i18n';
 
 export interface DisplaySettings {
@@ -17,19 +17,29 @@ export interface Settings {
   profile: Profile;
 }
 
-export interface Entry {
+interface BaseEntry {
   id: string;
-  category: CATEGORY;
-  class: CLASS;
   liquidity: LIQUIDITY;
   title: string;
   description?: string;
   icon: ICON;
   color: COLOR;
-  archived?: boolean;
+  archived: boolean;
   createdAt: string;
   updatedAt: string;
 }
+
+export interface AssetEntry extends BaseEntry {
+  category: 'asset';
+  class: ASSET_CLASS;
+}
+
+export interface LiabilityEntry extends BaseEntry {
+  category: 'liability';
+  class: LIABILITY_CLASS;
+}
+
+export type Entry = AssetEntry | LiabilityEntry;
 
 export interface YearValue {
   year: number;
@@ -44,7 +54,7 @@ export interface YearValue {
 
 export interface EntryRecord {
   entry: Entry;
-  history: Record< number, YearValue >;
+  history: Record< `${number}`, YearValue >;
 }
 
 export interface Breakdown {
@@ -113,14 +123,12 @@ export interface PortfolioStats {
 }
 
 export interface ComputedData {
-  version: number;
-  years: Record< number, YearSnapshot >;
+  years: Record< `${number}`, YearSnapshot >;
   entries: Record< string, EntryStats >;
   portfolio: PortfolioStats;
 }
 
 export interface Data {
-  readonly version: '0.2.0';
   settings: Settings;
   entries: EntryRecord[];
   computed: ComputedData;
