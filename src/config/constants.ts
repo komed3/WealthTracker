@@ -5,7 +5,7 @@ export const CURRENCY = [
 
 export type LIQUIDITY = ( typeof LIQUIDITY )[ number ];
 export const LIQUIDITY = [
-  1, // immediately (< 1 week)
+  1, // immediate (< 1 week)
   2, // short term (1 week - 6 months)
   3, // medium term (6 months - 3 years)
   4, // long term (3 - 10 years)
@@ -29,6 +29,8 @@ export type LIABILITY_CLASS = ( typeof LIABILITY_CLASS )[ number ];
 export const LIABILITY_CLASS = [
   'mortgage', 'loan', 'creditCard', 'tax', 'leasing', 'other'
 ] as const;
+
+export type CLASS = ASSET_CLASS | LIABILITY_CLASS;
 
 export type ICON = ( typeof ICON )[ number ];
 export const ICON = [
