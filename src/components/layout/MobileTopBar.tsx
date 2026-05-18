@@ -1,5 +1,4 @@
 import { Menu } from 'lucide-react';
-
 import { useLayout } from '@/src/context/LayoutCtx';
 
 export const MobileTopBar = () => {
