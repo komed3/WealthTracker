@@ -81,7 +81,7 @@ export const Sidebar = () => {
                 />
               </div>
               <span className= 'truncate font-medium'>
-                { r.label }
+                { i18n.t( $ => $.nav[ r.label ] ) }
               </span>
             </NavLink>
           ) ) }
