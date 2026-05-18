@@ -70,7 +70,7 @@ export const Input = ( {
         ) }
       </div>
       { error && (
-        <span className= 'font-medium text-xs text-red-500'>
+        <span className= 'text-xs font-medium text-red-500'>
           { error }
         </span>
       ) }

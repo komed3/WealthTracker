@@ -26,3 +26,17 @@ export interface InputProps extends InputHTMLAttributes< HTMLInputElement > {
   error?: string;
   isCurrency?: boolean;
 }
+
+export interface SelectOption {
+  value: string | number;
+  label: string;
+}
+
+export interface SelectProps {
+  label?: string;
+  error?: string;
+  value?: string | number;
+  options: SelectOption[];
+  onChange?: ( e: { target: { value: string } } ) => void;
+  className?: string;
+}
