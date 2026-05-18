@@ -59,7 +59,8 @@ export const ICON = [
   'ChessKnight', 'ChessQueen', 'Command', 'Component', 'Crown',
   'DollarSign', 'Euro', 'Factory', 'FileChartColumn', 'Frame',
   'HandCoins', 'LaptopMinimal', 'Medal', 'Origami', 'Palette',
-  'Piano'
+  'Piano', 'Receipt', 'Sailboat', 'Scale', 'Ship', 'Shirt',
+  'ShieldHalf', 'Tractor', 'Trees', 'Volleyball'
 ] as const;
 
 export type COLOR = ( typeof COLOR )[ number ];
