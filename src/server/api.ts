@@ -5,7 +5,7 @@ import { getData, getSettings, saveData, saveSettings } from '@/src/server/db';
 
 const api = Router();
 
-api.get( '/api/settings', ( _, res: Response ) => {
+api.get( '/settings', ( _, res: Response ) => {
   try {
     res.json( getSettings() );
   } catch ( error ) {
@@ -13,7 +13,7 @@ api.get( '/api/settings', ( _, res: Response ) => {
   }
 } );
 
-api.post( '/api/settings', ( req: Request, res: Response ) => {
+api.post( '/settings', ( req: Request, res: Response ) => {
   try {
     const saved = saveSettings( req.body );
     res.json( saved );
@@ -22,7 +22,7 @@ api.post( '/api/settings', ( req: Request, res: Response ) => {
   }
 } );
 
-api.get( '/api/data', ( _, res: Response ) => {
+api.get( '/data', ( _, res: Response ) => {
   try {
     res.json( getData() );
   } catch ( error ) {
@@ -30,7 +30,7 @@ api.get( '/api/data', ( _, res: Response ) => {
   }
 } );
 
-api.post( '/api/data', ( req: Request, res: Response ) => {
+api.post( '/data', ( req: Request, res: Response ) => {
   try {
     saveData( req.body );
     res.json( req.body );
