@@ -99,9 +99,9 @@ export interface EntryStats {
 export interface PortfolioStats {
   firstYear: number;
   lastYear: number;
-  latestNetWorth: value;
-  highestNetWorth?: value;
-  lowestNetWorth?: value;
+  latestNetWorth: number;
+  highestNetWorth?: number;
+  lowestNetWorth?: number;
   totalGrowth?: Growth;
   averageAnnualGrowth?: number;
   bestYear?: number;
