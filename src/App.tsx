@@ -1,5 +1,3 @@
-import { BrowserRouter, Route, Routes } from 'react-router';
-
 import { MainLayout } from '@/src/components/layout/MainLayout';
 import { DataProvider } from '@/src/context/DataCtx';
 import { LayoutProvider } from '@/src/context/LayoutCtx';
@@ -12,6 +10,7 @@ import { Momentum } from '@/src/views/Momentum';
 import { Report } from '@/src/views/Report';
 import { Settings } from '@/src/views/Settings';
 import { Stats } from '@/src/views/Stats';
+import { BrowserRouter, Route, Routes } from 'react-router';
 
 export default function App () {
   return (

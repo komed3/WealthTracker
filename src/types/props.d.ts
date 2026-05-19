@@ -1,5 +1,6 @@
-import type React, { ButtonHTMLAttributes, InputHTMLAttributes, ReactNode } from 'react';
 import type { ICON } from '@/src/config/constants';
+import type React from 'react';
+import type { ButtonHTMLAttributes, InputHTMLAttributes, ReactNode } from 'react';
 
 export interface LayoutProps {
   children: React.ReactNode;
