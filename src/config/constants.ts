@@ -59,7 +59,7 @@ export const ICON = [
   'ChessKnight', 'ChessQueen', 'Command', 'Component', 'Crown',
   'DollarSign', 'Euro', 'Factory', 'FileChartColumn', 'Frame',
   'HandCoins', 'LaptopMinimal', 'Medal', 'Origami', 'Palette',
-  'Piano', 'Receipt', 'Sailboat', 'Scale', 'Ship', 'Shirt',
+  'Piano', 'Receipt', 'Sailboat', 'Scale', 'Rocket', 'Shirt',
   'ShieldHalf', 'Tractor', 'Trees', 'Volleyball'
 ] as const;
 
