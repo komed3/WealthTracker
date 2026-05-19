@@ -8,6 +8,19 @@ export interface LoadingProps {
   className?: string;
 }
 
+export interface TabOption {
+  id: string;
+  label: string;
+  icon?: React.ReactNode;
+}
+
+export interface TabsProps {
+  options: TabOption[];
+  activeId: string;
+  onChange: ( id: string ) => void;
+  className?: string;
+}
+
 export interface CardProps {
   children: ReactNode;
   className?: string;
