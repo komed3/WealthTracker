@@ -1,5 +1,7 @@
 import type React, { ButtonHTMLAttributes, InputHTMLAttributes, ReactNode } from 'react';
 
+import type { ICON } from '@/src/config/constants';
+
 export interface LayoutProps {
   children: React.ReactNode;
 }
@@ -11,7 +13,7 @@ export interface LoadingProps {
 export interface TabOption {
   id: string;
   label: string;
-  icon?: React.ReactNode;
+  icon?: React.ComponentType< any >;
 }
 
 export interface TabsProps {
@@ -35,6 +37,13 @@ export interface HeadingProps {
 export interface IntroProps {
   title: ReactNode;
   description?: ReactNode;
+  className?: string;
+  children?: ReactNode;
+}
+
+export interface IconProps {
+  name: ICON | string;
+  size?: number;
   className?: string;
 }
 
