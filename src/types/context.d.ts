@@ -5,6 +5,7 @@ export interface DataCtxType {
   data: Data | null;
   settings: Settings | null;
   updateSettings: ( settings: Settings ) => Promise< boolean >;
+  updateEntries: ( entries: EntryRecord[] ) => Promise< boolean >;
   refreshData: () => Promise< void >;
 }
 
