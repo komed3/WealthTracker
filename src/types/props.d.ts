@@ -63,3 +63,9 @@ export interface SelectProps {
   onChange?: ( e: { target: { value: string } } ) => void;
   className?: string;
 }
+
+export interface PositionListProps {
+  entries: EntryRecord[];
+  onEdit: ( record: EntryRecord ) => void;
+  onDelete: ( id: string ) => void;
+}
