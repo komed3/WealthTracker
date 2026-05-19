@@ -8,7 +8,7 @@ import i18n from '@/src/lib/i18n';
 import { cn } from '@/src/lib/utils';
 import { PositionModalProps } from '@/src/types/props';
 import { Check, X } from 'lucide-react';
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
 export const PositionModal = ( { isOpen, onClose, onSave, initialEntry }: PositionModalProps ) => {
   const [ category, setCategory ] = useState < CATEGORY > ( 'asset' );
