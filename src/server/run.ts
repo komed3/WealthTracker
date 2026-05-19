@@ -1,8 +1,7 @@
-import express from 'express';
-import { createServer } from 'vite';
-
 import api from '@/src/server/api';
 import db from '@/src/server/db';
+import express from 'express';
+import { createServer } from 'vite';
 
 async function run () : Promise< void > {
   const port = process.env.PORT || 3000;
