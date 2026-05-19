@@ -130,6 +130,31 @@ export const DataPointsEditor = ( { entries, onUpdateHistory }: DataPointsEditor
   } ) );
 
   return (
-    <></>
+    <div className= 'flex flex-row flex-wrap items-center gap-2 pb-8'>
+      { entries.map( ( { entry } ) => (
+        <button
+          key= { entry.id }
+          type= 'button'
+          onClick= { () => setSelectedEntryId( entry.id ) }
+          className= {
+            `flex-none inline-flex items-center gap-3 pl-2 pr-4 py-1.5 border rounded-full transition ${
+              entry.id === selectedEntryId
+                ? 'bg-primary/5 border-primary'
+                : 'bg-white border-slate-200 hover:bg-slate-50'
+            }`
+          }
+        >
+          <div
+            className= 'flex justify-center items-center shrink-0 w-8 h-8 text-white rounded-full'
+            style= { { backgroundColor: entry.color } }
+          >
+            <Icon name= { entry.icon } size= { 14 } className= 'text-white' />
+          </div>
+          <span className= 'text-sm font-medium text-slate-900'>
+            { entry.title }
+          </span>
+        </button>
+      ) ) }
+    </div>
   );
 };
