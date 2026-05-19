@@ -1,10 +1,9 @@
-import { useState } from 'react';
-import { Calendar } from 'lucide-react';
-
-import type { InputProps } from '@/src/types/props';
 import { useData } from '@/src/context/DataCtx';
 import { formatCurrency } from '@/src/lib/formatter';
 import { cn } from '@/src/lib/utils';
+import type { InputProps } from '@/src/types/props';
+import { Calendar } from 'lucide-react';
+import { useState } from 'react';
 
 export const Input = ( {
   label, error, className, type = 'text', isCurrency,
@@ -70,7 +69,6 @@ export const Input = ( {
             'w-full h-11 px-4 text-slate-800 placeholder:text-slate-400 bg-white border border-slate-200 rounded-xl focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/10 transition-all duration-200',
             isDate && 'pr-10 [&::-webkit-calendar-picker-indicator]:absolute [&::-webkit-calendar-picker-indicator]:inset-y-0 [&::-webkit-calendar-picker-indicator]:right-0 [&::-webkit-calendar-picker-indicator]:w-full [&::-webkit-calendar-picker-indicator]:opacity-0 [&::-webkit-calendar-picker-indicator]:cursor-pointer',
             isCurrency && ! isFocused && 'font-semibold text-primary',
-            isNumeric && 'font-mono tracking-tight',
             error && 'border-red-400 focus:border-red-400 focus:ring-red-100',
             className
           ) }
