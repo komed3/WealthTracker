@@ -60,6 +60,8 @@ export default ( {
       dataPoints: 'Data Points',
       deleteButton: 'Delete',
       description: 'Manage your financial positions and their historical data.',
+      descriptionLabel: 'Description',
+      descriptionPlaceholder: 'e.g. "This is my private savings account"',
       editButton: 'Edit',
       editPosition: 'Edit Position',
       emptyList: 'You haven’t added any positions yet. Click on "Add New Position" to get started.',

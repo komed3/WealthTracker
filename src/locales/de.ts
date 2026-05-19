@@ -60,6 +60,8 @@ export default ( {
       dataPoints: 'Datenpunkte',
       deleteButton: 'Löschen',
       description: 'Verwalte deine finanziellen Positionen und deren historische Daten.',
+      descriptionLabel: 'Beschreibung',
+      descriptionPlaceholder: 'z.B. "Dies ist mein privates Sparkonto"',
       editButton: 'Bearbeiten',
       editPosition: 'Position bearbeiten',
       emptyList: 'Du hast noch keine Positionen hinzugefügt. Klicke auf "Neue Position", um loszulegen.',
