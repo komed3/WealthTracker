@@ -99,7 +99,6 @@ export const PositionModal = ( { isOpen, onClose, onSave, initialEntry }: Positi
   return (
     <div className= 'fixed inset-0 z-50 flex justify-center items-center p-4 bg-slate-300/40 backdrop-blur-xs animate-fade-in'>
       <div className= 'relative flex flex-col w-full max-w-5xl max-h-[90vh] bg-white rounded-xl shadow-xl overflow-hidden animate-scale-up'>
-
         { /** Header */ }
         <div className= 'flex justify-between items-center shrink-0 px-6 py-2 border-b border-slate-100 bg-slate-50/50'>
           <Heading level= { 3 }>
@@ -199,35 +198,34 @@ export const PositionModal = ( { isOpen, onClose, onSave, initialEntry }: Positi
             { /** Right Column: Styles */ }
             <div className= 'space-y-6'>
               { /** Color Chooser */ }
-              <div className= 'space-y-2.5'>
-                <label className= 'text-sm font-medium text-slate-600'>
+              <div className= 'relative flex flex-col gap-2 w-full'>
+                <label className= 'font-medium text-sm text-slate-600'>
                   { i18n.t( $ => $.editor.color ) }
                 </label>
-                <div className= 'grid grid-cols-6 gap-2'>
-                  { COLOR.map( col => {
-                    const isSelected = color === col;
-                    return (
-                      <button
-                        key= { col }
-                        type= 'button'
-                        onClick= { () => setColor( col ) }
-                        className= 'relative w-8 h-8 rounded-full border border-black/5 hover:scale-105 active:scale-95 transition-all shadow-xs flex items-center justify-center text-white cursor-pointer'
-                        style= { { backgroundColor: col } }
-                      >
-                        { isSelected && <Check size= { 14 } strokeWidth= { 3 } /> }
-                      </button>
-                    );
-                  } ) }
+                <div className= 'grid grid-cols-[repeat(auto-fit,2rem)] gap-3'>
+                  { COLOR.map( col => (
+                    <button
+                      key= { col }
+                      type= 'button'
+                      onClick= { () => setColor( col ) }
+                      className= {
+                        'relative flex justify-center items-center w-8 h-8 text-white border border-black/5 ' +
+                        'rounded-full hover:scale-105 active:scale-95 transition-all'
+                      }
+                      style= { { backgroundColor: col } }
+                    >
+                      { color === col && <Check size= { 14 } strokeWidth= { 3 } /> }
+                    </button>
+                  ) ) }
                 </div>
               </div>
 
               { /** Icon Chooser */ }
-              <div className= 'space-y-2.5'>
-                <label className= 'text-sm font-medium text-slate-600'>
+              <div className= 'relative flex flex-col gap-2 w-full'>
+                <label className= 'font-medium text-sm text-slate-600'>
                   { i18n.t( $ => $.editor.icon ) }
                 </label>
-
-                <div className= 'flex flex-wrap gap-2'>
+                <div className= 'grid grid-cols-[repeat(auto-fit,3rem)] gap-1.5'>
                   { ICON.map( name => {
                     const isSelected = icon === name;
                     return (
@@ -237,9 +235,10 @@ export const PositionModal = ( { isOpen, onClose, onSave, initialEntry }: Positi
                         onClick= { () => setIcon( name ) }
                         title= { name }
                         className= { cn(
-                          'flex items-center justify-center rounded-lg transition-all hover:bg-white hover:scale-105 active:scale-95 border border-transparent shadow-xs cursor-pointer w-10 h-10 aspect-square',
+                          'aspect-square flex justify-center items-center w-12 h-12 hover:bg-white border',
+                          'border-slate-100 hover:scale-105 active:scale-95 rounded-lg transition-all',
                           isSelected
-                            ? 'bg-primary text-white hover:bg-primary shadow-md border-primary/20 scale-105'
+                            ? 'text-white bg-primary hover:bg-primary border-primary/20 scale-105'
                             : 'text-slate-500 hover:text-slate-800 hover:border-slate-200'
                         ) }
                       >
@@ -250,7 +249,6 @@ export const PositionModal = ( { isOpen, onClose, onSave, initialEntry }: Positi
                 </div>
               </div>
             </div>
-
           </div>
 
           { /** Footer buttons */ }
