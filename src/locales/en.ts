@@ -61,9 +61,13 @@ export default ( {
       deleteButton: 'Delete',
       description: 'Manage your financial positions and their historical data.',
       editButton: 'Edit',
+      editPosition: 'Edit Position',
       emptyList: 'You haven’t added any positions yet. Click on "Add New Position" to get started.',
       liquidity: 'Liquidity',
+      newPosition: 'New Position',
       positions: 'Positions',
+      positionTitle: 'Position / Asset',
+      positionTitlePlaceholder: 'e.g. "Savings Account"',
       status: 'Status',
       title: 'Editor'
     },

@@ -61,9 +61,13 @@ export default ( {
       deleteButton: 'Löschen',
       description: 'Verwalte deine finanziellen Positionen und deren historische Daten.',
       editButton: 'Bearbeiten',
+      editPosition: 'Position bearbeiten',
       emptyList: 'Du hast noch keine Positionen hinzugefügt. Klicke auf "Neue Position", um loszulegen.',
       liquidity: 'Liquidität',
+      newPosition: 'Neue Position',
       positions: 'Positionen',
+      positionTitle: 'Position / Vermögenswert',
+      positionTitlePlaceholder: 'z.B. "Mein Haus" oder "Sparplan"',
       status: 'Status',
       titel: 'Editor'
     },
