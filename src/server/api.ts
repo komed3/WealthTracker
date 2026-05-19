@@ -1,6 +1,5 @@
 import type { Request, Response } from 'express';
 import { Router } from 'express';
-
 import db from '@/src/server/db';
 
 const api = Router();
