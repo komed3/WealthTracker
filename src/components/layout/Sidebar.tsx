@@ -1,11 +1,11 @@
-import { ChevronLeft, Settings } from 'lucide-react';
-import { motion, AnimatePresence } from 'motion/react';
-import { useState, useEffect } from 'react';
-import { NavLink } from 'react-router';
 import routes from '@/src/config/routes';
 import { useLayout } from '@/src/context/LayoutCtx';
 import i18n from '@/src/lib/i18n';
 import { cn } from '@/src/lib/utils';
+import { ChevronLeft, Settings } from 'lucide-react';
+import { AnimatePresence, motion } from 'motion/react';
+import { useEffect, useState } from 'react';
+import { NavLink } from 'react-router';
 
 const BREAKPOINT = 1024;
 
@@ -87,7 +87,7 @@ export const Sidebar = () => {
           ) ) }
         </nav>
 
-        { /* Footer */ }
+        { /** Footer */ }
         <div className= 'flex flex-col gap-1 shrink-0 p-4 border-t border-slate-200'>
           <NavLink
             to= '/settings'
