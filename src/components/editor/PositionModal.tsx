@@ -43,15 +43,13 @@ export const PositionModal = ( { isOpen, onClose, onSave, initialEntry }: Positi
   }, [ initialEntry, isOpen ] );
 
   const handleCategoryChange = ( newCat: CATEGORY ) => {
-    setCategory( newCat );
-
     const defaultClass = newCat === 'asset' ? 'bank' : 'loan';
+    setCategory( newCat );
     setClassState( defaultClass );
 
-    if ( ! initialEntry ) {
-      if ( newCat === 'asset' ) setLiquidity( LIQUIDITY_DEFAULT[ 'bank' ] );
-      else setLiquidity( 3 );
-    }
+    if ( ! initialEntry ) setLiquidity(
+      newCat === 'asset' ? LIQUIDITY_DEFAULT[ 'bank' ] : 3
+    );
   };
 
   const handleClassChange = ( newClass: CLASS ) => {
@@ -98,9 +96,9 @@ export const PositionModal = ( { isOpen, onClose, onSave, initialEntry }: Positi
 
   return (
     <div className= 'fixed inset-0 z-50 flex justify-center items-center p-4 bg-slate-300/40 backdrop-blur-xs animate-fade-in'>
-      <div className= 'relative flex flex-col w-full max-w-5xl max-h-[90vh] bg-white rounded-xl shadow-xl overflow-hidden animate-scale-up'>
+      <div className= 'relative flex flex-col w-full max-w-5xl max-h-[90vh] bg-white rounded-xl shadow-3xl overflow-hidden animate-scale-up'>
         { /** Header */ }
-        <div className= 'flex justify-between items-center shrink-0 px-6 py-2 border-b border-slate-100 bg-slate-50/50'>
+        <div className= 'flex justify-between items-center shrink-0 px-6 py-2 border-b border-slate-200 bg-slate-50/50'>
           <Heading level= { 3 }>
             { initialEntry ? i18n.t( $ => $.editor.editPosition ) : i18n.t( $ => $.editor.newPosition ) }
           </Heading>
@@ -252,7 +250,7 @@ export const PositionModal = ( { isOpen, onClose, onSave, initialEntry }: Positi
           </div>
 
           { /** Footer buttons */ }
-          <div className= 'flex justify-end gap-3 pt-6 border-t border-slate-100 mt-6 shrink-0'>
+          <div className= 'flex justify-end gap-3 shrink-0 mt-6 pt-6 border-t border-slate-200'>
             <Button
               type= 'button'
               variant= 'ghost'

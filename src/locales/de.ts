@@ -57,6 +57,7 @@ export default ( {
       archiveDescription: 'Diese Position ist nicht länger aktiv',
       archivePosition: 'Archivierte Position',
       addNewPosition: 'Neue Position',
+      cancel: 'Abbrechen',
       category: 'Kategorie',
       class: 'Klasse',
       color: 'Farbe',
@@ -74,6 +75,7 @@ export default ( {
       positions: 'Positionen',
       positionTitle: 'Position / Vermögenswert',
       positionTitlePlaceholder: 'z.B. "Mein Haus" oder "Sparplan"',
+      save: 'Speichern',
       status: 'Status',
       titel: 'Editor'
     },

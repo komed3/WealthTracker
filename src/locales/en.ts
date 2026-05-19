@@ -57,6 +57,7 @@ export default ( {
       addNewPosition: 'New Position',
       archiveDescription: 'This position is not longer active',
       archivePosition: 'Archived Position',
+      cancel: 'Cancel',
       category: 'Category',
       class: 'Class',
       color: 'Color',
@@ -74,6 +75,7 @@ export default ( {
       positions: 'Positions',
       positionTitle: 'Position / Asset',
       positionTitlePlaceholder: 'e.g. "Savings Account"',
+      save: 'Save',
       status: 'Status',
       title: 'Editor'
     },
