@@ -1,5 +1,5 @@
-import type { TabsProps } from '@/src/types/props';
 import { cn } from '@/src/lib/utils';
+import type { TabsProps } from '@/src/types/props';
 
 export const Tabs = ( { options, activeId, onChange, className }: TabsProps ) => {
   return (
@@ -15,7 +15,7 @@ export const Tabs = ( { options, activeId, onChange, className }: TabsProps ) =>
               : 'text-slate-500 hover:text-slate-700 hover:bg-white/50'
           ) }
         >
-          { opt.icon }
+          { opt.icon && <opt.icon size={ 16 } /> }
           { opt.label }
         </button>
       ) ) }
