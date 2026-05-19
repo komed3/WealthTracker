@@ -54,7 +54,7 @@ export const ICON = [
   'Trophy', 'Handbag', 'ChartCandlestick', 'ShieldCheck', 'Gift',
   'HeartHandshake', 'CreditCard', 'Building2', 'Briefcase',
   'TrendingUp', 'PieChart', 'Plane', 'Ship', 'Smartphone',
-  'AlignHorizontalDistributeCenter', 'Archive', 'Astroid',
+  'AlignHorizontalDistributeCenter', 'Archive', 'Asteroid',
   'Award', 'BadgeCheck', 'Barrel', 'Box', 'Castle', 'ChartPie',
   'ChessKnight', 'ChessQueen', 'Command', 'Component', 'Crown',
   'DollarSign', 'Euro', 'Factory', 'FileChartColumn', 'Frame',
