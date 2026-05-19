@@ -13,7 +13,7 @@ export const PositionList = ( { entries, onEdit, onDelete }: PositionListProps )
   ) : (
     <div className= 'flex flex-col w-full bg-white border border-slate-200 rounded-2xl overflow-hidden animate-fade-in'>
       <div className= 'overflow-x-auto'>
-        <table className= 'w-full min-w-[900px] text-left text-sm text-slate-800 border-collapse'>
+        <table className= 'w-full min-w-225 text-left text-sm text-slate-800 border-collapse'>
           <thead>
             <tr className= 'uppercase font-semibold text-xs text-slate-550 tracking-wider bg-slate-50 border-b border-slate-200'>
               <th className= 'px-6 py-4 whitespace-nowrap'>{ i18n.t( $ => $.editor.positions ) }</th>
@@ -44,12 +44,12 @@ export const PositionList = ( { entries, onEdit, onDelete }: PositionListProps )
 
                 { /** Category */ }
                 <td className= 'px-6 py-4 whitespace-nowrap text-slate-800'>
-                  { i18n.t( $ => $.category[ entry.category ] ) }
+                  { i18n.t( $ => $.category[ entry.category as keyof typeof $.category ] ) }
                 </td>
 
                 { /** Class */ }
                 <td className= 'px-6 py-4 whitespace-nowrap text-slate-800'>
-                  { i18n.t( $ => $[ entry.category === 'asset' ? 'assetClass' : 'liabilityClass' ][ entry.class ] ) }
+                  { i18n.t( $ => ( $ as any )[ entry.category === 'asset' ? 'assetClass' : 'liabilityClass' ][ entry.class ] ) }
                 </td>
 
                 { /** Liquidity */ }
