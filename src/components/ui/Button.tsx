@@ -1,5 +1,5 @@
-import type { ButtonProps } from '@/src/types/props';
 import { cn } from '@/src/lib/utils';
+import type { ButtonProps } from '@/src/types/props';
 
 export const Button = ( { children, variant = 'primary', size = 'md', className, ...props }: ButtonProps ) => {
   const baseStyle = 'inline-flex justify-center items-center font-medium rounded-xl transition-all duration-200 focus:outline-none ' +

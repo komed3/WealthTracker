@@ -1,6 +1,5 @@
-import * as LucideIcons from 'lucide-react';
-
 import { IconProps } from '@/src/types/props';
+import * as LucideIcons from 'lucide-react';
 
 export const Icon = ( { name, size = 20, className }: IconProps ) => {
   const LucideIcon = ( LucideIcons as any )[ name ] || LucideIcons.HelpCircle;
