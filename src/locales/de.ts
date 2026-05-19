@@ -52,6 +52,12 @@ export default ( {
       TRY: 'Türkische Lira (TRY)',
       USD: 'US-Dollar (USD)'
     },
+    editor: {
+      dataPoints: 'Datenpunkte',
+      description: 'Bearbeite deine Vermögenswerte, Verbindlichkeiten und jährlichen Datenpunkte.',
+      positions: 'Positionen',
+      title: 'Editor'
+    },
     genders: {
       diverse: 'Divers',
       female: 'Weiblich',
