@@ -15,7 +15,7 @@ export const PositionList = ( { entries, onEdit, onDelete }: PositionListProps )
       <div className= 'overflow-x-auto'>
         <table className= 'w-full min-w-225 text-left text-sm text-slate-800 border-collapse'>
           <thead>
-            <tr className= 'uppercase font-semibold text-xs text-slate-550 tracking-wider bg-slate-50 border-b border-slate-200'>
+            <tr className= 'uppercase font-semibold text-xs text-slate-550 tracking-wider bg-slate-100 border-b border-slate-200'>
               <th className= 'px-6 py-4 whitespace-nowrap'>{ i18n.t( $ => $.editor.positions ) }</th>
               <th className= 'px-6 py-4 whitespace-nowrap'>{ i18n.t( $ => $.editor.category ) }</th>
               <th className= 'px-6 py-4 whitespace-nowrap'>{ i18n.t( $ => $.editor.class ) }</th>
