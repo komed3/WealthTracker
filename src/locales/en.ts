@@ -54,15 +54,18 @@ export default ( {
     },
     editor: {
       actions: 'Actions',
+      addNewPosition: 'New Position',
       category: 'Category',
       class: 'Class',
       dataPoints: 'Data Points',
       deleteButton: 'Delete',
+      description: 'Manage your financial positions and their historical data.',
       editButton: 'Edit',
       emptyList: 'You haven’t added any positions yet. Click on "Add New Position" to get started.',
       liquidity: 'Liquidity',
       positions: 'Positions',
-      status: 'Status'
+      status: 'Status',
+      title: 'Editor'
     },
     genders: {
       diverse: 'Diverse',

@@ -54,15 +54,18 @@ export default ( {
     },
     editor: {
       actions: 'Aktionen',
+      addNewPosition: 'Neue Position',
       category: 'Kategorie',
       class: 'Klasse',
       dataPoints: 'Datenpunkte',
       deleteButton: 'Löschen',
+      description: 'Verwalte deine finanziellen Positionen und deren historische Daten.',
       editButton: 'Bearbeiten',
       emptyList: 'Du hast noch keine Positionen hinzugefügt. Klicke auf "Neue Position", um loszulegen.',
       liquidity: 'Liquidität',
       positions: 'Positionen',
-      status: 'Status'
+      status: 'Status',
+      titel: 'Editor'
     },
     genders: {
       diverse: 'Divers',
