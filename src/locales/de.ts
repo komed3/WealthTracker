@@ -53,10 +53,16 @@ export default ( {
       USD: 'US-Dollar (USD)'
     },
     editor: {
+      actions: 'Aktionen',
+      category: 'Kategorie',
+      class: 'Klasse',
       dataPoints: 'Datenpunkte',
-      description: 'Bearbeite deine Vermögenswerte, Verbindlichkeiten und jährlichen Datenpunkte.',
+      deleteButton: 'Löschen',
+      editButton: 'Bearbeiten',
+      emptyList: 'Du hast noch keine Positionen hinzugefügt. Klicke auf "Neue Position", um loszulegen.',
+      liquidity: 'Liquidität',
       positions: 'Positionen',
-      title: 'Editor'
+      status: 'Status'
     },
     genders: {
       diverse: 'Divers',
@@ -92,11 +98,6 @@ export default ( {
       report: 'Bericht',
       stats: 'Statistiken'
     },
-    sidebar: {
-      collapse: 'Einklappen',
-      expand: 'Aufklappen',
-      settings: 'Einstellungen'
-    },
     settings: {
       birthDate: 'Geburtsdatum',
       currency: 'Standardwährung',
@@ -109,6 +110,15 @@ export default ( {
       save: 'Einstellungen speichern',
       savedSuccess: 'Einstellungen erfolgreich gespeichert!',
       title: 'Einstellungen'
+    },
+    sidebar: {
+      collapse: 'Einklappen',
+      expand: 'Aufklappen',
+      settings: 'Einstellungen'
+    },
+    status: {
+      active: 'Aktiv',
+      archived: 'Archiviert'
     }
   }
 } ) as const;

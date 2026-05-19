@@ -53,10 +53,16 @@ export default ( {
       USD: 'US Dollar (USD)'
     },
     editor: {
+      actions: 'Actions',
+      category: 'Category',
+      class: 'Class',
       dataPoints: 'Data Points',
-      description: 'Configure your assets, liabilities and historical data points.',
+      deleteButton: 'Delete',
+      editButton: 'Edit',
+      emptyList: 'You haven’t added any positions yet. Click on "Add New Position" to get started.',
+      liquidity: 'Liquidity',
       positions: 'Positions',
-      title: 'Editor'
+      status: 'Status'
     },
     genders: {
       diverse: 'Diverse',
@@ -79,7 +85,7 @@ export default ( {
     liquidity: {
       1: 'Immediate (< 1 week)',
       2: 'Short-term (1–6M)',
-      3: 'Medium-term (6M–3Y)',
+      3: 'Medium-term (6M–3J)',
       4: 'Long-term (3–10Y)',
       5: 'Illiquid (> 10Y)'
     },
@@ -91,11 +97,6 @@ export default ( {
       momentum: 'Momentum',
       report: 'Report',
       stats: 'Statistics'
-    },
-    sidebar: {
-      collapse: 'Collapse',
-      expand: 'Expand',
-      settings: 'Settings'
     },
     settings: {
       birthDate: 'Date of Birth',
@@ -109,6 +110,15 @@ export default ( {
       save: 'Save Settings',
       savedSuccess: 'Settings saved successfully!',
       title: 'Settings'
+    },
+    sidebar: {
+      collapse: 'Collapse',
+      expand: 'Expand',
+      settings: 'Settings'
+    },
+    status: {
+      active: 'Active',
+      archived: 'Archived'
     }
   }
 } ) as const;

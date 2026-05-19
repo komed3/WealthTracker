@@ -20,8 +20,8 @@ export const PositionList = ( { entries, onEdit, onDelete }: PositionListProps )
               <th className= 'px-6 py-4 whitespace-nowrap'>{ i18n.t( $ => $.editor.category ) }</th>
               <th className= 'px-6 py-4 whitespace-nowrap'>{ i18n.t( $ => $.editor.class ) }</th>
               <th className= 'px-6 py-4 whitespace-nowrap'>{ i18n.t( $ => $.editor.liquidity ) }</th>
-              <th className= 'px-6 py-4 whitespace-nowrap'>{ i18n.t( $ => $.editor.statusHeader ) }</th>
-              <th className= 'px-6 py-4 whitespace-nowrap text-right'>{ i18n.t( $ => $.editor.actionsHeader ) }</th>
+              <th className= 'px-6 py-4 whitespace-nowrap'>{ i18n.t( $ => $.editor.status ) }</th>
+              <th className= 'px-6 py-4 whitespace-nowrap text-right'>{ i18n.t( $ => $.editor.actions ) }</th>
             </tr>
           </thead>
           <tbody className= 'divide-y divide-slate-200'>
@@ -59,7 +59,7 @@ export const PositionList = ( { entries, onEdit, onDelete }: PositionListProps )
 
                 { /** Archived Status */ }
                 <td className= 'px-6 py-4 whitespace-nowrap text-slate-800'>
-                  { entry.archived ? i18n.t( $ => $.editor.archivedStatus ) : i18n.t( $ => $.editor.activeStatus ) }
+                  { entry.archived ? i18n.t( $ => $.status.archived ) : i18n.t( $ => $.status.active ) }
                 </td>
 
                 { /** Actions */ }
