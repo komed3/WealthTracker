@@ -1,6 +1,5 @@
-import React, { useEffect, useState } from 'react';
-
 import type { Settings as SettingsType } from '@/src/types/data';
+import React, { useEffect, useState } from 'react';
 import { Button } from '@/src/components/ui/Button';
 import { Card } from '@/src/components/ui/Card';
 import { Heading } from '@/src/components/ui/Heading';
