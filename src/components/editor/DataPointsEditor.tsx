@@ -13,7 +13,9 @@ import type { YearValue } from '@/src/types/data';
 import { DataPointsEditorProps } from '@/src/types/props';
 import React, { useEffect, useState } from 'react';
 
-export const DataPointsEditor = ( { entries, onUpdateHistory }: DataPointsEditorProps ) => {
+export const DataPointsEditor = ( { entries, onUpdateHistory, setActiveTab }: DataPointsEditorProps ) => {
+  if ( entries.length === 0 ) setActiveTab( 'entries' );
+
   const { settings } = useData();
 
   const [ formYear, setFormYear ] = useState( '' );
@@ -32,14 +34,8 @@ export const DataPointsEditor = ( { entries, onUpdateHistory }: DataPointsEditor
   const activeRecord = entries.find( r => r.entry.id === selectedEntryId );
 
   const resetFormForActive = () => {
-    if ( activeRecord ) {
-      const years = Object.keys( activeRecord.history ).map( Number );
-      const nextYear = years.length > 0 ? Math.max( ...years ) + 1 : new Date().getFullYear();
-
-      setFormYear( String( nextYear ) );
-    } else {
-      setFormYear( String( new Date().getFullYear() ) );
-    }
+    const years = activeRecord ? Object.keys( activeRecord.history ).map( Number ) : [];
+    setFormYear( String( years.length > 0 ? Math.max( ...years ) + 1 : new Date().getFullYear() ) );
 
     setFormValue( '' );
     setFormConfidence( 'high' );
@@ -47,13 +43,16 @@ export const DataPointsEditor = ( { entries, onUpdateHistory }: DataPointsEditor
     setFormMax( '' );
     setFormSource( '' );
     setFormNote( '' );
+
     setEditingYear( null );
   };
 
   useEffect( () => { resetFormForActive() }, [ selectedEntryId ] );
+  const handleCancelEdit = () => { resetFormForActive() };
 
   const handleEditClick = ( yearVal: YearValue ) => {
     setEditingYear( yearVal.year );
+
     setFormYear( String( yearVal.year ) );
     setFormValue( String( yearVal.value ) );
     setFormConfidence( yearVal.confidence );
@@ -64,8 +63,6 @@ export const DataPointsEditor = ( { entries, onUpdateHistory }: DataPointsEditor
 
     window.scrollTo( { top: 0, behavior: 'smooth' } );
   };
-
-  const handleCancelEdit = () => { resetFormForActive() };
 
   const handleSubmit = ( e: React.SubmitEvent ) => {
     e.preventDefault();
@@ -84,17 +81,16 @@ export const DataPointsEditor = ( { entries, onUpdateHistory }: DataPointsEditor
     const parsedMin = formMin.trim() ? parseFloat( formMin.replace( /,/g, '.' ) ) : undefined;
     const parsedMax = formMax.trim() ? parseFloat( formMax.replace( /,/g, '.' ) ) : undefined;
 
-    const updatedPoint: YearValue = {
-      year: parsedYear, value: parsedValue, confidence: formConfidence,
-      min: isNaN( parsedMin as number ) ? undefined : parsedMin,
-      max: isNaN( parsedMax as number ) ? undefined : parsedMax,
-      source: formSource.trim() || undefined,
-      note: formNote.trim() || undefined,
-      updatedAt: new Date().toISOString()
-    };
-
-    const newHistory = { ...activeRecord.history, [ `${ parsedYear }` ]: updatedPoint };
-    onUpdateHistory( activeRecord.entry.id, newHistory );
+    onUpdateHistory( activeRecord.entry.id, {
+      ...activeRecord.history,
+      [ `${ parsedYear }` ]: {
+        year: parsedYear, value: parsedValue, confidence: formConfidence,
+        min: isNaN( parsedMin as number ) ? undefined : parsedMin,
+        max: isNaN( parsedMax as number ) ? undefined : parsedMax,
+        source: formSource.trim() || undefined, note: formNote.trim() || undefined,
+        updatedAt: new Date().toISOString()
+      }
+    } );
 
     if ( editingYear !== null ) resetFormForActive();
     else {

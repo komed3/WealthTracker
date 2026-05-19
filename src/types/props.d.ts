@@ -76,7 +76,7 @@ export interface SelectProps {
 
 export interface PositionListProps {
   entries: EntryRecord[];
-  onEdit: ( record: EntryRecord ) => void;
+  onEdit: ( record: Entry ) => void;
   onDelete: ( id: string ) => void;
 }
 
@@ -90,4 +90,5 @@ interface PositionModalProps {
 interface DataPointsEditorProps {
   entries: EntryRecord[];
   onUpdateHistory: ( entryId: string, history: Record< `${number}`, YearValue > ) => void;
+  setActiveTab: ( id: string ) => void;
 }
