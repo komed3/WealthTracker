@@ -56,7 +56,7 @@ export const ICON = [
   'TrendingUp', 'PieChart', 'Plane', 'Ship', 'Smartphone',
   'AlignHorizontalDistributeCenter', 'Archive', 'Asteroid',
   'Award', 'BadgeCheck', 'Barrel', 'Box', 'Castle', 'ChartPie',
-  'ChessKnight', 'ChessQueen', 'Command', 'Component', 'Crown',
+  'ChessKnight', 'ClockFading', 'Command', 'Component', 'Crown',
   'DollarSign', 'Euro', 'Factory', 'FileChartColumn', 'Frame',
   'HandCoins', 'LaptopMinimal', 'Medal', 'Origami', 'Palette',
   'Piano', 'Receipt', 'Sailboat', 'Scale', 'Rocket', 'Shirt',

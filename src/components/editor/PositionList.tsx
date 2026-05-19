@@ -2,12 +2,12 @@ import { Button } from '@/src/components/ui/Button';
 import { Icon } from '@/src/components/ui/Icon';
 import i18n from '@/src/lib/i18n';
 import { PositionListProps } from '@/src/types/props';
-import { Ellipsis } from 'lucide-react';
+import { BrushCleaning } from 'lucide-react';
 
 export const PositionList = ( { entries, onEdit, onDelete }: PositionListProps ) => {
   return entries.length === 0 ? (
-    <div className= 'flex flex-col justify-center items-center gap-4 w-full p-12 border-2 border-dashed border-slate-200 rounded-2xl'>
-      <Ellipsis size= { 42 } className= 'text-slate-300' />
+    <div className= 'flex flex-col justify-center items-center gap-6 w-full p-10 border-2 border-dashed border-slate-200 rounded-2xl'>
+      <BrushCleaning size= { 42 } className= 'text-slate-300' />
       <p className= 'text-slate-500'>{ i18n.t( $ => $.editor.emptyList ) }</p>
     </div>
   ) : (
