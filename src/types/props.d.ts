@@ -1,4 +1,5 @@
 import type { ICON } from '@/src/config/constants';
+import { Entry } from '@/src/types/data';
 import type React from 'react';
 import type { ButtonHTMLAttributes, InputHTMLAttributes, ReactNode } from 'react';
 
@@ -77,4 +78,11 @@ export interface PositionListProps {
   entries: EntryRecord[];
   onEdit: ( record: EntryRecord ) => void;
   onDelete: ( id: string ) => void;
+}
+
+interface PositionModalProps {
+  isOpen: boolean;
+  onClose: () => void;
+  onSave: ( entryData: Omit< Entry, 'id' | 'createdAt' | 'updatedAt' > & { id?: string } ) => void;
+  initialEntry: Entry | null;
 }
