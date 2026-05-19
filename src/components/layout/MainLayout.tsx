@@ -1,9 +1,13 @@
-import type { LayoutProps } from '@/src/types/props';
 import { MobileTopBar } from '@/src/components/layout/MobileTopBar';
 import { Sidebar } from '@/src/components/layout/Sidebar';
+import { Loading } from '@/src/components/ui/Loading';
+import { useData } from '@/src/context/DataCtx';
+import type { LayoutProps } from '@/src/types/props';
 
 export const MainLayout = ( { children }: LayoutProps ) => {
-  return (
+  const { loading } = useData();
+
+  return loading ? <Loading className= 'bg-slate-50' /> : (
     <div className= 'flex flex-col lg:flex-row h-dvh overflow-hidden bg-slate-50 text-slate-800'>
       <MobileTopBar />
       <Sidebar />

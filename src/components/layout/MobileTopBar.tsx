@@ -1,5 +1,5 @@
-import { Menu } from 'lucide-react';
 import { useLayout } from '@/src/context/LayoutCtx';
+import { Menu } from 'lucide-react';
 
 export const MobileTopBar = () => {
   const { toggleSidebar } = useLayout();
