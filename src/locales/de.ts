@@ -54,6 +54,8 @@ export default ( {
     },
     editor: {
       actions: 'Aktionen',
+      archiveDescription: 'Diese Position ist nicht länger aktiv',
+      archivePosition: 'Archivierte Position',
       addNewPosition: 'Neue Position',
       category: 'Kategorie',
       class: 'Klasse',
