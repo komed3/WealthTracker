@@ -1,12 +1,8 @@
 import type { LayoutProps } from '@/src/types/props';
 import { MobileTopBar } from '@/src/components/layout/MobileTopBar';
 import { Sidebar } from '@/src/components/layout/Sidebar';
-import { useData } from '@/src/context/DataCtx';
 
 export const MainLayout = ( { children }: LayoutProps ) => {
-  const { refreshData } = useData();
-  refreshData();
-
   return (
     <div className= 'flex flex-col lg:flex-row h-dvh overflow-hidden bg-slate-50 text-slate-800'>
       <MobileTopBar />
