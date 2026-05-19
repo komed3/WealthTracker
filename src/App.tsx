@@ -1,9 +1,7 @@
 import { BrowserRouter, Route, Routes } from 'react-router';
-
 import { MainLayout } from '@/src/components/layout/MainLayout';
 import { DataProvider } from '@/src/context/DataCtx';
 import { LayoutProvider } from '@/src/context/LayoutCtx';
-
 import { AssetDetail } from '@/src/views/AssetDetail';
 import { Assets } from '@/src/views/Assets';
 import { Breakdown } from '@/src/views/Breakdown';
