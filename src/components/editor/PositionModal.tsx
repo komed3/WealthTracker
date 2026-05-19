@@ -3,7 +3,7 @@ import { Heading } from '@/src/components/ui/Heading';
 import { Icon } from '@/src/components/ui/Icon';
 import { Input } from '@/src/components/ui/Input';
 import { Select } from '@/src/components/ui/Select';
-import { ASSET_CLASS, CATEGORY, COLOR, ICON, LIABILITY_CLASS, LIQUIDITY, LIQUIDITY_DEFAULT } from '@/src/config/constants';
+import { ASSET_CLASS, CATEGORY, CLASS, COLOR, ICON, LIABILITY_CLASS, LIQUIDITY, LIQUIDITY_DEFAULT } from '@/src/config/constants';
 import i18n from '@/src/lib/i18n';
 import { cn } from '@/src/lib/utils';
 import { PositionModalProps } from '@/src/types/props';
@@ -11,13 +11,13 @@ import { Check, X } from 'lucide-react';
 import { useEffect, useState } from 'react';
 
 export const PositionModal = ( { isOpen, onClose, onSave, initialEntry }: PositionModalProps ) => {
-  const [ category, setCategory ] = useState < 'asset' | 'liability' > ( 'asset' );
-  const [ classState, setClassState ] = useState < string > ( 'bank' );
-  const [ liquidity, setLiquidity ] = useState < number > ( 1 );
+  const [ category, setCategory ] = useState < CATEGORY > ( 'asset' );
+  const [ classState, setClassState ] = useState < CLASS > ( 'bank' );
+  const [ liquidity, setLiquidity ] = useState < LIQUIDITY > ( 1 );
   const [ title, setTitle ] = useState( '' );
   const [ description, setDescription ] = useState( '' );
-  const [ color, setColor ] = useState < string > ( COLOR[ 0 ] );
-  const [ icon, setIcon ] = useState < string > ( ICON[ 0 ] );
+  const [ color, setColor ] = useState < COLOR > ( COLOR[ 0 ] );
+  const [ icon, setIcon ] = useState < ICON > ( ICON[ 0 ] );
   const [ archived, setArchived ] = useState( false );
 
   useEffect( () => {
@@ -42,33 +42,31 @@ export const PositionModal = ( { isOpen, onClose, onSave, initialEntry }: Positi
     }
   }, [ initialEntry, isOpen ] );
 
-  // Handle class default liquidity pre-filling on category/class change
-  const handleCategoryChange = ( newCat: 'asset' | 'liability' ) => {
+  const handleCategoryChange = ( newCat: CATEGORY ) => {
     setCategory( newCat );
+
     const defaultClass = newCat === 'asset' ? 'bank' : 'loan';
     setClassState( defaultClass );
 
     if ( ! initialEntry ) {
-      if ( newCat === 'asset' ) {
-        setLiquidity( LIQUIDITY_DEFAULT[ 'bank' ] );
-      } else {
-        setLiquidity( 3 ); // Default liability liquidity
-      }
+      if ( newCat === 'asset' ) setLiquidity( LIQUIDITY_DEFAULT[ 'bank' ] );
+      else setLiquidity( 3 );
     }
   };
 
-  const handleClassChange = ( newClass: string ) => {
+  const handleClassChange = ( newClass: CLASS ) => {
     setClassState( newClass );
+
     if ( ! initialEntry ) {
-      if ( category === 'asset' && newClass in LIQUIDITY_DEFAULT ) {
-        setLiquidity( LIQUIDITY_DEFAULT[ newClass as keyof typeof LIQUIDITY_DEFAULT ] );
-      } else if ( category === 'liability' ) {
-        setLiquidity( 3 );
-      }
+      if ( category === 'asset' && newClass in LIQUIDITY_DEFAULT ) setLiquidity(
+        LIQUIDITY_DEFAULT[ newClass as keyof typeof LIQUIDITY_DEFAULT ]
+      );
+
+      else if ( category === 'liability' ) setLiquidity( 3 );
     }
   };
 
-  const handleSubmit = ( e: React.FormEvent ) => {
+  const handleSubmit = ( e: React.SubmitEvent ) => {
     e.preventDefault();
     if ( ! title.trim() ) return;
 
@@ -76,20 +74,15 @@ export const PositionModal = ( { isOpen, onClose, onSave, initialEntry }: Positi
       id: initialEntry?.id,
       title: title.trim(),
       description: description.trim() || undefined,
-      category,
-      class: classState as any,
-      liquidity: liquidity as any,
-      color: color as any,
-      icon: icon as any,
-      archived
+      category, class: classState,
+      liquidity, color, icon, archived
     } );
   };
 
   if ( ! isOpen ) return null;
 
   const categoryOptions = CATEGORY.map( cat => ( {
-    value: cat,
-    label: i18n.t( $ => $.category[ cat ] )
+    value: cat, label: i18n.t( $ => $.category[ cat ] )
   } ) );
 
   const classOptions = ( category === 'asset' ? ASSET_CLASS : LIABILITY_CLASS ).map( cls => {
@@ -100,8 +93,7 @@ export const PositionModal = ( { isOpen, onClose, onSave, initialEntry }: Positi
   } );
 
   const liquidityOptions = LIQUIDITY.map( liq => ( {
-    value: liq,
-    label: `L${ liq } — ${ i18n.t( $ => $.liquidity[ liq as 1 | 2 | 3 | 4 | 5 ] ) }`
+    value: liq, label: `L${ liq } — ${ i18n.t( $ => $.liquidity[ liq as 1 | 2 | 3 | 4 | 5 ] ) }`
   } ) );
 
   return (
