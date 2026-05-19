@@ -1,10 +1,6 @@
+import type { Breakdown, ComputedData, Data, EntryRecord, EntryStats, PortfolioStats, Settings, YearSnapshot } from '@/src/types/data';
 import { existsSync, mkdirSync, readFileSync, writeFileSync } from 'node:fs';
 import { dirname, resolve } from 'node:path';
-
-import type {
-  Breakdown, ComputedData, Data, EntryRecord, EntryStats,
-  PortfolioStats, Settings, YearSnapshot
-} from '@/src/types/data';
 
 const DATA_FILE_PATH = resolve( process.cwd(), 'data', 'data.json' );
 
@@ -141,11 +137,10 @@ export class Database {
       };
     }
 
-    // 2. Identify all years across active (non-archived) entries
-    const activeEntries = entries.filter( r => ! r.entry.archived );
+    // 2. Identify all years across entries
     const allYearsSet = new Set < number > ();
 
-    for ( const record of activeEntries ) {
+    for ( const record of entries ) {
       Object.keys( record.history ).forEach( y => allYearsSet.add( Number( y ) ) );
     }
 
@@ -166,7 +161,7 @@ export class Database {
       const byLiquidity: Record< number, { value: number; min: number; max: number } > = {};
       const byClass: Record< string, { value: number; min: number; max: number } > = {};
 
-      for ( const record of activeEntries ) {
+      for ( const record of entries ) {
         const valObj = record.history[ `${year}` ];
         if ( ! valObj ) continue;
 
@@ -228,7 +223,7 @@ export class Database {
 
       const classBreakdown: Record< string, Breakdown > = {};
       Object.entries( byClass ).forEach( ( [ key, item ] ) => {
-        const entryGroup = activeEntries.find( r => r.entry.class === key );
+        const entryGroup = entries.find( r => r.entry.class === key );
         const isAsset = entryGroup ? entryGroup.entry.category === 'asset' : true;
         const divisor = isAsset ? assetsSum : liabilitiesSum;
 
