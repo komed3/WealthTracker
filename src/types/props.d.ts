@@ -1,5 +1,5 @@
 import type { ICON } from '@/src/config/constants';
-import { Entry } from '@/src/types/data';
+import { Entry, EntryRecord, YearValue } from '@/src/types/data';
 import type React from 'react';
 import type { ButtonHTMLAttributes, InputHTMLAttributes, ReactNode } from 'react';
 
@@ -85,4 +85,9 @@ interface PositionModalProps {
   onClose: () => void;
   onSave: ( entryData: Omit< Entry, 'id' | 'createdAt' | 'updatedAt' > & { id?: string } ) => void;
   initialEntry: Entry | null;
+}
+
+interface DataPointsEditorProps {
+  entries: EntryRecord[];
+  onUpdateHistory: ( entryId: string, history: Record< `${number}`, YearValue > ) => void;
 }
