@@ -2,7 +2,7 @@ import type { ReactNode } from 'react';
 import { createContext, useContext, useEffect, useState } from 'react';
 
 import type { DataCtxType } from '@/src/types/context';
-import type { Data, Settings } from '@/src/types/data';
+import type { Data, Settings, EntryRecord } from '@/src/types/data';
 import i18n from '@/src/lib/i18n';
 
 const DataCtx = createContext < DataCtxType | undefined > ( undefined );
@@ -17,11 +17,8 @@ export const DataProvider = ( { children }: { children: ReactNode } ) => {
 
       if ( res.ok ) {
         const json = await res.json() as Data;
+        if ( json.settings?.display?.language ) await i18n.changeLanguage( json.settings.display.language );
         setData( json );
-
-        if ( json.settings?.display?.language ) {
-          await i18n.changeLanguage( json.settings.display.language );
-        }
       }
     } catch ( err ) {
       console.error( 'Error fetching data:', err );
@@ -40,11 +37,8 @@ export const DataProvider = ( { children }: { children: ReactNode } ) => {
 
       if ( res.ok ) {
         const savedSettings = await res.json() as Settings;
+        if ( savedSettings.display?.language ) await i18n.changeLanguage( savedSettings.display.language );
         setData( prev => prev ? { ...prev, settings: savedSettings } : null );
-
-        if ( savedSettings.display?.language ) {
-          await i18n.changeLanguage( savedSettings.display.language );
-        }
 
         return true;
       }
@@ -56,11 +50,35 @@ export const DataProvider = ( { children }: { children: ReactNode } ) => {
     }
   };
 
+  const updateEntries = async ( newEntries: EntryRecord[] ) => {
+    if ( ! data ) return false;
+    try {
+      const updatedData = { ...data, entries: newEntries };
+      const res = await fetch( '/api/data', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify( updatedData )
+      } );
+
+      if ( res.ok ) {
+        const savedData = await res.json() as Data;
+        setData( savedData );
+
+        return true;
+      }
+
+      return false;
+    } catch ( err ) {
+      console.error( 'Error updating entries:', err );
+      return false;
+    }
+  };
+
   useEffect( () => { refreshData() }, [] );
 
   const value: DataCtxType = {
     loading, data, settings: data ? data.settings : null,
-    updateSettings, refreshData
+    updateSettings, updateEntries, refreshData
   };
 
   return (
