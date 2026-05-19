@@ -93,62 +93,60 @@ export const PositionModal = ( { isOpen, onClose, onSave, initialEntry }: Positi
   } );
 
   const liquidityOptions = LIQUIDITY.map( liq => ( {
-    value: liq, label: `L${ liq } — ${ i18n.t( $ => $.liquidity[ liq as 1 | 2 | 3 | 4 | 5 ] ) }`
+    value: liq, label: `${ i18n.t( $ => $.liquidity[ liq as 1 | 2 | 3 | 4 | 5 ] ) }`
   } ) );
 
   return (
-    <div className= 'fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/40 backdrop-blur-xs animate-fade-in'>
-      <div className= 'relative bg-white w-full max-w-5xl max-h-[90vh] rounded-2xl border border-slate-200 shadow-2xl flex flex-col overflow-hidden animate-scale-up'>
-        
+    <div className= 'fixed inset-0 z-50 flex justify-center items-center p-4 bg-slate-300/40 backdrop-blur-xs animate-fade-in'>
+      <div className= 'relative flex flex-col w-full max-w-5xl max-h-[90vh] bg-white rounded-xl shadow-xl overflow-hidden animate-scale-up'>
+
         { /** Header */ }
-        <div className= 'flex items-center justify-between px-6 py-4 border-b border-slate-100 shrink-0 bg-slate-50/50'>
-          <Heading level= { 3 } className= 'font-bold text-slate-800'>
+        <div className= 'flex justify-between items-center shrink-0 px-6 py-2 border-b border-slate-100 bg-slate-50/50'>
+          <Heading level= { 3 }>
             { initialEntry ? i18n.t( $ => $.editor.editPosition ) : i18n.t( $ => $.editor.newPosition ) }
           </Heading>
           <Button
             variant= 'ghost'
-            size= 'sm'
             onClick= { onClose }
-            className= 'h-8 w-8 p-0 rounded-full text-slate-400 hover:text-slate-600 hover:bg-slate-150'
+            className= 'w-12 h-12 p-0 text-slate-400 hover:text-slate-600 hover:bg-slate-150 rounded'
           >
-            <X size= { 18 } />
+            <X size= { 22 } />
           </Button>
         </div>
 
         { /** Form Scroll Area */ }
-        <form onSubmit= { handleSubmit } className= 'flex-1 overflow-y-auto p-6'>
-          
-          <div className= 'grid grid-cols-1 md:grid-cols-2 gap-8'>
-            
+        <form onSubmit= { handleSubmit } className= 'flex-1 p-6 overflow-y-auto'>
+          <div className= 'grid grid-cols-1 md:grid-cols-2 gap-12'>
+
             { /** Left Column: Details */ }
             <div className= 'space-y-4'>
-              <Select
-                label= { i18n.t( $ => $.editor.category ) }
-                value= { category }
-                options= { categoryOptions }
-                onChange= { e => handleCategoryChange( e.target.value as any ) }
-              />
-
-              <Select
-                label= { i18n.t( $ => $.editor.class ) }
-                value= { classState }
-                options= { classOptions }
-                onChange= { e => handleClassChange( e.target.value ) }
-              />
-
-              <Select
-                label= { i18n.t( $ => $.editor.liquidity ) }
-                value= { liquidity }
-                options= { liquidityOptions }
-                onChange= { e => setLiquidity( Number( e.target.value ) ) }
-              />
-
               <Input
                 label= { i18n.t( $ => $.editor.positionTitle ) }
                 placeholder= { i18n.t( $ => $.editor.positionTitlePlaceholder ) }
                 value= { title }
                 onChange= { e => setTitle( e.target.value ) }
                 required
+              />
+
+              <Select
+                label= { i18n.t( $ => $.editor.category ) }
+                value= { category }
+                options= { categoryOptions }
+                onChange= { e => handleCategoryChange( e.target.value as CATEGORY ) }
+              />
+
+              <Select
+                label= { i18n.t( $ => $.editor.class ) }
+                value= { classState }
+                options= { classOptions }
+                onChange= { e => handleClassChange( e.target.value as CLASS ) }
+              />
+
+              <Select
+                label= { i18n.t( $ => $.editor.liquidity ) }
+                value= { liquidity }
+                options= { liquidityOptions }
+                onChange= { e => setLiquidity( Number( e.target.value ) as LIQUIDITY ) }
               />
 
               <div className= 'flex flex-col gap-2 w-full'>
@@ -160,7 +158,12 @@ export const PositionModal = ( { isOpen, onClose, onSave, initialEntry }: Positi
                   value= { description }
                   onChange= { e => setDescription( e.target.value ) }
                   rows= { 3 }
-                  className= 'w-full px-4 py-2.5 text-slate-800 placeholder:text-slate-400 bg-white border border-slate-200 rounded-xl focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/10 transition-all duration-200 text-md font-sans'
+                  className= {
+                    'w-full px-4 py-2.5 font-sans text-md text-slate-800 placeholder:text-slate-400 ' +
+                    'bg-white border border-slate-200 rounded-xl ' +
+                    'focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/10 ' +
+                    'transition-all duration-200'
+                  }
                 />
               </div>
 
@@ -226,8 +229,8 @@ export const PositionModal = ( { isOpen, onClose, onSave, initialEntry }: Positi
                         title= { name }
                         className= { cn(
                           'flex items-center justify-center rounded-lg transition-all hover:bg-white hover:scale-105 active:scale-95 border border-transparent shadow-xs cursor-pointer w-10 h-10 aspect-square',
-                          isSelected 
-                            ? 'bg-primary text-white hover:bg-primary shadow-md border-primary/20 scale-105' 
+                          isSelected
+                            ? 'bg-primary text-white hover:bg-primary shadow-md border-primary/20 scale-105'
                             : 'text-slate-500 hover:text-slate-800 hover:border-slate-200'
                         ) }
                       >
