@@ -1,13 +1,12 @@
 import { useData } from '@/src/context/DataCtx';
 import { formatCurrency } from '@/src/lib/formatter';
 import { cn } from '@/src/lib/utils';
-import type { InputProps } from '@/src/types/props';
+import type { InputProps, TextareaProps } from '@/src/types/props';
 import { Calendar } from 'lucide-react';
 import { useState } from 'react';
 
 export const Input = ( {
-  label, error, className, type = 'text', isCurrency,
-  value, onChange, onFocus, onBlur, ...props
+  label, error, className, type = 'text', isCurrency, value, onChange, onFocus, onBlur, ...props
 }: InputProps ) => {
   const { settings } = useData();
   const [ isFocused, setIsFocused ] = useState( false );
@@ -88,3 +87,29 @@ export const Input = ( {
     </div>
   );
 };
+
+export const Textarea = ( { label, error, className, value, onChange, ...props }: TextareaProps ) => (
+  <div className= 'relative flex flex-col gap-2 w-full'>
+    { label && (
+      <label className= 'text-sm font-medium text-slate-600'>
+        { label } { props.required && ' (*)' }
+      </label>
+    ) }
+    <textarea
+      value= { value }
+      onChange= { onChange }
+      className= { cn(
+        'w-full min-h-24 px-4 py-3 text-slate-800 placeholder:text-slate-400 bg-white border border-slate-200 rounded-xl',
+        'focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/10 transition-all duration-200',
+        error && 'border-red-400 focus:border-red-400 focus:ring-red-100',
+        className
+      ) }
+      { ...props }
+    />
+    { error && (
+      <span className= 'text-xs font-medium text-red-500'>
+        { error }
+      </span>
+    ) }
+  </div>
+);
