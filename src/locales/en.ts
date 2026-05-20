@@ -80,6 +80,7 @@ export default ( {
       maximum: 'Maximum',
       minimum: 'Minimum',
       newPosition: 'New Position',
+      noDataPoints: 'No data points added yet. Use the form above to add your first one.',
       note: 'Note',
       notePlaceholder: 'e.g. "This position has gained significant value in recent years ..."',
       positions: 'Positions',
