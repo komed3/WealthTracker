@@ -11,6 +11,7 @@ export const Momentum = () => {
   const { setTitle } = useLayout();
 
   const [ activeTab, setActiveTab ] = useState( 'relative' );
+  const hasData = data && Object.keys( data.computed.years ).length;
 
   useEffect( () => {
     setTitle( i18n.t( $ => $.momentum.title ) );
@@ -23,7 +24,7 @@ export const Momentum = () => {
         title= { i18n.t( $ => $.momentum.title ) }
         description= { i18n.t( $ => $.momentum.description ) }
       >
-        { data?.computed.years && <Tabs
+        { hasData && <Tabs
           activeId= { activeTab }
           onChange= { id => setActiveTab( id ) }
           options={ [
