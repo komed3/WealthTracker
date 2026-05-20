@@ -30,7 +30,7 @@ export const PositionModal = ( { isOpen, onClose, onSave, initialEntry }: Positi
       setClassState( initialEntry.class );
       setLiquidity( initialEntry.liquidity );
       setArchived( initialEntry.archived );
-      setNotional( initialEntry.notional ?? false );
+      setNotional( initialEntry.notional );
       setColor( initialEntry.color );
       setIcon( initialEntry.icon );
     } else {

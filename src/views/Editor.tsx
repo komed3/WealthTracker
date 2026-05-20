@@ -80,7 +80,7 @@ export const Editor = () => {
         category: entryData.category,
         class: entryData.class,
         liquidity: entryData.liquidity,
-        archived: false,
+        archived: entryData.archived ?? false,
         notional: entryData.notional ?? false,
         color: entryData.color,
         icon: entryData.icon,
