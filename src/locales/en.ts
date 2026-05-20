@@ -53,7 +53,7 @@ export default ( {
       USD: 'US Dollar (USD)'
     },
     dashboard: {
-      chartSubtitle: 'Temporal progression of your wealth',
+      chartSubtitle: 'Temporal progression of your wealth, including assets, liabilities and estimated range',
       chartTitle: 'Wealth Development',
       title: 'Dashboard'
     },
