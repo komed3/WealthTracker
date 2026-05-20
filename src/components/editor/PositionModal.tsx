@@ -1,8 +1,9 @@
 import { Button } from '@/src/components/ui/Button';
 import { Heading } from '@/src/components/ui/Heading';
 import { Icon } from '@/src/components/ui/Icon';
-import { Input } from '@/src/components/ui/Input';
+import { Input, Textarea } from '@/src/components/ui/Input';
 import { Select } from '@/src/components/ui/Select';
+import { Toggle } from '@/src/components/ui/Toggle';
 import { ASSET_CLASS, CATEGORY, CLASS, COLOR, ICON, LIABILITY_CLASS, LIQUIDITY, LIQUIDITY_DEFAULT } from '@/src/config/constants';
 import i18n from '@/src/lib/i18n';
 import { cn } from '@/src/lib/utils';
@@ -19,6 +20,7 @@ export const PositionModal = ( { isOpen, onClose, onSave, initialEntry }: Positi
   const [ color, setColor ] = useState < COLOR > ( COLOR[ 0 ] );
   const [ icon, setIcon ] = useState < ICON > ( ICON[ 0 ] );
   const [ archived, setArchived ] = useState( false );
+  const [ notional, setNotional ] = useState( false );
 
   useEffect( () => {
     if ( initialEntry ) {
@@ -27,18 +29,20 @@ export const PositionModal = ( { isOpen, onClose, onSave, initialEntry }: Positi
       setCategory( initialEntry.category );
       setClassState( initialEntry.class );
       setLiquidity( initialEntry.liquidity );
+      setArchived( initialEntry.archived );
+      setNotional( initialEntry.notional ?? false );
       setColor( initialEntry.color );
       setIcon( initialEntry.icon );
-      setArchived( initialEntry.archived );
     } else {
       setTitle( '' );
       setDescription( '' );
       setCategory( 'asset' );
       setClassState( 'bank' );
       setLiquidity( 1 );
+      setArchived( false );
+      setNotional( false );
       setColor( COLOR[ 0 ] );
       setIcon( ICON[ 0 ] );
-      setArchived( false );
     }
   }, [ initialEntry, isOpen ] );
 
@@ -47,9 +51,7 @@ export const PositionModal = ( { isOpen, onClose, onSave, initialEntry }: Positi
     setCategory( newCat );
     setClassState( defaultClass );
 
-    if ( ! initialEntry ) setLiquidity(
-      newCat === 'asset' ? LIQUIDITY_DEFAULT[ 'bank' ] : 3
-    );
+    if ( ! initialEntry ) setLiquidity( newCat === 'asset' ? LIQUIDITY_DEFAULT[ 'bank' ] : 3 );
   };
 
   const handleClassChange = ( newClass: CLASS ) => {
@@ -73,7 +75,8 @@ export const PositionModal = ( { isOpen, onClose, onSave, initialEntry }: Positi
       title: title.trim(),
       description: description.trim() || undefined,
       category, class: classState,
-      liquidity, color, icon, archived
+      liquidity, archived, notional,
+      color, icon
     } );
   };
 
@@ -146,51 +149,26 @@ export const PositionModal = ( { isOpen, onClose, onSave, initialEntry }: Positi
                 onChange= { e => setLiquidity( Number( e.target.value ) as LIQUIDITY ) }
               />
 
-              <div className= 'flex flex-col gap-2 w-full'>
-                <label className= 'text-sm font-medium text-slate-600'>
-                  { i18n.t( $ => $.editor.descriptionLabel ) }
-                </label>
-                <textarea
-                  placeholder= { i18n.t( $ => $.editor.descriptionPlaceholder ) }
-                  value= { description }
-                  onChange= { e => setDescription( e.target.value ) }
-                  rows= { 3 }
-                  className= {
-                    'w-full px-4 py-2.5 font-sans text-md text-slate-800 placeholder:text-slate-400 ' +
-                    'bg-white border border-slate-200 rounded-xl ' +
-                    'focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/10 ' +
-                    'transition-all duration-200'
-                  }
-                />
-              </div>
+              <Textarea
+                label= { i18n.t( $ => $.editor.descriptionLabel ) }
+                placeholder= { i18n.t( $ => $.editor.descriptionPlaceholder ) }
+                value= { description }
+                onChange= { e => setDescription( e.target.value ) }
+                rows= { 3 }
+                className= 'mt-0'
+              />
 
-              { /** Archived Toggle */ }
-              { initialEntry && (
-                <div className= 'flex justify-between items-center p-4 bg-slate-50 border border-slate-200 rounded-xl'>
-                  <div className= 'flex flex-col gap-0.5'>
-                    <span className= 'text-sm font-semibold text-slate-700'>
-                      { i18n.t( $ => $.editor.archivePosition ) }
-                    </span>
-                    <span className= 'text-xs text-slate-400'>
-                      { i18n.t( $ => $.editor.archiveDescription ) }
-                    </span>
-                  </div>
-                  <label className= 'relative inline-flex items-center cursor-pointer'>
-                    <input
-                      type= 'checkbox'
-                      checked= { archived }
-                      onChange= { e => setArchived( e.target.checked ) }
-                      className= 'sr-only peer'
-                    />
-                    <div className= {
-                      'w-11 h-6 bg-slate-200 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full ' +
-                      'peer-checked:after:border-white after:content-[""] after:absolute after:top-0.5 after:left-0.5 ' +
-                      'after:bg-white after:border-slate-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all ' +
-                      'peer-checked:bg-primary'
-                    } />
-                  </label>
-                </div>
-              ) }
+              <Toggle
+                label= { i18n.t( $ => $.editor.notionalPosition ) }
+                checked= { notional }
+                onChange= { setNotional }
+              />
+
+              <Toggle
+                label= { i18n.t( $ => $.editor.archivePosition ) }
+                checked= { archived }
+                onChange= { setArchived }
+              />
             </div>
 
             { /** Right Column: Styles */ }
