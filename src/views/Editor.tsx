@@ -106,13 +106,6 @@ export const Editor = () => {
     await updateEntries( updatedEntries );
   };
 
-  const tabs = [
-    { id: 'entries', label: i18n.t( $ => $.editor.positions ), icon: Settings2 },
-    { id: 'history', label: i18n.t( $ => $.editor.dataPoints ), icon: ListTree }
-  ];
-
-  if ( entries.length === 0 ) tabs.pop();
-
   return (
     <div className= 'space-y-8'>
       { /** Page Header nested with tabs */ }
@@ -121,11 +114,14 @@ export const Editor = () => {
         description= { i18n.t( $ => $.editor.description ) }
       >
         <div className= 'flex justify-between md:justify-start items-center gap-3 w-full md:w-auto'>
-          <Tabs
+          { entries.length > 0 && <Tabs
             activeId= { activeTab }
             onChange= { id => setActiveTab( id ) }
-            options={ tabs }
-          />
+            options={ [
+              { id: 'entries', label: i18n.t( $ => $.editor.positions ), icon: Settings2 },
+              { id: 'history', label: i18n.t( $ => $.editor.dataPoints ), icon: ListTree }
+            ] }
+          /> }
         </div>
       </Intro>
 
