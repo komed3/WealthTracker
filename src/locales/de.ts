@@ -53,6 +53,8 @@ export default ( {
       USD: 'US-Dollar (USD)'
     },
     dashboard: {
+      chartSubtitle: 'Zeitlicher Verlauf deines Vermögens',
+      chartTitle: 'Vermögensentwicklung',
       title: 'Dashboard'
     },
     editor: {

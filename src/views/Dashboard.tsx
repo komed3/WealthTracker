@@ -1,4 +1,5 @@
-import { InfoCard } from '@/src/components/ui/Card';
+import { Card, InfoCard } from '@/src/components/ui/Card';
+import { Heading } from '@/src/components/ui/Heading';
 import { NoData } from '@/src/components/ui/NoData';
 import { useData } from '@/src/context/DataCtx';
 import { useLayout } from '@/src/context/LayoutCtx';
@@ -61,6 +62,18 @@ export const Dashboard = () => {
           />
         </div>
       ) }
+
+      { /** Wealth Timeline */ }
+      <Card className= 'flex flex-col gap-6 p-6'>
+        <div className= 'flex flex-col gap-1.5'>
+          <Heading level= { 3 }>
+            { i18n.t( $ => $.dashboard.chartTitle ) }
+          </Heading>
+          <p className= 'text-sm text-slate-500'>
+            { i18n.t( $ => $.dashboard.chartSubtitle ) }
+          </p>
+        </div>
+      </Card>
     </div>
   );
 };
