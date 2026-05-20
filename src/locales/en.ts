@@ -52,6 +52,9 @@ export default ( {
       TRY: 'Turkish Lira (TRY)',
       USD: 'US Dollar (USD)'
     },
+    dashboard: {
+      title: 'Dashboard'
+    },
     editor: {
       actions: 'Actions',
       add: 'Add',
