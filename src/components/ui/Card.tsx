@@ -15,7 +15,7 @@ export const InfoCard = ( { label, value } : InfoCardProps ) => {
       <div className= 'mb-2 uppercase text-xs font-bold text-slate-400 tracking-wider'>
         { label }
       </div>
-      <div className= 'font-display text-3xl font-semibold text-slate-900'>
+      <div className= 'font-mono text-3xl font-bold text-slate-900'>
         { value }
       </div>
     </Card>

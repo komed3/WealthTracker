@@ -124,9 +124,13 @@ export default ( {
     },
     momentum: {
       absolute: 'Absolute',
+      avgGrowth: 'Avg. Growth / Year',
+      bestYear: 'Best Year',
       description: 'Analyze the momentum of your wealth growth over the years.',
       relative: 'Relative',
-      title: 'Momentum'
+      title: 'Momentum',
+      totalGrowth: 'Total Growth',
+      worstYear: 'Worst Year'
     },
     nav: {
       assets: 'Assets',
