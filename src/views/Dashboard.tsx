@@ -94,8 +94,7 @@ export const Dashboard = () => {
               />
               <YAxis
                 tickFormatter= { ( valueVal: number ) => yAxisFormatter( {
-                  type: 'currency',
-                  value: valueVal
+                  type: 'currency', value: valueVal, display
                 } ) }
                 stroke= '#94a3b8'
                 fontSize= { 12 }

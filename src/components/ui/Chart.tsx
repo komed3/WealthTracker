@@ -1,4 +1,3 @@
-import { useData } from '@/src/context/DataCtx';
 import { formatCurrency, formatPercent } from '@/src/lib/formatter';
 import type { CustomTooltipProps, yAxisFormatterProps } from '@/src/types/props';
 
@@ -18,12 +17,10 @@ export const CustomTooltip = ( { label, value, children, color }: CustomTooltipP
   );
 };
 
-export const yAxisFormatter = ( { type, value }: yAxisFormatterProps ) => {
-  const { settings } = useData();
-
+export const yAxisFormatter = ( { type, value, display }: yAxisFormatterProps ) => {
   switch ( type ) {
-    case 'currency': return formatCurrency( value, { ...settings!.display, decimals: 0 } );
-    case 'percent': return formatPercent( value, { ...settings!.display, decimals: 0 } );
+    case 'currency': return formatCurrency( value, { ...display, decimals: 0 } );
+    case 'percent': return formatPercent( value, { ...display, decimals: 0 } );
     default: return String( value );
   }
 };

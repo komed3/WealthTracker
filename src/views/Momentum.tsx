@@ -99,7 +99,7 @@ export const Momentum = () => {
             <YAxis
               tickFormatter= { ( value: number ) => yAxisFormatter( {
                 type: activeTab === 'relative' ? 'percent' : 'currency',
-                value
+                value, display
               } ) }
               stroke= '#94a3b8'
               fontSize= { 12 }

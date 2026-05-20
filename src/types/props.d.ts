@@ -1,5 +1,5 @@
 import type { ICON } from '@/src/config/constants';
-import { Entry, EntryRecord, YearValue } from '@/src/types/data';
+import { DisplaySettings, Entry, EntryRecord, YearValue } from '@/src/types/data';
 import type React from 'react';
 import type { ButtonHTMLAttributes, InputHTMLAttributes, ReactNode } from 'react';
 
@@ -102,6 +102,7 @@ export interface CustomTooltipProps {
 export interface yAxisFormatterProps {
   type: 'currency' | 'percent' | 'other';
   value: number;
+  display: DisplaySettings;
 }
 
 export interface PositionListProps {
