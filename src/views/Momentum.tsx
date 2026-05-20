@@ -62,6 +62,26 @@ export const Momentum = () => {
           />
         </div>
       ) }
+
+      { /** History Table */ }
+      <div className= 'flex flex-col w-full bg-white border border-slate-200 rounded-2xl shadow-sm overflow-hidden'>
+        <div className= 'whitespace-nowrap overflow-x-auto'>
+          <table className= 'w-full text-left text-sm text-slate-800 border-collapse'>
+            <thead>
+              <tr className= 'uppercase font-semibold text-xs text-slate-500 tracking-wider bg-slate-50 border-b border-slate-200'>
+                <th className= 'px-6 py-4'>{ i18n.t( $ => $.momentum.year ) }</th>
+                <th className= 'px-6 py-4 text-right'>{ i18n.t( $ => $.momentum.netWorth ) }</th>
+                <th className= 'px-6 py-4 text-right'>{ i18n.t( $ => $.momentum.absolute ) }</th>
+                <th className= 'px-6 py-4 text-right'>{ i18n.t( $ => $.momentum.relative ) }</th>
+                <th className= 'px-6 py-4 text-right'>{ i18n.t( $ => $.momentum.assets ) }</th>
+                <th className= 'px-6 py-4 text-right'>{ i18n.t( $ => $.momentum.liabilities ) }</th>
+              </tr>
+            </thead>
+            <tbody className= 'divide-y divide-slate-200'>
+            </tbody>
+          </table>
+        </div>
+      </div>
     </div>
   );
 };

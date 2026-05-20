@@ -124,13 +124,17 @@ export default ( {
     },
     momentum: {
       absolute: 'Absolut',
+      assets: 'Vermögenswerte',
       avgGrowth: 'Ø Jahreswachstum',
       bestYear: 'Bestes Jahr',
       description: 'Analysiere die Dynamik deines Vermögensaufbaus über die Jahre.',
+      liabilities: 'Verbindlichkeiten',
+      netWorth: 'Nettovermögen',
       relative: 'Relativ',
       title: 'Wachstum',
       totalGrowth: 'Gesamtwachstum',
-      worstYear: 'Schlechtestes Jahr'
+      worstYear: 'Schlechtestes Jahr',
+      year: 'Jahr'
     },
     nav: {
       assets: 'Vermögenswerte',
