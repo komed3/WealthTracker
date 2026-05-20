@@ -8,17 +8,23 @@ import { useData } from '@/src/context/DataCtx';
 import i18n from '@/src/lib/i18n';
 import type { Entry, EntryRecord, YearValue } from '@/src/types/data';
 import { ListTree, Plus, Settings2 } from 'lucide-react';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import { useLayout } from '../context/LayoutCtx';
 import { uuid } from '../lib/utils';
 
 export const Editor = () => {
-  const { data, updateEntries } = useData();
+  const { settings, data, updateEntries } = useData();
+  const { setTitle } = useLayout();
 
   const [ activeTab, setActiveTab ] = useState( 'entries' );
   const [ isModalOpen, setIsModalOpen ] = useState( false );
   const [ editingEntry, setEditingEntry ] = useState < Entry | null > ( null );
 
   const entries = data?.entries || [];
+
+  useEffect( () => {
+    setTitle( i18n.t( $ => $.editor.title ) );
+  }, [ setTitle, settings?.display.language ] );
 
   const handleCreateEntry = () => {
     setEditingEntry( null );
