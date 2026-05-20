@@ -53,7 +53,7 @@ export default ( {
       USD: 'US-Dollar (USD)'
     },
     dashboard: {
-      chartSubtitle: 'Zeitlicher Verlauf deines Vermögens',
+      chartSubtitle: 'Zeitlicher Verlauf deines Vermögens, umfasst Vermögenswerte, Verbindlichkeiten und geschätzte Spanne',
       chartTitle: 'Vermögensentwicklung',
       title: 'Dashboard'
     },
