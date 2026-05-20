@@ -1,5 +1,5 @@
 import { Card, InfoCard } from '@/src/components/ui/Card';
-import { yAxisFormatter } from '@/src/components/ui/Chart';
+import { CustomTooltip, yAxisFormatter } from '@/src/components/ui/Chart';
 import { Heading } from '@/src/components/ui/Heading';
 import { NoData } from '@/src/components/ui/NoData';
 import { useData } from '@/src/context/DataCtx';
@@ -7,7 +7,7 @@ import { useLayout } from '@/src/context/LayoutCtx';
 import { formatCurrency, formatPercent } from '@/src/lib/formatter';
 import i18n from '@/src/lib/i18n';
 import { useEffect, useMemo } from 'react';
-import { Area, CartesianGrid, ComposedChart, Line, ReferenceLine, ResponsiveContainer, XAxis, YAxis } from 'recharts';
+import { Area, CartesianGrid, ComposedChart, Line, ReferenceLine, ResponsiveContainer, Tooltip, XAxis, YAxis } from 'recharts';
 
 export const Dashboard = () => {
   const { settings, data } = useData();
@@ -105,6 +105,36 @@ export const Dashboard = () => {
                 fontWeight= { 600 }
                 tickLine= { false }
                 axisLine= { false }
+              />
+              <Tooltip
+                content= { ( { active, payload } ) => {
+                  if ( active && payload && payload.length ) {
+                    const dataPoint = payload[ 0 ].payload;
+
+                    return (
+                      <CustomTooltip
+                        label= { String( dataPoint.year ) }
+                        value= { formatCurrency( dataPoint.netWorth, display ) }
+                        color= '#2563eb'
+                      >
+                        <div className= 'flex justify-between gap-4'>
+                          <span>{ i18n.t( $ => $.dashboard.maximum ) }</span>
+                          <span className= 'font-mono font-semibold text-slate-800'>
+                            { formatCurrency( dataPoint.maxNetWorth, display ) }
+                          </span>
+                        </div>
+                        <div className= 'flex justify-between gap-4'>
+                          <span>{ i18n.t( $ => $.dashboard.minimum ) }</span>
+                          <span className= 'font-mono font-semibold text-slate-800'>
+                            { formatCurrency( dataPoint.minNetWorth, display ) }
+                          </span>
+                        </div>
+                      </CustomTooltip>
+                    );
+                  }
+                  return null;
+                } }
+                cursor= { { stroke: '#cbd5e1', strokeWidth: 1, strokeDasharray: '4 4' } }
               />
               <ReferenceLine
                 y= { 0 }
