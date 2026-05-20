@@ -60,6 +60,11 @@ export interface InputProps extends InputHTMLAttributes< HTMLInputElement > {
   isCurrency?: boolean;
 }
 
+export interface TextareaProps extends React.TextareaHTMLAttributes< HTMLTextAreaElement > {
+  label?: string;
+  error?: string;
+}
+
 export interface SelectOption {
   value: string | number;
   label: string;
