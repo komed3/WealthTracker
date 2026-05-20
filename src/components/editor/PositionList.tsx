@@ -7,23 +7,23 @@ import { PositionListProps } from '@/src/types/props';
 export const PositionList = ( { entries, onEdit, onDelete }: PositionListProps ) => {
   return entries.length === 0 ? <NoData /> : (
     <div className= 'flex flex-col w-full bg-white border border-slate-200 rounded-2xl shadow-sm overflow-hidden'>
-      <div className= 'overflow-x-auto'>
+      <div className= 'whitespace-nowrap overflow-x-auto'>
         <table className= 'w-full min-w-225 text-left text-sm text-slate-800 border-collapse'>
           <thead>
             <tr className= 'uppercase font-semibold text-xs text-slate-550 tracking-wider bg-slate-50 border-b border-slate-200'>
-              <th className= 'px-6 py-4 whitespace-nowrap'>{ i18n.t( $ => $.editor.positions ) }</th>
-              <th className= 'px-6 py-4 whitespace-nowrap'>{ i18n.t( $ => $.editor.category ) }</th>
-              <th className= 'px-6 py-4 whitespace-nowrap'>{ i18n.t( $ => $.editor.class ) }</th>
-              <th className= 'px-6 py-4 whitespace-nowrap'>{ i18n.t( $ => $.editor.liquidity ) }</th>
-              <th className= 'px-6 py-4 whitespace-nowrap'>{ i18n.t( $ => $.editor.status ) }</th>
-              <th className= 'px-6 py-4 whitespace-nowrap text-right'>{ i18n.t( $ => $.editor.actions ) }</th>
+              <th className= 'px-6 py-4'>{ i18n.t( $ => $.editor.positions ) }</th>
+              <th className= 'px-6 py-4'>{ i18n.t( $ => $.editor.category ) }</th>
+              <th className= 'px-6 py-4'>{ i18n.t( $ => $.editor.class ) }</th>
+              <th className= 'px-6 py-4'>{ i18n.t( $ => $.editor.liquidity ) }</th>
+              <th className= 'px-6 py-4'>{ i18n.t( $ => $.editor.status ) }</th>
+              <th className= 'px-6 py-4 text-right'>{ i18n.t( $ => $.editor.actions ) }</th>
             </tr>
           </thead>
-          <tbody className= 'divide-y divide-slate-200'>
+          <tbody className= 'divide-y divide-dashed divide-slate-200'>
             { entries.map( ( { entry } ) => (
               <tr key= { entry.id } className= 'align-middle'>
                 { /** Title with Icon */ }
-                <td className= 'px-6 py-4 whitespace-nowrap'>
+                <td className= 'px-6 py-4'>
                   <div className= 'flex items-center gap-4'>
                     <div
                       className= 'flex justify-center items-center shrink-0 w-10 h-10 text-white rounded-xl'
@@ -38,27 +38,27 @@ export const PositionList = ( { entries, onEdit, onDelete }: PositionListProps )
                 </td>
 
                 { /** Category */ }
-                <td className= 'px-6 py-4 whitespace-nowrap text-slate-800'>
+                <td className= 'px-6 py-4 text-slate-800'>
                   { i18n.t( $ => $.category[ entry.category as keyof typeof $.category ] ) }
                 </td>
 
                 { /** Class */ }
-                <td className= 'px-6 py-4 whitespace-nowrap text-slate-800'>
+                <td className= 'px-6 py-4 text-slate-800'>
                   { i18n.t( $ => ( $ as any )[ entry.category === 'asset' ? 'assetClass' : 'liabilityClass' ][ entry.class ] ) }
                 </td>
 
                 { /** Liquidity */ }
-                <td className= 'px-6 py-4 whitespace-nowrap text-slate-800'>
+                <td className= 'px-6 py-4 text-slate-800'>
                   { i18n.t( $ => $.liquidity[ entry.liquidity as 1 | 2 | 3 | 4 | 5 ] ) }
                 </td>
 
                 { /** Archived Status */ }
-                <td className= 'px-6 py-4 whitespace-nowrap text-slate-800'>
+                <td className= 'px-6 py-4 text-slate-800'>
                   { entry.archived ? i18n.t( $ => $.status.archived ) : i18n.t( $ => $.status.active ) }
                 </td>
 
                 { /** Actions */ }
-                <td className= 'px-6 py-4 whitespace-nowrap text-right'>
+                <td className= 'px-6 py-4 text-right'>
                   <div className= 'flex justify-end items-center gap-3'>
                     <Button
                       variant= 'secondary'
