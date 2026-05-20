@@ -15,6 +15,7 @@ import { Bar, BarChart, Rectangle, ReferenceLine, ResponsiveContainer, Tooltip, 
 export const Momentum = () => {
   const { settings, data } = useData();
   const { setTitle } = useLayout();
+  const display = settings!.display;
 
   const [ activeTab, setActiveTab ] = useState( 'relative' );
   const hasData = data && Object.keys( data.computed.years ).length;
@@ -22,7 +23,7 @@ export const Momentum = () => {
 
   useEffect( () => {
     setTitle( i18n.t( $ => $.momentum.title ) );
-  }, [ setTitle, settings?.display.language ] );
+  }, [ setTitle, display.language ] );
 
   const snapshots = useMemo( () => (
     Object.values( data?.computed.years ?? [] ).sort( ( a, b ) => a.year - b.year )
@@ -32,10 +33,7 @@ export const Momentum = () => {
     const relativeGrowth = s.growth?.relative ?? 0;
     const absoluteGrowth = s.growth?.absolute ?? 0;
 
-    return {
-      ...s, relativeGrowth, absoluteGrowth,
-      hasGrowth: s.growth !== undefined,
-    };
+    return { ...s, relativeGrowth, absoluteGrowth };
   } ), [ snapshots ] );
 
   const chartData = useMemo( () => yearDetails.slice( 1 ).map( y => ( {
@@ -68,11 +66,11 @@ export const Momentum = () => {
         <div className= 'grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 w-full'>
           <InfoCard
             label= { i18n.t( $ => $.momentum.avgGrowth ) }
-            value= { formatPercent( portfolioStats.averageAnnualGrowth, settings?.display ) }
+            value= { formatPercent( portfolioStats.averageAnnualGrowth, display ) }
           />
           <InfoCard
             label= { i18n.t( $ => $.momentum.totalGrowth ) }
-            value= { formatPercent( portfolioStats.totalGrowth?.relative, settings?.display ) }
+            value= { formatPercent( portfolioStats.totalGrowth?.relative, display ) }
           />
           <InfoCard
             label= { i18n.t( $ => $.momentum.bestYear ) }
@@ -116,10 +114,35 @@ export const Momentum = () => {
               content= { ( { active, payload } ) => {
                 if ( active && payload && payload.length ) {
                   const dataPoint = payload[ 0 ].payload;
+                  const formatter = activeTab === 'relative' ? formatPercent : formatCurrency;
+                  const isPositive = dataPoint.value >= 0;
 
-                  return ( <CustomTooltip
-                    label= { dataPoint.year }
-                  /> );
+                  return (
+                    <CustomTooltip
+                      label= { dataPoint.year }
+                      value= { formatter( Math.abs( dataPoint.value ), display ) }
+                      color= { isPositive ? '#10b981' : '#ef4444' }
+                    >
+                      <div className= 'flex justify-between gap-4'>
+                        <span>{ i18n.t( $ => $.momentum.netWorth ) }</span>
+                        <span className= 'font-mono font-semibold text-slate-800'>
+                          { formatCurrency( dataPoint.raw.netWorth, display ) }
+                        </span>
+                      </div>
+                      <div className= 'flex justify-between gap-4'>
+                        <span>{ i18n.t( $ => $.momentum.assets ) }</span>
+                        <span className= 'font-mono font-semibold text-slate-800'>
+                          { formatCurrency( dataPoint.raw.assets, display ) }
+                        </span>
+                      </div>
+                      <div className= 'flex justify-between gap-4'>
+                        <span>{ i18n.t( $ => $.momentum.liabilities ) }</span>
+                        <span className= 'font-mono font-semibold text-slate-800'>
+                          { formatCurrency( dataPoint.raw.liabilities, display ) }
+                        </span>
+                      </div>
+                    </CustomTooltip>
+                  );
                 }
               } }
               cursor= { { fill: 'oklch(98.4% 0.003 247.858)' } }
@@ -174,26 +197,26 @@ export const Momentum = () => {
                       'px-6 py-4 text-right font-mono text-lg font-semibold text-slate-900',
                       item.growth.absolute < 0 ? 'text-neg' : 'text-pos'
                     ) }>
-                      { formatCurrency( item.growth.absolute, settings?.display ) }
+                      { formatCurrency( item.growth.absolute, display ) }
                     </td>
                     <td className= { cn(
                       'px-6 py-4 text-right font-mono text-lg font-semibold text-slate-900',
                       item.growth.relative < 0 ? 'text-neg' : 'text-pos'
                     ) }>
-                      { formatPercent( item.growth.relative, settings?.display ) }
+                      { formatPercent( item.growth.relative, display ) }
                     </td>
                   </> ) : ( <>
                     <td className= 'px-6 py-4 text-right font-bold text-slate-400'>—</td>
                     <td className= 'px-6 py-4 text-right font-bold text-slate-400'>—</td>
                   </> ) }
                   <td className= 'px-6 py-4 text-right font-mono text-sm font-semibold text-slate-900'>
-                    { formatCurrency( item.netWorth, settings?.display ) }
+                    { formatCurrency( item.netWorth, display ) }
                   </td>
                   <td className= 'px-6 py-4 text-right font-mono text-sm font-semibold text-slate-900'>
-                    { formatCurrency( item.assets, settings?.display ) }
+                    { formatCurrency( item.assets, display ) }
                   </td>
                   <td className= 'px-6 py-4 text-right font-mono text-sm font-semibold text-slate-900'>
-                    { formatCurrency( item.liabilities, settings?.display ) }
+                    { formatCurrency( item.liabilities, display ) }
                   </td>
                 </tr>
               ) ) }
