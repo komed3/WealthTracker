@@ -150,6 +150,17 @@ export const Editor = () => {
           />
         ) }
       </div>
+
+      { /** Modal Overlay Form */ }
+      <PositionModal
+        isOpen= { isModalOpen }
+        onClose= { () => {
+          setIsModalOpen( false );
+          setEditingEntry( null );
+        } }
+        onSave= { handleSaveEntry }
+        initialEntry= { editingEntry }
+      />
     </div>
   );
 };
