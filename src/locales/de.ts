@@ -101,6 +101,9 @@ export default ( {
       male: 'Männlich',
       unspecified: 'Keine Angabe'
     },
+    global: {
+      noData: 'Keine Daten verfügbar. Bitte füge eine Position im Editor hinzu, um zu starten.',
+    },
     languages: {
       de: 'Deutsch',
       en: 'Englisch'

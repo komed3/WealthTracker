@@ -101,6 +101,9 @@ export default ( {
       male: 'Male',
       unspecified: 'Unspecified'
     },
+    global: {
+      noData: 'No data available. Please add a position in the editor to get started.',
+    },
     languages: {
       de: 'German',
       en: 'English'
