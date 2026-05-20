@@ -122,6 +122,34 @@ export const Editor = () => {
           />
         </div>
       </Intro>
+
+      { /** Tab Content */ }
+      <div className= 'w-full transition-all duration-300'>
+        { activeTab === 'entries' ? (
+          <div className= 'flex flex-col gap-4'>
+            <div className= 'flex justify-end'>
+              <Button
+                variant= 'primary'
+                onClick= { handleCreateEntry }
+              >
+                <Plus size= { 18 } />
+                { i18n.t( $ => $.editor.addNewPosition ) }
+              </Button>
+            </div>
+            <PositionList
+              entries= { entries }
+              onEdit= { handleEditEntry }
+              onDelete= { handleDeleteEntry }
+            />
+          </div>
+        ) : (
+          <DataPointsEditor
+            entries= { entries }
+            onUpdateHistory= { handleUpdateHistory }
+            setActiveTab= { setActiveTab }
+          />
+        ) }
+      </div>
     </div>
   );
 };
