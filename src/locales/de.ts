@@ -81,7 +81,7 @@ export default ( {
       noDataPoints: 'Für diese Position wurden noch keine Datenpunkte hinzugefügt.',
       note: 'Anmerkung',
       notePlaceholder: 'z.B. "Diese Position hat in den letzten Jahren stark an Wert gewonnen ..."',
-      notionalPosition: 'Fiktive Position',
+      notionalPosition: 'Nicht verfügbare Position',
       positions: 'Positionen',
       positionTitle: 'Position / Vermögenswert',
       positionTitlePlaceholder: 'z.B. "Mein Haus" oder "Sparplan"',
