@@ -92,6 +92,11 @@ export interface ToggleProps {
   className?: string;
 }
 
+export interface yAxisFormatterProps {
+  type: 'currency' | 'percent' | 'other';
+  value: number;
+}
+
 export interface PositionListProps {
   entries: EntryRecord[];
   onEdit: ( record: Entry ) => void;

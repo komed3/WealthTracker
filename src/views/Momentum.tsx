@@ -1,4 +1,5 @@
 import { Card, InfoCard } from '@/src/components/ui/Card';
+import { CustomTooltip, yAxisFormatter } from '@/src/components/ui/Chart';
 import { Intro } from '@/src/components/ui/Intro';
 import { NoData } from '@/src/components/ui/NoData';
 import { Tabs } from '@/src/components/ui/Tabs';
@@ -41,14 +42,6 @@ export const Momentum = () => {
     year: y.year, raw: y,
     value: activeTab === 'relative' ? y.relativeGrowth : y.absoluteGrowth
   } ) ), [ yearDetails, activeTab ] );
-
-  const getYAxisFormatter = ( val: number ) => activeTab === 'relative'
-    ? formatPercent( val, { ...settings!.display, decimals: 1 } )
-    : formatCurrency( val, { ...settings!.display, decimals: 0 } );
-
-  const CustomTooltip = () => {
-    return ( <></> );
-  };
 
   return (
     <div className= 'space-y-8'>
@@ -109,7 +102,10 @@ export const Momentum = () => {
               dy= { 10 }
             />
             <YAxis
-              tickFormatter= { getYAxisFormatter }
+              tickFormatter= { ( value: number ) => yAxisFormatter( {
+                type: activeTab === 'relative' ? 'percent' : 'currency',
+                value
+              } ) }
               stroke= '#94a3b8'
               fontSize= { 12 }
               fontWeight= { 600 }
