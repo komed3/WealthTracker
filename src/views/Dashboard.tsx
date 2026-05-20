@@ -1,4 +1,5 @@
 import { InfoCard } from '@/src/components/ui/Card';
+import { NoData } from '@/src/components/ui/NoData';
 import { useData } from '@/src/context/DataCtx';
 import { useLayout } from '@/src/context/LayoutCtx';
 import { formatCurrency, formatPercent } from '@/src/lib/formatter';
@@ -33,7 +34,7 @@ export const Dashboard = () => {
 
   const latest = useMemo( () => yearDetails.slice().reverse()[ 0 ], [ yearDetails ] );
 
-  return (
+  return ! hasData ? <NoData /> : (
     <div className= 'space-y-8'>
       { /** Key Metrics */ }
       { portfolioStats && latest && (
