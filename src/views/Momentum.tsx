@@ -1,4 +1,4 @@
-import { InfoCard } from '@/src/components/ui/Card';
+import { Card, InfoCard } from '@/src/components/ui/Card';
 import { Intro } from '@/src/components/ui/Intro';
 import { NoData } from '@/src/components/ui/NoData';
 import { Tabs } from '@/src/components/ui/Tabs';
@@ -9,6 +9,7 @@ import i18n from '@/src/lib/i18n';
 import { cn } from '@/src/lib/utils';
 import { Percent, Sigma } from 'lucide-react';
 import { useEffect, useMemo, useState } from 'react';
+import { Bar, BarChart, Rectangle, ReferenceLine, ResponsiveContainer, XAxis, YAxis } from 'recharts';
 
 export const Momentum = () => {
   const { settings, data } = useData();
@@ -35,6 +36,11 @@ export const Momentum = () => {
       hasGrowth: s.growth !== undefined,
     };
   } ), [ snapshots ] );
+
+  const chartData = useMemo( () => yearDetails.slice( 1 ).map( y => ( {
+    year: y.year, raw: y,
+    value: activeTab === 'relative' ? y.relativeGrowth : y.absoluteGrowth
+  } ) ), [ yearDetails, activeTab ] );
 
   return (
     <div className= 'space-y-8'>
@@ -77,6 +83,57 @@ export const Momentum = () => {
           />
         </div>
       ) }
+
+      { /** Momentum Chart */ }
+      <Card>
+        <ResponsiveContainer width= '100%' height= { 420 }>
+          <BarChart
+            data= { chartData }
+            margin={ { top: 10, right: 10, left: 10, bottom: 5 } }
+          >
+            <XAxis
+              dataKey= 'year'
+              stroke= '#94a3b8'
+              fontSize= { 12 }
+              tickLine= { false }
+              axisLine= { false }
+              dy= { 10 }
+              className= 'font-semibold'
+            />
+            <YAxis
+              stroke= '#94a3b8'
+              fontSize= { 12 }
+              tickLine= { false }
+              axisLine= { false }
+              dx= { -10 }
+              className= 'font-semibold'
+            />
+            <ReferenceLine
+              y= { 0 }
+              stroke= '#cbd5e1'
+              strokeWidth= { 2 }
+              strokeDasharray= { 5 }
+              style={ { opacity: 0.6 } }
+            />
+            <Bar
+              dataKey= 'value'
+              shape={ ( props ) => {
+                const { payload } = props;
+                const isPositive = payload.value >= 0;
+
+                return (
+                  <Rectangle
+                    { ...props }
+                    fill= { isPositive ? '#10b981' : '#ef4444' }
+                    radius= { [ 6, 6, 0, 0 ] }
+                    className= 'hover:opacity-85 transition-all duration-300'
+                  />
+                );
+              } }
+            />
+          </BarChart>
+        </ResponsiveContainer>
+      </Card>
 
       { /** History Table */ }
       <div className= 'flex flex-col w-full bg-white border border-slate-200 rounded-2xl shadow-sm overflow-hidden'>
