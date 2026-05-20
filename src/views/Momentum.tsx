@@ -1,10 +1,11 @@
+import { Intro } from '@/src/components/ui/Intro';
+import { NoData } from '@/src/components/ui/NoData';
+import { Tabs } from '@/src/components/ui/Tabs';
 import { useData } from '@/src/context/DataCtx';
 import { useLayout } from '@/src/context/LayoutCtx';
 import i18n from '@/src/lib/i18n';
-import { useEffect, useState } from 'react';
-import { Intro } from '../components/ui/Intro';
-import { Tabs } from '../components/ui/Tabs';
 import { Percent, Sigma } from 'lucide-react';
+import { useEffect, useState } from 'react';
 
 export const Momentum = () => {
   const { settings, data } = useData();
@@ -33,6 +34,9 @@ export const Momentum = () => {
           ] }
         /> }
       </Intro>
+
+      { /** No Data Available */ }
+      { ! hasData && <NoData /> }
     </div>
   );
 };
