@@ -16,15 +16,13 @@ export const Editor = () => {
   const { settings, data, updateEntries } = useData();
   const { setTitle } = useLayout();
 
+  useEffect( () => { setTitle( i18n.t( $ => $.editor.title ) ) }, [ setTitle, settings?.display.language ] );
+
   const [ activeTab, setActiveTab ] = useState( 'entries' );
   const [ isModalOpen, setIsModalOpen ] = useState( false );
   const [ editingEntry, setEditingEntry ] = useState < Entry | null > ( null );
 
   const entries = data?.entries || [];
-
-  useEffect( () => {
-    setTitle( i18n.t( $ => $.editor.title ) );
-  }, [ setTitle, settings?.display.language ] );
 
   const handleCreateEntry = () => {
     setEditingEntry( null );

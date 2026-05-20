@@ -17,12 +17,9 @@ export const Settings = () => {
   const [ formState, setFormState ] = useState < SettingsType | null > ( null );
   const [ success, setSuccess ] = useState( false );
 
+  useEffect( () => { setTitle( i18n.t( $ => $.settings.title ) ) }, [ setTitle, settings?.display.language ] );
   useEffect( () => { if ( settings ) { setFormState( settings ) } }, [ settings ] );
   useEffect( () => { setLoading( loading ) }, [ loading, setLoading ] );
-
-  useEffect( () => {
-    setTitle( i18n.t( $ => $.settings.title ) );
-  }, [ setTitle, settings?.display.language ] );
 
   if ( ! formState ) return null;
 

@@ -17,13 +17,11 @@ export const Momentum = () => {
   const { setTitle } = useLayout();
   const display = settings!.display;
 
+  useEffect( () => { setTitle( i18n.t( $ => $.momentum.title ) ) }, [ setTitle, display.language ] );
+
   const [ activeTab, setActiveTab ] = useState( 'relative' );
   const hasData = data && Object.keys( data.computed.years ).length;
   const portfolioStats = data?.computed?.portfolio;
-
-  useEffect( () => {
-    setTitle( i18n.t( $ => $.momentum.title ) );
-  }, [ setTitle, display.language ] );
 
   const snapshots = useMemo( () => (
     Object.values( data?.computed.years ?? [] ).sort( ( a, b ) => a.year - b.year )
