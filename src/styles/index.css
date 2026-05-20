@@ -53,4 +53,8 @@
     scrollbar-width: thin;
     scrollbar-color: #cbd5e1 transparent;
   }
+
+  .recharts-wrapper, .recharts-wrapper * {
+    @apply outline-none;
+  }
 }
