@@ -54,7 +54,7 @@ export const Input = ( {
     <div className= 'relative flex flex-col gap-2 w-full'>
       { label && (
         <label className= 'text-sm font-medium text-slate-600'>
-          { label }
+          { label } { props.required && ' (*)' }
         </label>
       ) }
       <div className= 'relative w-full'>
