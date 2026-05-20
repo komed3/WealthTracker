@@ -25,6 +25,7 @@ interface BaseEntry {
   icon: ICON;
   color: COLOR;
   archived: boolean;
+  notional: boolean;
   createdAt: string;
   updatedAt: string;
 }
@@ -80,6 +81,11 @@ export interface Growth {
   relative: number;
 }
 
+export interface DimensionBreakdown {
+  real: Breakdown;
+  nonReal: Breakdown;
+}
+
 export interface YearSnapshot {
   year: number;
   assets: number;
@@ -87,6 +93,7 @@ export interface YearSnapshot {
   netWorth: number;
   minNetWorth?: number;
   maxNetWorth?: number;
+  realization: DimensionBreakdown;
   growth?: Growth;
   byCategory: CategoryBreakdown;
   byLiquidity: LiquidityBreakdown;
@@ -112,14 +119,19 @@ export interface PortfolioStats {
   latestNetWorth: number;
   highestNetWorth?: number;
   lowestNetWorth?: number;
+  realValue: number;
+  nonRealValue: number;
   totalGrowth?: Growth;
   averageAnnualGrowth?: number;
   bestYear?: number;
   worstYear?: number;
   averageLiquidity?: number;
-  assetCount: number;
-  liabilityCount: number;
-  archivedCount: number;
+  count: {
+    asset: number;
+    liability: number;
+    archived: number;
+    notional: number
+  };
 }
 
 export interface ComputedData {
