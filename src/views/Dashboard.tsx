@@ -77,10 +77,7 @@ export const Dashboard = () => {
         </div>
 
         <ResponsiveContainer width= '100%' height= { 480 }>
-          <ComposedChart
-              data= { yearDetails }
-              margin= { { top: 10, right: 10, left: 10, bottom: 5 } }
-            >
+          <ComposedChart data= { yearDetails }>
               <CartesianGrid
                 strokeDasharray= '3 3'
                 stroke= '#f1f5f9'
@@ -132,7 +129,6 @@ export const Dashboard = () => {
                       </CustomTooltip>
                     );
                   }
-                  return null;
                 } }
                 cursor= { { stroke: '#cbd5e1', strokeWidth: 1, strokeDasharray: '4 4' } }
               />
