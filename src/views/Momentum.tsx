@@ -124,9 +124,9 @@ export const Momentum = () => {
                 return (
                   <Rectangle
                     { ...props }
+                    className= 'hover:opacity-85 transition-all duration-300'
                     fill= { isPositive ? '#10b981' : '#ef4444' }
                     radius= { [ 6, 6, 0, 0 ] }
-                    className= 'hover:opacity-85 transition-all duration-300'
                   />
                 );
               } }
