@@ -128,11 +128,11 @@ export default ( {
       avgGrowth: 'Ø Jahreswachstum',
       bestYear: 'Bestes Jahr',
       description: 'Analysiere die Dynamik deines Vermögensaufbaus über die Jahre.',
+      lastYear: 'Letztes Wachstum',
       liabilities: 'Verbindlichkeiten',
       netWorth: 'Nettovermögen',
       relative: 'Relativ',
       title: 'Wachstum',
-      totalGrowth: 'Gesamtwachstum',
       worstYear: 'Schlechtestes Jahr',
       year: 'Jahr'
     },

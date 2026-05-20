@@ -128,11 +128,11 @@ export default ( {
       avgGrowth: 'Avg. Growth / Year',
       bestYear: 'Best Year',
       description: 'Analyze the momentum of your wealth growth over the years.',
+      lastYear: 'Last Year Growth',
       liabilities: 'Liabilities',
       netWorth: 'Net Worth',
       relative: 'Relative',
       title: 'Momentum',
-      totalGrowth: 'Total Growth',
       worstYear: 'Worst Year',
       year: 'Year'
     },

@@ -36,6 +36,8 @@ export const Momentum = () => {
     return { ...s, relativeGrowth, absoluteGrowth };
   } ), [ snapshots ] );
 
+  const latest = useMemo( () => yearDetails.slice().reverse()[ 0 ], [ yearDetails ] );
+
   const chartData = useMemo( () => yearDetails.slice( 1 ).map( y => ( {
     year: y.year, raw: y,
     value: activeTab === 'relative' ? y.relativeGrowth : y.absoluteGrowth
@@ -69,8 +71,8 @@ export const Momentum = () => {
             value= { formatPercent( portfolioStats.averageAnnualGrowth, display ) }
           />
           <InfoCard
-            label= { i18n.t( $ => $.momentum.totalGrowth ) }
-            value= { formatPercent( portfolioStats.totalGrowth?.relative, display ) }
+            label= { i18n.t( $ => $.momentum.lastYear ) }
+            value= { formatPercent( latest!.growth?.relative, display ) }
           />
           <InfoCard
             label= { i18n.t( $ => $.momentum.bestYear ) }
