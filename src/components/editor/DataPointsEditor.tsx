@@ -253,40 +253,40 @@ export const DataPointsEditor = ( { entries, onUpdateHistory, setActiveTab }: Da
 
       { /** History */ }
       <div className= 'flex flex-col w-full bg-white border border-slate-200 rounded-2xl shadow-sm overflow-hidden'>
-        <div className= 'w-full overflow-x-auto'>
+        <div className= 'w-full whitespace-nowrap overflow-x-auto'>
           <table className= 'w-full text-left text-sm text-slate-800 border-collapse'>
             <thead>
               <tr className= 'uppercase font-semibold text-xs text-slate-550 tracking-wider bg-slate-50 border-b border-slate-200'>
-                <th className= 'px-6 py-4 whitespace-nowrap'>{ i18n.t( $ => $.editor.year ) }</th>
-                <th className= 'px-6 py-4 whitespace-nowrap text-right'>{ i18n.t( $ => $.editor.value ) }</th>
-                <th className= 'px-6 py-4 whitespace-nowrap text-right'>{ i18n.t( $ => $.editor.minimum ) }</th>
-                <th className= 'px-6 py-4 whitespace-nowrap text-right'>{ i18n.t( $ => $.editor.maximum ) }</th>
-                <th className= 'px-6 py-4 whitespace-nowrap'>{ i18n.t( $ => $.editor.confidence ) }</th>
-                <th className= 'px-6 py-4 whitespace-nowrap text-right'>{ i18n.t( $ => $.editor.actions ) }</th>
+                <th className= 'px-6 py-4'>{ i18n.t( $ => $.editor.year ) }</th>
+                <th className= 'px-6 py-4 text-right'>{ i18n.t( $ => $.editor.value ) }</th>
+                <th className= 'px-6 py-4 text-right'>{ i18n.t( $ => $.editor.minimum ) }</th>
+                <th className= 'px-6 py-4 text-right'>{ i18n.t( $ => $.editor.maximum ) }</th>
+                <th className= 'px-6 py-4'>{ i18n.t( $ => $.editor.confidence ) }</th>
+                <th className= 'px-6 py-4 text-right'>{ i18n.t( $ => $.editor.actions ) }</th>
               </tr>
             </thead>
-            <tbody className= 'divide-y divide-slate-200'>
+            <tbody className= 'divide-y divide-dashed divide-slate-200'>
               { sortedHistory.map( yearVal => (
-                <tr key= { yearVal.year } className= 'align-middle'>
+                <tr key= { yearVal.year } className= 'h-16 align-middle'>
                   { /** Year */ }
-                  <td className= 'px-6 py-3 whitespace-nowrap font-semibold'>
+                  <td className= 'px-6 py-4 font-semibold'>
                     { yearVal.year }
                   </td>
 
                   { /** Value */ }
-                  <td className= 'px-6 py-3 whitespace-nowrap text-right font-mono font-semibold text-primary'>
+                  <td className= 'px-6 py-4 text-right font-mono text-lg font-semibold text-primary'>
                     { formatCurrency( yearVal.value, settings?.display ) }
                   </td>
 
                   { /** Min / Max */ }
-                  <td className= 'px-6 py-3 whitespace-nowrap text-right font-mono'>
+                  <td className= 'px-6 py-4 text-right font-mono'>
                     { yearVal.min ? (
                       <span>
                         { formatCurrency( yearVal.min, settings?.display ) }
                       </span>
                     ) : '—' }
                   </td>
-                  <td className= 'px-6 py-3 whitespace-nowrap text-right font-mono'>
+                  <td className= 'px-6 py-4 text-right font-mono'>
                     { yearVal.max ? (
                       <span>
                         { formatCurrency( yearVal.max, settings?.display ) }
@@ -295,12 +295,12 @@ export const DataPointsEditor = ( { entries, onUpdateHistory, setActiveTab }: Da
                   </td>
 
                   { /** Confidence */ }
-                  <td className= 'px-6 py-3 whitespace-nowrap'>
+                  <td className= 'px-6 py-4'>
                     { i18n.t( $ => $.confidence[ yearVal.confidence ] ) }
                   </td>
 
                   { /** Actions */ }
-                  <td className= 'px-6 py-3 whitespace-nowrap text-right'>
+                  <td className= 'px-6 py-2 text-right'>
                     <div className= 'flex justify-end items-center gap-3'>
                       <Button
                         variant= 'secondary'
