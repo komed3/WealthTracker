@@ -29,6 +29,11 @@ export interface CardProps {
   className?: string;
 }
 
+export interface InfoCardProps {
+  label: string;
+  value: string;
+}
+
 export interface HeadingProps {
   children: ReactNode;
   level?: 1 | 2 | 3 | 4;
