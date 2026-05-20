@@ -120,6 +120,12 @@ export default ( {
       4: 'Langfristig (3–10J)',
       5: 'Illiquide (> 10J)'
     },
+    momentum: {
+      absolute: 'Absolut',
+      description: 'Analysiere die Dynamik deines Vermögensaufbaus über die Jahre.',
+      relative: 'Relativ',
+      title: 'Wachstum'
+    },
     nav: {
       assets: 'Vermögenswerte',
       breakdown: 'Aufschlüsselung',

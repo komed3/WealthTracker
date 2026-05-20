@@ -120,6 +120,12 @@ export default ( {
       4: 'Long-term (3–10Y)',
       5: 'Illiquid (> 10Y)'
     },
+    momentum: {
+      absolute: 'Absolute',
+      description: 'Analyze the momentum of your wealth growth over the years.',
+      relative: 'Relative',
+      title: 'Momentum'
+    },
     nav: {
       assets: 'Assets',
       breakdown: 'Breakdown',
