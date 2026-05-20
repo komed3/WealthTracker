@@ -4,10 +4,11 @@ import { NoData } from '@/src/components/ui/NoData';
 import { Tabs } from '@/src/components/ui/Tabs';
 import { useData } from '@/src/context/DataCtx';
 import { useLayout } from '@/src/context/LayoutCtx';
-import { formatPercent } from '@/src/lib/formatter';
+import { formatCurrency, formatPercent } from '@/src/lib/formatter';
 import i18n from '@/src/lib/i18n';
+import { cn } from '@/src/lib/utils';
 import { Percent, Sigma } from 'lucide-react';
-import { useEffect, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 
 export const Momentum = () => {
   const { settings, data } = useData();
@@ -20,6 +21,20 @@ export const Momentum = () => {
   useEffect( () => {
     setTitle( i18n.t( $ => $.momentum.title ) );
   }, [ setTitle, settings?.display.language ] );
+
+  const snapshots = useMemo( () => (
+    Object.values( data?.computed.years ?? [] ).sort( ( a, b ) => a.year - b.year )
+  ), [ data ] );
+
+  const yearDetails = useMemo( () => snapshots.map( ( s ) => {
+    const relativeGrowth = s.growth?.relative ?? 0;
+    const absoluteGrowth = s.growth?.absolute ?? 0;
+
+    return {
+      ...s, relativeGrowth, absoluteGrowth,
+      hasGrowth: s.growth !== undefined,
+    };
+  } ), [ snapshots ] );
 
   return (
     <div className= 'space-y-8'>
@@ -46,11 +61,11 @@ export const Momentum = () => {
         <div className= 'grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 w-full'>
           <InfoCard
             label= { i18n.t( $ => $.momentum.avgGrowth ) }
-            value= { formatPercent( portfolioStats.averageAnnualGrowth ) }
+            value= { formatPercent( portfolioStats.averageAnnualGrowth, settings?.display ) }
           />
           <InfoCard
             label= { i18n.t( $ => $.momentum.totalGrowth ) }
-            value= { formatPercent( portfolioStats.totalGrowth?.relative ) }
+            value= { formatPercent( portfolioStats.totalGrowth?.relative, settings?.display ) }
           />
           <InfoCard
             label= { i18n.t( $ => $.momentum.bestYear ) }
@@ -70,14 +85,45 @@ export const Momentum = () => {
             <thead>
               <tr className= 'uppercase font-semibold text-xs text-slate-500 tracking-wider bg-slate-50 border-b border-slate-200'>
                 <th className= 'px-6 py-4'>{ i18n.t( $ => $.momentum.year ) }</th>
-                <th className= 'px-6 py-4 text-right'>{ i18n.t( $ => $.momentum.netWorth ) }</th>
                 <th className= 'px-6 py-4 text-right'>{ i18n.t( $ => $.momentum.absolute ) }</th>
                 <th className= 'px-6 py-4 text-right'>{ i18n.t( $ => $.momentum.relative ) }</th>
+                <th className= 'px-6 py-4 text-right'>{ i18n.t( $ => $.momentum.netWorth ) }</th>
                 <th className= 'px-6 py-4 text-right'>{ i18n.t( $ => $.momentum.assets ) }</th>
                 <th className= 'px-6 py-4 text-right'>{ i18n.t( $ => $.momentum.liabilities ) }</th>
               </tr>
             </thead>
-            <tbody className= 'divide-y divide-slate-200'>
+            <tbody className= 'divide-y divide-dashed divide-slate-200'>
+              { yearDetails.slice().reverse().map( item => (
+                <tr key= { item.year } className= 'h-16 align-middle'>
+                  <td className= 'px-6 py-4 font-semibold text-sm text-slate-800'>{ item.year }</td>
+                  { item.growth ? ( <>
+                    <td className= { cn(
+                      'px-6 py-4 text-right font-mono text-lg font-semibold text-slate-900',
+                      item.growth.absolute < 0 ? 'text-neg' : 'text-pos'
+                    ) }>
+                      { formatCurrency( item.growth.absolute, settings?.display ) }
+                    </td>
+                    <td className= { cn(
+                      'px-6 py-4 text-right font-mono text-lg font-semibold text-slate-900',
+                      item.growth.relative < 0 ? 'text-neg' : 'text-pos'
+                    ) }>
+                      { formatPercent( item.growth.relative, settings?.display ) }
+                    </td>
+                  </> ) : ( <>
+                    <td className= 'px-6 py-4 text-right font-bold text-slate-400'>—</td>
+                    <td className= 'px-6 py-4 text-right font-bold text-slate-400'>—</td>
+                  </> ) }
+                  <td className= 'px-6 py-4 text-right font-mono text-sm font-semibold text-slate-900'>
+                    { formatCurrency( item.netWorth, settings?.display ) }
+                  </td>
+                  <td className= 'px-6 py-4 text-right font-mono text-sm font-semibold text-slate-900'>
+                    { formatCurrency( item.assets, settings?.display ) }
+                  </td>
+                  <td className= 'px-6 py-4 text-right font-mono text-sm font-semibold text-slate-900'>
+                    { formatCurrency( item.liabilities, settings?.display ) }
+                  </td>
+                </tr>
+              ) ) }
             </tbody>
           </table>
         </div>
