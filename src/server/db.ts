@@ -83,10 +83,11 @@ export class Database {
   }
 
   private compute ( entries: EntryRecord[] ) : ComputedData {
+    const { decimals } = this.getSettings().display;
     const entryStatsRecord: Record< string, EntryStats > = {};
     const yearSnapshots: Record< string, YearSnapshot > = {};
 
-    const round = ( value: number ) => Number( value.toFixed( 2 ) );
+    const round = ( value: number ) => Number( value.toFixed( decimals ) );
     const percentage = ( value: number, total: number ) => total === 0 ? 0 : round( Math.abs( value ) / total );
 
     const portfolioSummary = {
