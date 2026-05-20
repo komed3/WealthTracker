@@ -55,7 +55,6 @@ export default ( {
     editor: {
       actions: 'Aktionen',
       add: 'Hinzufügen',
-      addDataPoint: 'Jahresdaten hinzufügen',
       archiveDescription: 'Diese Position ist nicht länger aktiv',
       archivePosition: 'Archivierte Position',
       addNewPosition: 'Neue Position',
@@ -72,7 +71,6 @@ export default ( {
       descriptionLabel: 'Beschreibung',
       descriptionPlaceholder: 'z.B. "Dies ist mein privates Sparkonto"',
       editButton: 'Bearbeiten',
-      editDataPoint: 'Jahresdaten bearbeiten',
       editPosition: 'Position bearbeiten',
       emptyList: 'Du hast noch keine Positionen hinzugefügt. Klicke auf "Neue Position", um loszulegen.',
       icon: 'Icon',

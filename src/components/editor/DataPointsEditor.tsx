@@ -1,6 +1,5 @@
 import { Button } from '@/src/components/ui/Button';
 import { Card } from '@/src/components/ui/Card';
-import { Heading } from '@/src/components/ui/Heading';
 import { Icon } from '@/src/components/ui/Icon';
 import { Input } from '@/src/components/ui/Input';
 import { Select } from '@/src/components/ui/Select';
@@ -162,96 +161,92 @@ export const DataPointsEditor = ( { entries, onUpdateHistory, setActiveTab }: Da
             { /** Card 2: Entry Form */ }
             <form onSubmit= { handleSubmit }>
               <Card className= 'space-y-4'>
-                <Heading level= { 3 }>
-                  { editingYear !== null ? i18n.t( $ => $.editor.editDataPoint ) : i18n.t( $ => $.editor.addDataPoint ) }
-                </Heading>
+                <div className= 'grid grid-cols-1 md:grid-cols-3 gap-4'>
+                  <Input
+                    label= { i18n.t( $ => $.editor.year ) }
+                    type= 'number'
+                    placeholder= { i18n.t( $ => $.editor.yearPlaceholder ) }
+                    value= { formYear }
+                    onChange= { e => setFormYear( e.target.value ) }
+                    disabled= { editingYear !== null }
+                    required
+                  />
 
-              <div className= 'grid grid-cols-1 md:grid-cols-3 gap-4'>
-                <Input
-                  label= { i18n.t( $ => $.editor.year ) }
-                  type= 'number'
-                  placeholder= { i18n.t( $ => $.editor.yearPlaceholder ) }
-                  value= { formYear }
-                  onChange= { e => setFormYear( e.target.value ) }
-                  disabled= { editingYear !== null }
-                  required
-                />
+                  <Input
+                    label= { i18n.t( $ => $.editor.value ) }
+                    type= 'text'
+                    placeholder= { i18n.t( $ => $.editor.valuePlaceholder ) }
+                    value= { formValue }
+                    onChange= { e => setFormValue( e.target.value ) }
+                    isCurrency
+                    required
+                  />
 
-                <Input
-                  label= { i18n.t( $ => $.editor.value ) }
-                  type= 'text'
-                  placeholder= { i18n.t( $ => $.editor.valuePlaceholder ) }
-                  value= { formValue }
-                  onChange= { e => setFormValue( e.target.value ) }
-                  isCurrency
-                  required
-                />
+                  <Select
+                    label= { i18n.t( $ => $.editor.confidence ) }
+                    value= { formConfidence }
+                    options= { confidenceOptions }
+                    onChange= { e => setFormConfidence( e.target.value as CONFIDENCE ) }
+                  />
+                </div>
 
-                <Select
-                  label= { i18n.t( $ => $.editor.confidence ) }
-                  value= { formConfidence }
-                  options= { confidenceOptions }
-                  onChange= { e => setFormConfidence( e.target.value as CONFIDENCE ) }
-                />
-              </div>
+                <div className= 'grid grid-cols-1 md:grid-cols-3 gap-4'>
+                  <Input
+                    label= { i18n.t( $ => $.editor.minimum ) }
+                    type= 'text'
+                    placeholder= { i18n.t( $ => $.editor.valuePlaceholder ) }
+                    value= { formMin }
+                    onChange= { e => setFormMin( e.target.value ) }
+                    isCurrency
+                  />
 
-              <div className= 'grid grid-cols-1 md:grid-cols-3 gap-4'>
-                <Input
-                  label= { i18n.t( $ => $.editor.minimum ) }
-                  type= 'text'
-                  placeholder= { i18n.t( $ => $.editor.valuePlaceholder ) }
-                  value= { formMin }
-                  onChange= { e => setFormMin( e.target.value ) }
-                  isCurrency
-                />
+                  <Input
+                    label= { i18n.t( $ => $.editor.maximum ) }
+                    type= 'text'
+                    placeholder= { i18n.t( $ => $.editor.valuePlaceholder ) }
+                    value= { formMax }
+                    onChange= { e => setFormMax( e.target.value ) }
+                    isCurrency
+                  />
 
-                <Input
-                  label= { i18n.t( $ => $.editor.maximum ) }
-                  type= 'text'
-                  placeholder= { i18n.t( $ => $.editor.valuePlaceholder ) }
-                  value= { formMax }
-                  onChange= { e => setFormMax( e.target.value ) }
-                  isCurrency
-                />
+                  <Input
+                    label= { i18n.t( $ => $.editor.source ) }
+                    type= 'text'
+                    placeholder= { i18n.t( $ => $.editor.sourcePlaceholder ) }
+                    value= { formSource }
+                    onChange= { e => setFormSource( e.target.value ) }
+                  />
+                </div>
 
-                <Input
-                  label= { i18n.t( $ => $.editor.source ) }
-                  type= 'text'
-                  placeholder= { i18n.t( $ => $.editor.sourcePlaceholder ) }
-                  value= { formSource }
-                  onChange= { e => setFormSource( e.target.value ) }
-                />
-              </div>
+                <div>
+                  <Input
+                    label= { i18n.t( $ => $.editor.note ) }
+                    type= 'text'
+                    placeholder= { i18n.t( $ => $.editor.notePlaceholder ) }
+                    value= { formNote }
+                    onChange= { e => setFormNote( e.target.value ) }
+                  />
+                </div>
 
-              <div>
-                <Input
-                  label= { i18n.t( $ => $.editor.note ) }
-                  type= 'text'
-                  placeholder= { i18n.t( $ => $.editor.notePlaceholder ) }
-                  value= { formNote }
-                  onChange= { e => setFormNote( e.target.value ) }
-                />
-              </div>
-
-              <div className= 'flex justify-end items-center gap-4'>
-                { editingYear !== null && (
+                <div className= 'flex justify-end items-center gap-4'>
+                  { editingYear !== null && (
+                    <Button
+                      type= 'button'
+                      variant= 'secondary'
+                      onClick= { handleCancelEdit }
+                    >
+                      { i18n.t( $ => $.editor.cancel ) }
+                    </Button>
+                  ) }
                   <Button
-                    type= 'button'
-                    variant= 'secondary'
-                    onClick= { handleCancelEdit }
+                    type= 'submit'
+                    variant= 'primary'
                   >
-                    { i18n.t( $ => $.editor.cancel ) }
+                    { editingYear !== null ? i18n.t( $ => $.editor.save ) : i18n.t( $ => $.editor.add ) }
                   </Button>
-                ) }
-                <Button
-                  type= 'submit'
-                  variant= 'primary'
-                >
-                  { editingYear !== null ? i18n.t( $ => $.editor.save ) : i18n.t( $ => $.editor.add ) }
-                </Button>
-              </div>
-            </Card>
-          </form>
+                </div>
+              </Card>
+            </form>
           </>
         ) }
       </div>
