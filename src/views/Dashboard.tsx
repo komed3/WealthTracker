@@ -1,4 +1,5 @@
 import { Card, InfoCard } from '@/src/components/ui/Card';
+import { yAxisFormatter } from '@/src/components/ui/Chart';
 import { Heading } from '@/src/components/ui/Heading';
 import { NoData } from '@/src/components/ui/NoData';
 import { useData } from '@/src/context/DataCtx';
@@ -6,6 +7,7 @@ import { useLayout } from '@/src/context/LayoutCtx';
 import { formatCurrency, formatPercent } from '@/src/lib/formatter';
 import i18n from '@/src/lib/i18n';
 import { useEffect, useMemo } from 'react';
+import { CartesianGrid, ComposedChart, ResponsiveContainer, XAxis, YAxis } from 'recharts';
 
 export const Dashboard = () => {
   const { settings, data } = useData();
@@ -73,6 +75,39 @@ export const Dashboard = () => {
             { i18n.t( $ => $.dashboard.chartSubtitle ) }
           </p>
         </div>
+
+        <ResponsiveContainer width= '100%' height= { 480 }>
+          <ComposedChart
+              data= { yearDetails }
+              margin= { { top: 10, right: 10, left: 10, bottom: 5 } }
+            >
+              <CartesianGrid
+                strokeDasharray= '3 3'
+                stroke= '#f1f5f9'
+                vertical= { false }
+              />
+              <XAxis
+                dataKey= 'year'
+                stroke= '#94a3b8'
+                fontSize= { 12 }
+                fontWeight= { 600 }
+                tickLine= { false }
+                axisLine= { false }
+                dy= { 10 }
+              />
+              <YAxis
+                tickFormatter= { ( valueVal: number ) => yAxisFormatter( {
+                  type: 'currency',
+                  value: valueVal
+                } ) }
+                stroke= '#94a3b8'
+                fontSize= { 12 }
+                fontWeight= { 600 }
+                tickLine= { false }
+                axisLine= { false }
+              />
+            </ComposedChart>
+        </ResponsiveContainer>
       </Card>
     </div>
   );
