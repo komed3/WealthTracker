@@ -88,7 +88,8 @@ export class Database {
     const yearSnapshots: Record< string, YearSnapshot > = {};
 
     const round = ( value: number ) => Number( value.toFixed( decimals ) );
-    const percentage = ( value: number, total: number ) => total === 0 ? 0 : round( Math.abs( value ) / total );
+    const roundOther = ( value: number ) => Number( value.toFixed( 5 ) );
+    const percentage = ( value: number, total: number ) => total === 0 ? 0 : roundOther( Math.abs( value ) / total );
 
     const portfolioSummary = {
       assetCount: 0, liabilityCount: 0, archivedCount: 0,
@@ -101,22 +102,22 @@ export class Database {
       const hasHistory = historyYears.length > 0;
       const firstYear = hasHistory ? historyYears[ 0 ] : new Date().getFullYear();
       const lastYear = hasHistory ? historyYears[ historyYears.length - 1 ] : firstYear;
-      const firstVal = hasHistory ? history[ `${firstYear}` ].value : 0;
-      const latestValue = hasHistory ? history[ `${lastYear}` ].value : 0;
+      const firstVal = hasHistory ? round( history[ `${firstYear}` ].value ) : 0;
+      const latestValue = hasHistory ? round( history[ `${lastYear}` ].value ) : 0;
 
-      const values = hasHistory ? historyYears.map( year => history[ `${year}` ].value ) : [];
-      const highestValue = values.length > 0 ? Math.max( ...values ) : undefined;
-      const lowestValue = values.length > 0 ? Math.min( ...values ) : undefined;
-      const averageValue = values.length > 0 ? values.reduce( ( sum, v ) => sum + v, 0 ) / values.length : undefined;
+      const values = hasHistory ? historyYears.map( year => round( history[ `${year}` ].value ) ) : [];
+      const highestValue = values.length > 0 ? round( Math.max( ...values ) ) : undefined;
+      const lowestValue = values.length > 0 ? round( Math.min( ...values ) ) : undefined;
+      const averageValue = values.length > 0 ? round( values.reduce( ( sum, v ) => sum + v, 0 ) / values.length ) : undefined;
 
-      const absoluteGrowth = latestValue - firstVal;
-      const relativeGrowth = firstVal !== 0 ? absoluteGrowth / firstVal : 0;
+      const absoluteGrowth = round( latestValue - firstVal );
+      const relativeGrowth = firstVal !== 0 ? roundOther( absoluteGrowth / firstVal ) : 0;
 
       let volatility: number | undefined;
       if ( values.length > 1 ) {
         const mean = averageValue ?? 0;
         const variance = values.reduce( ( sum, v ) => sum + Math.pow( v - mean, 2 ), 0 ) / ( values.length - 1 );
-        volatility = Math.sqrt( variance );
+        volatility = round( Math.sqrt( variance ) );
       }
 
       let averageAnnualGrowth: number | undefined;
@@ -124,7 +125,7 @@ export class Database {
         const yearsDiff = lastYear - firstYear;
 
         if ( yearsDiff > 0 && firstVal > 0 && latestValue > 0 ) {
-          averageAnnualGrowth = Math.pow( latestValue / firstVal, 1 / yearsDiff ) - 1;
+          averageAnnualGrowth = roundOther( Math.pow( latestValue / firstVal, 1 / yearsDiff ) - 1 );
         }
       }
 
@@ -249,7 +250,7 @@ export class Database {
 
         growthVal = {
           absolute: round( absoluteGrowth ),
-          relative: round( relativeGrowth )
+          relative: roundOther( relativeGrowth )
         };
       }
 
@@ -292,14 +293,14 @@ export class Database {
 
       totalGrowth = {
         absolute: round( absoluteTotalGrowth ),
-        relative: round( relativeTotalGrowth )
+        relative: roundOther( relativeTotalGrowth )
       };
 
       if ( sortedYears.length > 1 ) {
         const yearsDiff = lastYear - firstYear;
 
         if ( yearsDiff > 0 && firstYearNetWorth > 0 && latestNetWorth > 0 ) {
-          averageAnnualGrowth = round( Math.pow( latestNetWorth / firstYearNetWorth, 1 / yearsDiff ) - 1 );
+          averageAnnualGrowth = roundOther( Math.pow( latestNetWorth / firstYearNetWorth, 1 / yearsDiff ) - 1 );
         }
       }
 
