@@ -113,7 +113,15 @@ export const Momentum = () => {
               axisLine= { false }
             />
             <Tooltip
-              content= { <CustomTooltip /> }
+              content= { ( { active, payload } ) => {
+                if ( active && payload && payload.length ) {
+                  const dataPoint = payload[ 0 ].payload;
+
+                  return ( <CustomTooltip
+                    label= { dataPoint.year }
+                  /> );
+                }
+              } }
               cursor= { { fill: 'oklch(98.4% 0.003 247.858)' } }
             />
             <ReferenceLine

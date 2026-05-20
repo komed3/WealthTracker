@@ -1,9 +1,13 @@
 import { useData } from '@/src/context/DataCtx';
 import { formatCurrency, formatPercent } from '@/src/lib/formatter';
-import type { yAxisFormatterProps } from '@/src/types/props';
+import type { CustomTooltipProps, yAxisFormatterProps } from '@/src/types/props';
 
-export const CustomTooltip = () => {
-  return ( <></> );
+export const CustomTooltip = ( { label }: CustomTooltipProps ) => {
+  return (
+    <div className= 'min-w-50 p-4 bg-white border border-slate-200 rounded-xl shadow-md'>
+      <p className= 'mb-1 uppercase font-bold text-xs text-slate-400 tracking-widest'>{ label }</p>
+    </div>
+  );
 };
 
 export const yAxisFormatter = ( { type, value }: yAxisFormatterProps ) => {

@@ -92,6 +92,10 @@ export interface ToggleProps {
   className?: string;
 }
 
+export interface CustomTooltipProps {
+  label: string;
+}
+
 export interface yAxisFormatterProps {
   type: 'currency' | 'percent' | 'other';
   value: number;
