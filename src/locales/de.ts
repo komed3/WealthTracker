@@ -55,7 +55,6 @@ export default ( {
     editor: {
       actions: 'Aktionen',
       add: 'Hinzufügen',
-      archiveDescription: 'Diese Position ist nicht länger aktiv',
       archivePosition: 'Archivierte Position',
       addNewPosition: 'Neue Position',
       cancel: 'Abbrechen',
@@ -82,6 +81,7 @@ export default ( {
       noDataPoints: 'Für diese Position wurden noch keine Datenpunkte hinzugefügt.',
       note: 'Anmerkung',
       notePlaceholder: 'z.B. "Diese Position hat in den letzten Jahren stark an Wert gewonnen ..."',
+      notionalPosition: 'Fiktive Position',
       positions: 'Positionen',
       positionTitle: 'Position / Vermögenswert',
       positionTitlePlaceholder: 'z.B. "Mein Haus" oder "Sparplan"',
