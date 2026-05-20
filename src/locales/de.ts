@@ -66,6 +66,7 @@ export default ( {
       dataPointExistsAlert: 'Für dieses Jahr existiert bereits ein Datenpunkt. Bitte bearbeite den bestehenden, wenn du Änderungen vornehmen möchtest.',
       dataPoints: 'Datenpunkte',
       deleteButton: 'Löschen',
+      deleteConfirm: 'Bist du sicher, dass du diese Position löschen möchtest? Alle zugehörigen Datenpunkte gehen dabei verloren. Diese Aktion kann nicht rückgängig gemacht werden.',
       deleteDataPointConfirm: 'Bist du sicher, dass du den Datenpunkt für {{year}} löschen möchtest? Diese Aktion kann nicht rückgängig gemacht werden.',
       description: 'Verwalte deine finanziellen Positionen und deren historische Daten.',
       descriptionLabel: 'Beschreibung',
