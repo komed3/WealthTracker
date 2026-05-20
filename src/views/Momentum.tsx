@@ -9,7 +9,7 @@ import i18n from '@/src/lib/i18n';
 import { cn } from '@/src/lib/utils';
 import { Percent, Sigma } from 'lucide-react';
 import { useEffect, useMemo, useState } from 'react';
-import { Bar, BarChart, Rectangle, ReferenceLine, ResponsiveContainer, XAxis, YAxis } from 'recharts';
+import { Bar, BarChart, Rectangle, ReferenceLine, ResponsiveContainer, Tooltip, XAxis, YAxis } from 'recharts';
 
 export const Momentum = () => {
   const { settings, data } = useData();
@@ -45,6 +45,10 @@ export const Momentum = () => {
   const getYAxisFormatter = ( val: number ) => activeTab === 'relative'
     ? formatPercent( val, { ...settings!.display, decimals: 1 } )
     : formatCurrency( val, { ...settings!.display, decimals: 0 } );
+
+  const CustomTooltip = () => {
+    return ( <></> );
+  };
 
   return (
     <div className= 'space-y-8'>
@@ -112,6 +116,10 @@ export const Momentum = () => {
               tickLine= { false }
               axisLine= { false }
             />
+            <Tooltip
+              content= { <CustomTooltip /> }
+              cursor= { { fill: 'oklch(98.4% 0.003 247.858)' } }
+            />
             <ReferenceLine
               y= { 0 }
               stroke= '#cbd5e1'
@@ -128,7 +136,7 @@ export const Momentum = () => {
                 return (
                   <Rectangle
                     { ...props }
-                    className= 'hover:opacity-85 transition-all duration-300'
+                    className= 'transition-all duration-300'
                     fill= { isPositive ? '#10b981' : '#ef4444' }
                     radius= { [ 6, 6, 0, 0 ] }
                   />
