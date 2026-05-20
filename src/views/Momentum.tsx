@@ -42,6 +42,10 @@ export const Momentum = () => {
     value: activeTab === 'relative' ? y.relativeGrowth : y.absoluteGrowth
   } ) ), [ yearDetails, activeTab ] );
 
+  const getYAxisFormatter = ( val: number ) => activeTab === 'relative'
+    ? formatPercent( val, { ...settings!.display, decimals: 1 } )
+    : formatCurrency( val, { ...settings!.display, decimals: 0 } );
+
   return (
     <div className= 'space-y-8'>
       { /** Page Header */ }
@@ -95,18 +99,18 @@ export const Momentum = () => {
               dataKey= 'year'
               stroke= '#94a3b8'
               fontSize= { 12 }
+              fontWeight= { 600 }
               tickLine= { false }
               axisLine= { false }
               dy= { 10 }
-              className= 'font-semibold'
             />
             <YAxis
+              tickFormatter= { getYAxisFormatter }
               stroke= '#94a3b8'
               fontSize= { 12 }
+              fontWeight= { 600 }
               tickLine= { false }
               axisLine= { false }
-              dx= { -10 }
-              className= 'font-semibold'
             />
             <ReferenceLine
               y= { 0 }
