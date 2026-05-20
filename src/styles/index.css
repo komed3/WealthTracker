@@ -24,7 +24,7 @@
 
 @layer base {
   * {
-    @apply antialiased;
+    @apply antialiased select-none;
   }
 
   button, a, [role="button"], [type="submit"], [type="button"], [type="date"] {
