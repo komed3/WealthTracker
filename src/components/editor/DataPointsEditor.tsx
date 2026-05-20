@@ -126,31 +126,133 @@ export const DataPointsEditor = ( { entries, onUpdateHistory, setActiveTab }: Da
   } ) );
 
   return (
-    <div className= 'flex flex-row flex-wrap items-center gap-2 pb-8'>
-      { entries.map( ( { entry } ) => (
-        <button
-          key= { entry.id }
-          type= 'button'
-          onClick= { () => setSelectedEntryId( entry.id ) }
-          className= {
-            `flex-none inline-flex items-center gap-3 pl-2 pr-4 py-1.5 border rounded-full transition ${
-              entry.id === selectedEntryId
-                ? 'bg-primary/5 border-primary'
-                : 'bg-white border-slate-200 hover:bg-slate-50'
-            }`
-          }
-        >
-          <div
-            className= 'flex justify-center items-center shrink-0 w-8 h-8 text-white rounded-full'
-            style= { { backgroundColor: entry.color } }
+    <div className= 'space-y-8'>
+      <div className= 'flex flex-row flex-wrap items-center gap-2'>
+        { entries.map( ( { entry } ) => (
+          <button
+            key= { entry.id }
+            type= 'button'
+            onClick= { () => setSelectedEntryId( entry.id ) }
+            className= {
+              `flex-none inline-flex items-center gap-3 pl-2 pr-4 py-1.5 border rounded-full transition ${
+                entry.id === selectedEntryId
+                  ? 'bg-primary/5 border-primary'
+                  : 'bg-white border-slate-200 hover:bg-slate-50'
+              }`
+            }
           >
-            <Icon name= { entry.icon } size= { 14 } className= 'text-white' />
-          </div>
-          <span className= 'text-sm font-medium text-slate-900'>
-            { entry.title }
-          </span>
-        </button>
-      ) ) }
+            <div
+              className= 'flex justify-center items-center shrink-0 w-8 h-8 text-white rounded-full'
+              style= { { backgroundColor: entry.color } }
+            >
+              <Icon name= { entry.icon } size= { 14 } className= 'text-white' />
+            </div>
+            <span className= 'text-sm font-medium text-slate-900'>
+              { entry.title }
+            </span>
+          </button>
+        ) ) }
+      </div>
+
+      <div className= 'flex-1 space-y-6'>
+        { activeRecord && (
+          <>
+            { /** Card 2: Entry Form */ }
+            <form onSubmit= { handleSubmit }>
+              <Card className= 'space-y-4'>
+                <Heading level= { 3 }>
+                  { editingYear !== null ? i18n.t( $ => $.editor.editDataPoint ) : i18n.t( $ => $.editor.addDataPoint ) }
+                </Heading>
+
+              <div className= 'grid grid-cols-1 md:grid-cols-3 gap-4'>
+                <Input
+                  label= { i18n.t( $ => $.editor.year ) }
+                  type= 'number'
+                  placeholder= { i18n.t( $ => $.editor.yearPlaceholder ) }
+                  value= { formYear }
+                  onChange= { e => setFormYear( e.target.value ) }
+                  disabled= { editingYear !== null }
+                  required
+                />
+
+                <Input
+                  label= { i18n.t( $ => $.editor.value ) }
+                  type= 'text'
+                  placeholder= { i18n.t( $ => $.editor.valuePlaceholder ) }
+                  value= { formValue }
+                  onChange= { e => setFormValue( e.target.value ) }
+                  isCurrency
+                  required
+                />
+
+                <Select
+                  label= { i18n.t( $ => $.editor.confidence ) }
+                  value= { formConfidence }
+                  options= { confidenceOptions }
+                  onChange= { e => setFormConfidence( e.target.value as CONFIDENCE ) }
+                />
+              </div>
+
+              <div className= 'grid grid-cols-1 md:grid-cols-3 gap-4'>
+                <Input
+                  label= { i18n.t( $ => $.editor.minimum ) }
+                  type= 'text'
+                  placeholder= { i18n.t( $ => $.editor.valuePlaceholder ) }
+                  value= { formMin }
+                  onChange= { e => setFormMin( e.target.value ) }
+                  isCurrency
+                />
+
+                <Input
+                  label= { i18n.t( $ => $.editor.maximum ) }
+                  type= 'text'
+                  placeholder= { i18n.t( $ => $.editor.valuePlaceholder ) }
+                  value= { formMax }
+                  onChange= { e => setFormMax( e.target.value ) }
+                  isCurrency
+                />
+
+                <Input
+                  label= { i18n.t( $ => $.editor.source ) }
+                  type= 'text'
+                  placeholder= { i18n.t( $ => $.editor.sourcePlaceholder ) }
+                  value= { formSource }
+                  onChange= { e => setFormSource( e.target.value ) }
+                />
+              </div>
+
+              <div>
+                <Input
+                  label= { i18n.t( $ => $.editor.note ) }
+                  type= 'text'
+                  placeholder= { i18n.t( $ => $.editor.notePlaceholder ) }
+                  value= { formNote }
+                  onChange= { e => setFormNote( e.target.value ) }
+                />
+              </div>
+
+              <div className= 'flex justify-end items-center gap-4'>
+                { editingYear !== null && (
+                  <Button
+                    type= 'button'
+                    variant= 'secondary'
+                    onClick= { handleCancelEdit }
+                  >
+                    { i18n.t( $ => $.editor.cancel ) }
+                  </Button>
+                ) }
+                <Button
+                  type= 'submit'
+                  variant= 'primary'
+                >
+                  { editingYear !== null ? i18n.t( $ => $.editor.save ) : i18n.t( $ => $.editor.add ) }
+                </Button>
+              </div>
+            </Card>
+          </form>
+          </>
+        ) }
+      </div>
     </div>
   );
 };

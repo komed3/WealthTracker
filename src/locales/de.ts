@@ -54,6 +54,7 @@ export default ( {
     },
     editor: {
       actions: 'Aktionen',
+      add: 'Hinzufügen',
       addDataPoint: 'Jahresdaten hinzufügen',
       archiveDescription: 'Diese Position ist nicht länger aktiv',
       archivePosition: 'Archivierte Position',

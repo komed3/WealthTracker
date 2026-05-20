@@ -54,6 +54,7 @@ export default ( {
     },
     editor: {
       actions: 'Actions',
+      add: 'Add',
       addDataPoint: 'Add Annual Data',
       addNewPosition: 'New Position',
       archiveDescription: 'This position is not longer active',
