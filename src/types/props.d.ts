@@ -94,6 +94,9 @@ export interface ToggleProps {
 
 export interface CustomTooltipProps {
   label: string;
+  value: string | number;
+  children?: ReactNode;
+  color?: string;
 }
 
 export interface yAxisFormatterProps {
