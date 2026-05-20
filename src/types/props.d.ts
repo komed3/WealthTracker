@@ -79,6 +79,14 @@ export interface SelectProps {
   className?: string;
 }
 
+export interface ToggleProps {
+  label: string | ReactNode;
+  checked: boolean;
+  onChange: ( checked: boolean ) => void;
+  disabled?: boolean;
+  className?: string;
+}
+
 export interface PositionListProps {
   entries: EntryRecord[];
   onEdit: ( record: Entry ) => void;
