@@ -24,9 +24,14 @@ const DEFAULT_DATA: Data = {
       firstYear: new Date().getFullYear(),
       lastYear: new Date().getFullYear(),
       latestNetWorth: 0,
-      assetCount: 0,
-      liabilityCount: 0,
-      archivedCount: 0
+      realValue: 0,
+      nonRealValue: 0,
+      count: {
+        asset: 0,
+        liability: 0,
+        archived: 0,
+        notional: 0
+      }
     }
   },
   createdAt: new Date().toISOString(),
@@ -81,43 +86,39 @@ export class Database {
     const entryStatsRecord: Record< string, EntryStats > = {};
     const yearSnapshots: Record< string, YearSnapshot > = {};
 
-    // 1. Compute individual EntryStats
+    const round = ( value: number ) => Number( value.toFixed( 2 ) );
+    const percentage = ( value: number, total: number ) => total === 0 ? 0 : round( Math.abs( value ) / total );
+
+    const portfolioSummary = {
+      assetCount: 0, liabilityCount: 0, archivedCount: 0,
+      nonRealCount: 0, realValue: 0, nonRealValue: 0
+    };
+
     for ( const record of entries ) {
       const { entry, history } = record;
       const historyYears = Object.keys( history ).map( Number ).sort( ( a, b ) => a - b );
+      const hasHistory = historyYears.length > 0;
+      const firstYear = hasHistory ? historyYears[ 0 ] : new Date().getFullYear();
+      const lastYear = hasHistory ? historyYears[ historyYears.length - 1 ] : firstYear;
+      const firstVal = hasHistory ? history[ `${firstYear}` ].value : 0;
+      const latestValue = hasHistory ? history[ `${lastYear}` ].value : 0;
 
-      if ( historyYears.length === 0 ) {
-        entryStatsRecord[ entry.id ] = {
-          entryId: entry.id,
-          firstYear: new Date().getFullYear(),
-          lastYear: new Date().getFullYear(),
-          latestValue: 0
-        };
-
-        continue;
-      }
-
-      const firstYear = historyYears[ 0 ];
-      const lastYear = historyYears[ historyYears.length - 1 ];
-      const firstVal = history[ `${firstYear}` ].value;
-      const latestValue = history[ `${lastYear}` ].value;
-
-      const values = Object.values( history ).map( h => h.value );
-      const highestValue = Math.max( ...values );
-      const lowestValue = Math.min( ...values );
-      const averageValue = values.reduce( ( sum, v ) => sum + v, 0 ) / values.length;
+      const values = hasHistory ? historyYears.map( year => history[ `${year}` ].value ) : [];
+      const highestValue = values.length > 0 ? Math.max( ...values ) : undefined;
+      const lowestValue = values.length > 0 ? Math.min( ...values ) : undefined;
+      const averageValue = values.length > 0 ? values.reduce( ( sum, v ) => sum + v, 0 ) / values.length : undefined;
 
       const absoluteGrowth = latestValue - firstVal;
       const relativeGrowth = firstVal !== 0 ? absoluteGrowth / firstVal : 0;
 
-      let volatility = 0;
+      let volatility: number | undefined;
       if ( values.length > 1 ) {
-        const mean = averageValue;
+        const mean = averageValue ?? 0;
         const variance = values.reduce( ( sum, v ) => sum + Math.pow( v - mean, 2 ), 0 ) / ( values.length - 1 );
         volatility = Math.sqrt( variance );
       }
 
-      let averageAnnualGrowth = 0;
+      let averageAnnualGrowth: number | undefined;
       if ( historyYears.length > 1 ) {
         const yearsDiff = lastYear - firstYear;
 
@@ -127,36 +128,46 @@ export class Database {
       }
 
       entryStatsRecord[ entry.id ] = {
-        entryId: entry.id,
-        firstYear, lastYear, latestValue, highestValue, lowestValue,
-        averageValue, volatility, averageAnnualGrowth,
-        growth: {
+        entryId: entry.id, firstYear, lastYear, latestValue, highestValue,
+        lowestValue, averageValue, volatility, averageAnnualGrowth,
+        growth: historyYears.length > 1 ? {
           absolute: absoluteGrowth,
           relative: relativeGrowth
-        }
+        } : undefined
       };
+
+      if ( entry.archived ) portfolioSummary.archivedCount += 1;
+      else {
+        if ( entry.category === 'asset' ) portfolioSummary.assetCount += 1;
+        else portfolioSummary.liabilityCount += 1;
+
+        if ( entry.notional ?? false ) {
+          portfolioSummary.nonRealCount += 1;
+          portfolioSummary.nonRealValue += latestValue;
+        } else {
+          portfolioSummary.realValue += latestValue;
+        }
+      }
     }
 
-    // 2. Identify all years across entries
     const allYearsSet = new Set < number > ();
-
-    for ( const record of entries ) {
-      Object.keys( record.history ).forEach( y => allYearsSet.add( Number( y ) ) );
-    }
+    for ( const record of entries ) Object.keys( record.history ).forEach( y => allYearsSet.add( Number( y ) ) );
 
     const sortedYears = Array.from( allYearsSet ).sort( ( a, b ) => a - b );
-
-    // 3. Compute YearSnapshots
     let prevNetWorth = 0;
 
-    for ( const year of sortedYears ) {
-      let assetsSum = 0;
-      let assetsMinSum = 0;
-      let assetsMaxSum = 0;
+    const makeBreakdown = ( value: number, min: number, max: number, total: number ) : Breakdown => ( {
+      value: round( value ), min: round( min ), max: round( max ), percentage: percentage( value, total )
+    } );
 
-      let liabilitiesSum = 0;
-      let liabilitiesMinSum = 0;
-      let liabilitiesMaxSum = 0;
+    for ( const year of sortedYears ) {
+      let assetsSum = 0, assetsMinSum = 0, assetsMaxSum = 0, liabilitiesSum = 0,
+          liabilitiesMinSum = 0, liabilitiesMaxSum = 0;
+
+      const exposures = {
+        real: { assets: 0, assetsMin: 0, assetsMax: 0, liabilities: 0, liabilitiesMin: 0, liabilitiesMax: 0 },
+        nonReal: { assets: 0, assetsMin: 0, assetsMax: 0, liabilities: 0, liabilitiesMin: 0, liabilitiesMax: 0 }
+      };
 
       const byLiquidity: Record< number, { value: number; min: number; max: number } > = {};
       const byClass: Record< string, { value: number; min: number; max: number } > = {};
@@ -168,15 +179,23 @@ export class Database {
         const val = valObj.value;
         const minVal = valObj.min !== undefined ? valObj.min : val;
         const maxVal = valObj.max !== undefined ? valObj.max : val;
+        const isNonReal = record.entry.notional ?? false;
+        const bucket = isNonReal ? exposures.nonReal : exposures.real;
 
         if ( record.entry.category === 'asset' ) {
           assetsSum += val;
           assetsMinSum += minVal;
           assetsMaxSum += maxVal;
+          bucket.assets += val;
+          bucket.assetsMin += minVal;
+          bucket.assetsMax += maxVal;
         } else {
           liabilitiesSum += val;
           liabilitiesMinSum += minVal;
           liabilitiesMaxSum += maxVal;
+          bucket.liabilities += val;
+          bucket.liabilitiesMin += minVal;
+          bucket.liabilitiesMax += maxVal;
         }
 
         const liq = record.entry.liquidity;
@@ -195,43 +214,32 @@ export class Database {
       const netWorth = assetsSum - liabilitiesSum;
       const minNetWorth = assetsMinSum - liabilitiesMaxSum;
       const maxNetWorth = assetsMaxSum - liabilitiesMinSum;
-
       const totalValForPercentages = assetsSum + liabilitiesSum;
 
       const categoryBreakdown = {
-        asset: {
-          value: assetsSum,
-          min: assetsMinSum,
-          max: assetsMaxSum,
-          percentage: totalValForPercentages !== 0 ? assetsSum / totalValForPercentages : 0
-        },
-        liability: {
-          value: liabilitiesSum,
-          min: liabilitiesMinSum,
-          max: liabilitiesMaxSum,
-          percentage: totalValForPercentages !== 0 ? liabilitiesSum / totalValForPercentages : 0
-        }
+        asset: makeBreakdown( assetsSum, assetsMinSum, assetsMaxSum, totalValForPercentages ),
+        liability: makeBreakdown( liabilitiesSum, liabilitiesMinSum, liabilitiesMaxSum, totalValForPercentages )
       };
 
       const liquidityBreakdown: Record< number, Breakdown > = {};
       Object.entries( byLiquidity ).forEach( ( [ key, item ] ) => {
-        liquidityBreakdown[ Number( key ) ] = {
-          value: item.value, min: item.min, max: item.max,
-          percentage: assetsSum !== 0 ? item.value / assetsSum : 0
-        };
+        liquidityBreakdown[ Number( key ) ] = makeBreakdown( item.value, item.min, item.max, assetsSum );
       } );
 
       const classBreakdown: Record< string, Breakdown > = {};
       Object.entries( byClass ).forEach( ( [ key, item ] ) => {
         const entryGroup = entries.find( r => r.entry.class === key );
-        const isAsset = entryGroup ? entryGroup.entry.category === 'asset' : true;
-        const divisor = isAsset ? assetsSum : liabilitiesSum;
-
-        classBreakdown[ key ] = {
-          value: item.value, min: item.min, max: item.max,
-          percentage: divisor !== 0 ? item.value / divisor : 0
-        };
+        const divisor = entryGroup?.entry.category === 'asset' ? assetsSum : liabilitiesSum;
+        classBreakdown[ key ] = makeBreakdown( item.value, item.min, item.max, divisor );
       } );
+
+      const realValue = exposures.real.assets - exposures.real.liabilities;
+      const realMin = exposures.real.assetsMin - exposures.real.liabilitiesMax;
+      const realMax = exposures.real.assetsMax - exposures.real.liabilitiesMin;
+      const nonRealValue = exposures.nonReal.assets - exposures.nonReal.liabilities;
+      const nonRealMin = exposures.nonReal.assetsMin - exposures.nonReal.liabilitiesMax;
+      const nonRealMax = exposures.nonReal.assetsMax - exposures.nonReal.liabilitiesMin;
+      const exposureTotal = Math.abs( realValue ) + Math.abs( nonRealValue );
 
       let growthVal = undefined;
       if ( prevNetWorth !== 0 || sortedYears.indexOf( year ) > 0 ) {
@@ -239,14 +247,23 @@ export class Database {
         const relativeGrowth = prevNetWorth !== 0 ? absoluteGrowth / prevNetWorth : 0;
 
         growthVal = {
-          absolute: absoluteGrowth,
-          relative: relativeGrowth
+          absolute: round( absoluteGrowth ),
+          relative: round( relativeGrowth )
         };
       }
 
       yearSnapshots[ String( year ) ] = {
-        year, assets: assetsSum, liabilities: liabilitiesSum,
-        netWorth, minNetWorth, maxNetWorth, growth: growthVal,
+        year,
+        assets: round( assetsSum ),
+        liabilities: round( liabilitiesSum ),
+        netWorth: round( netWorth ),
+        minNetWorth: round( minNetWorth ),
+        maxNetWorth: round( maxNetWorth ),
+        realization: {
+          real: makeBreakdown( realValue, realMin, realMax, exposureTotal ),
+          nonReal: makeBreakdown( nonRealValue, nonRealMin, nonRealMax, exposureTotal )
+        },
+        growth: growthVal,
         byCategory: categoryBreakdown,
         byLiquidity: liquidityBreakdown,
         byClass: classBreakdown
@@ -255,20 +272,9 @@ export class Database {
       prevNetWorth = netWorth;
     }
 
-    // 4. Compute PortfolioStats
-    const assetCount = entries.filter( r => r.entry.category === 'asset' && ! r.entry.archived ).length;
-    const liabilityCount = entries.filter( r => r.entry.category === 'liability' && ! r.entry.archived ).length;
-    const archivedCount = entries.filter( r => r.entry.archived ).length;
-
-    let firstYear = new Date().getFullYear();
-    let lastYear = new Date().getFullYear();
-    let latestNetWorth = 0;
-    let highestNetWorth = 0;
-    let lowestNetWorth = 0;
-    let totalGrowth = undefined;
-    let averageAnnualGrowth = 0;
-    let bestYear = undefined;
-    let worstYear = undefined;
+    let firstYear = new Date().getFullYear(), lastYear = new Date().getFullYear(),
+        latestNetWorth = 0, highestNetWorth = 0, lowestNetWorth = 0, totalGrowth = undefined,
+        averageAnnualGrowth = 0, bestYear = undefined, worstYear = undefined;
 
     if ( sortedYears.length > 0 ) {
       firstYear = sortedYears[ 0 ];
@@ -284,15 +290,15 @@ export class Database {
       const relativeTotalGrowth = firstYearNetWorth !== 0 ? absoluteTotalGrowth / firstYearNetWorth : 0;
 
       totalGrowth = {
-        absolute: absoluteTotalGrowth,
-        relative: relativeTotalGrowth
+        absolute: round( absoluteTotalGrowth ),
+        relative: round( relativeTotalGrowth )
       };
 
       if ( sortedYears.length > 1 ) {
         const yearsDiff = lastYear - firstYear;
 
         if ( yearsDiff > 0 && firstYearNetWorth > 0 && latestNetWorth > 0 ) {
-          averageAnnualGrowth = Math.pow( latestNetWorth / firstYearNetWorth, 1 / yearsDiff ) - 1;
+          averageAnnualGrowth = round( Math.pow( latestNetWorth / firstYearNetWorth, 1 / yearsDiff ) - 1 );
         }
       }
 
@@ -312,9 +318,19 @@ export class Database {
     }
 
     const portfolioStats: PortfolioStats = {
-      firstYear, lastYear, latestNetWorth, highestNetWorth, lowestNetWorth,
-      totalGrowth, averageAnnualGrowth, bestYear, worstYear, assetCount,
-      liabilityCount, archivedCount
+      firstYear, lastYear,
+      latestNetWorth: round( latestNetWorth ),
+      highestNetWorth: round( highestNetWorth ),
+      lowestNetWorth: round( lowestNetWorth ),
+      realValue: round( portfolioSummary.realValue ),
+      nonRealValue: round( portfolioSummary.nonRealValue ),
+      totalGrowth, averageAnnualGrowth, bestYear, worstYear,
+      count: {
+        asset: portfolioSummary.assetCount,
+        liability: portfolioSummary.liabilityCount,
+        archived: portfolioSummary.archivedCount,
+        notional: portfolioSummary.nonRealCount
+      }
     };
 
     return {
