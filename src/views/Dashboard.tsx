@@ -129,7 +129,7 @@ export const Dashboard = () => {
                     );
                   }
                 } }
-                cursor= { { stroke: '#cbd5e1', strokeWidth: 1, strokeDasharray: '4 4' } }
+                cursor= { { stroke: '#cbd5e1', strokeWidth: 0.5 } }
               />
               <ReferenceLine
                 y= { 0 }
