@@ -55,6 +55,8 @@ export default ( {
     dashboard: {
       chartSubtitle: 'Temporal progression of your wealth, including assets, liabilities and estimated range',
       chartTitle: 'Wealth Development',
+      maximum: 'High',
+      minimum: 'Low',
       title: 'Dashboard'
     },
     editor: {

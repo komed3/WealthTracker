@@ -55,6 +55,8 @@ export default ( {
     dashboard: {
       chartSubtitle: 'Zeitlicher Verlauf deines Vermögens, umfasst Vermögenswerte, Verbindlichkeiten und geschätzte Spanne',
       chartTitle: 'Vermögensentwicklung',
+      maximum: 'Hoch',
+      minimum: 'Niedrig',
       title: 'Dashboard'
     },
     editor: {
