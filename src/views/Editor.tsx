@@ -50,28 +50,29 @@ export const Editor = () => {
   const handleSaveEntry = async ( entryData: Omit< Entry, 'id' | 'createdAt' | 'updatedAt' > & { id?: string } ) => {
     let updatedEntries: EntryRecord[];
 
-    if ( entryData.id ) updatedEntries = entries.map( record => {
-      if ( record.entry.id === entryData.id ) {
-        const updatedEntry: Entry = {
-          ...record.entry,
-          title: entryData.title,
-          description: entryData.description,
-          category: entryData.category,
-          class: entryData.class,
-          liquidity: entryData.liquidity,
-          color: entryData.color,
-          icon: entryData.icon,
-          archived: entryData.archived ?? false,
-          updatedAt: new Date().toISOString()
-        } as Entry;
+    if ( entryData.id ) {
+      updatedEntries = entries.map( record => {
+        if ( record.entry.id === entryData.id ) {
+          const updatedEntry: Entry = {
+            ...record.entry,
+            title: entryData.title,
+            description: entryData.description,
+            category: entryData.category,
+            class: entryData.class,
+            liquidity: entryData.liquidity,
+            archived: entryData.archived ?? false,
+            notional: entryData.notional ?? false,
+            color: entryData.color,
+            icon: entryData.icon,
+            updatedAt: new Date().toISOString()
+          } as Entry;
 
-        return { ...record, entry: updatedEntry };
-      }
+          return { ...record, entry: updatedEntry };
+        }
 
-      return record;
-    } );
-
-    else {
+        return record;
+      } );
+    } else {
       const newEntry: Entry = {
         id: uuid(),
         title: entryData.title,
@@ -79,9 +80,10 @@ export const Editor = () => {
         category: entryData.category,
         class: entryData.class,
         liquidity: entryData.liquidity,
+        archived: false,
+        notional: entryData.notional ?? false,
         color: entryData.color,
         icon: entryData.icon,
-        archived: false,
         createdAt: new Date().toISOString(),
         updatedAt: new Date().toISOString()
       } as Entry;
