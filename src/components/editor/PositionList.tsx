@@ -11,7 +11,7 @@ export const PositionList = ( { entries, onEdit, onDelete }: PositionListProps )
       <p className= 'text-slate-500'>{ i18n.t( $ => $.editor.emptyList ) }</p>
     </div>
   ) : (
-    <div className= 'flex flex-col w-full bg-white border border-slate-200 rounded-2xl shadow-sm overflow-hidden animate-fade-in'>
+    <div className= 'flex flex-col w-full bg-white border border-slate-200 rounded-2xl shadow-sm overflow-hidden'>
       <div className= 'overflow-x-auto'>
         <table className= 'w-full min-w-225 text-left text-sm text-slate-800 border-collapse'>
           <thead>
