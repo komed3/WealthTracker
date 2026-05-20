@@ -72,7 +72,6 @@ export default ( {
       descriptionPlaceholder: 'e.g. "This is my private savings account"',
       editButton: 'Edit',
       editPosition: 'Edit Position',
-      emptyList: 'You haven’t added any positions yet. Click on "Add New Position" to get started.',
       icon: 'Icon',
       liquidity: 'Liquidity',
       maximum: 'Maximum',
