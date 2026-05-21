@@ -86,7 +86,10 @@ export const Momentum = () => {
       { /** Momentum Chart */ }
       <Card>
         <ResponsiveContainer width= '100%' height= { 420 }>
-          <BarChart data= { chartData }>
+          <BarChart
+            data= { chartData }
+            margin= { { top: 10, right: 10, left: 10, bottom: 10 } }
+          >
             <XAxis
               dataKey= 'year'
               stroke= '#94a3b8'
