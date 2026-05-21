@@ -163,7 +163,7 @@ export const Assets = () => {
         />
       </div>
 
-      <div className= 'my-10 border-t-2 border-dashed border-slate-200' />
+      <div className= 'my-10 border-t border-slate-200' />
 
       { /** Assets Grid */ }
       { filteredRecords.length === 0 ? (
