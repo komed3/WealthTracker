@@ -89,7 +89,7 @@ export const Sidebar = () => {
         </nav>
 
         { /** Footer */ }
-        <div className= 'flex flex-col gap-1 shrink-0 p-4 border-t border-slate-200'>
+        <div className= 'flex flex-col gap-1 shrink-0 p-4 border-t border-slate-100'>
           <NavLink
             to= '/settings'
             onClick= { () => { if ( isMobile ) toggleSidebar() } }
