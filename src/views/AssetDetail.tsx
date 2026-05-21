@@ -174,7 +174,7 @@ export const AssetDetail = () => {
                         <CustomTooltip
                           label= { String( dataPoint.year ) }
                           value= { formatCurrency( dataPoint.value, display ) }
-                          color= '#2563eb'
+                          color= { assetData.entry.color }
                         >
                           <div className= 'flex justify-between gap-4'>
                             <span>{ i18n.t( $ => $.assetDetail.maximum ) }</span>
@@ -209,7 +209,7 @@ export const AssetDetail = () => {
                 <Area
                   type= 'monotone'
                   dataKey= 'range'
-                  fill= '#2563eb'
+                  fill= { assetData.entry.color }
                   fillOpacity= { 0.08 }
                   stroke= 'none'
                   activeDot= { false }
@@ -217,7 +217,7 @@ export const AssetDetail = () => {
                 <Line
                   type= 'monotone'
                   dataKey= 'max'
-                  stroke= '#2563eb'
+                  stroke= { assetData.entry.color }
                   strokeOpacity= { 0.25 }
                   strokeWidth= { 1 }
                   strokeDasharray= '4 4'
@@ -227,7 +227,7 @@ export const AssetDetail = () => {
                 <Line
                   type= 'monotone'
                   dataKey= 'min'
-                  stroke= '#2563eb'
+                  stroke= { assetData.entry.color }
                   strokeOpacity= { 0.25 }
                   strokeWidth= { 1 }
                   strokeDasharray= '4 4'
@@ -237,17 +237,17 @@ export const AssetDetail = () => {
                 <Line
                   type= 'monotone'
                   dataKey= 'value'
-                  stroke= '#2563eb'
+                  stroke= { assetData.entry.color }
                   strokeWidth= { 3 }
                   dot= { {
-                    stroke: '#2563eb',
+                    stroke: assetData.entry.color,
                     strokeWidth: 2,
                     fill: '#fff',
                     r: 5,
                     fillOpacity: 1
                   } }
                   activeDot= { {
-                    stroke: '#2563eb',
+                    stroke: assetData.entry.color,
                     strokeWidth: 3,
                     fill: '#fff',
                     r: 7,
