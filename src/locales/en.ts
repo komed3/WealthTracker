@@ -28,9 +28,12 @@ export default ( {
       class: 'Class',
       confidence: 'Confidence',
       details: 'Details',
+      evaluation: 'Asset Evaluation',
       growth: 'Annual Percent Changes',
+      high: 'Highest Value',
       history: 'Historical Trend',
       liquidity: 'Liquidity',
+      low: 'Lowest Value',
       maximum: 'High',
       minimum: 'Low',
       notional: 'Notional',
@@ -38,7 +41,8 @@ export default ( {
       share: 'Portfolio Share',
       status: 'Status',
       type: 'Type',
-      value: 'Current Value'
+      value: 'Current Value',
+      year: 'Year'
     },
     assets: {
       absolute: 'Absolute',

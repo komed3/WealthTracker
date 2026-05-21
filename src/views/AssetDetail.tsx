@@ -35,9 +35,9 @@ export const AssetDetail = () => {
   );
 
   const lastYear = sortedYears[ sortedYears.length - 1 ];
-  const entryStats = useMemo( () => data.computed.entries[ assetData.entry.id ], [ data ] );
-  const currentAbs = entryStats?.latestValue ?? 0;
-  const currentRel = entryStats?.relativeHistory?.[ String( lastYear ) as `${number}` ] ?? 0;
+  const assetStats = useMemo( () => data.computed.entries[ assetData.entry.id ], [ data ] );
+  const currentAbs = assetStats?.latestValue ?? 0;
+  const currentRel = assetStats?.relativeHistory?.[ String( lastYear ) as `${number}` ] ?? 0;
 
   const { mainChartData, growthChartData } = useMemo( () => {
     let hasValue = false;
@@ -338,8 +338,9 @@ export const AssetDetail = () => {
           </Card>
         </div>
 
-        { /** Infos */ }
-        <div className= 'shrink-0 w-sm'>
+        { /** Sidebar */ }
+        <div className= 'shrink-0 w-sm space-y-8'>
+          { /** Asset Details */ }
           <Card>
             <Heading level= { 4 } className= 'mb-4'>
               { i18n.t( $ => $.assetDetail.details ) }
@@ -376,6 +377,14 @@ export const AssetDetail = () => {
               </div>
               <div className= 'flex justify-between items-end gap-4'>
                 <span className= 'truncate uppercase tracking-wider text-[10px] font-medium text-slate-400'>
+                  { i18n.t( $ => $.assetDetail.year ) }
+                </span>
+                <span className= 'font-semibold'>
+                  { assetStats.firstYear }
+                </span>
+              </div>
+              <div className= 'flex justify-between items-end gap-4'>
+                <span className= 'truncate uppercase tracking-wider text-[10px] font-medium text-slate-400'>
                   { i18n.t( $ => $.assetDetail.type ) }
                 </span>
                 <span className= 'font-semibold'>
@@ -396,6 +405,31 @@ export const AssetDetail = () => {
                       ? i18n.t( $ => $.assetDetail.archived )
                       : i18n.t( $ => $.assetDetail.active )
                   }
+                </span>
+              </div>
+            </div>
+          </Card>
+
+          { /** Asset Evaluation */ }
+          <Card>
+            <Heading level= { 4 } className= 'mb-4'>
+              { i18n.t( $ => $.assetDetail.evaluation ) }
+            </Heading>
+            <div className= 'space-y-4'>
+              <div className= 'flex justify-between items-end gap-4'>
+                <span className= 'truncate uppercase tracking-wider text-[10px] font-medium text-slate-400'>
+                  { i18n.t( $ => $.assetDetail.high ) }
+                </span>
+                <span className= 'font-semibold'>
+                  { formatCurrency( assetStats.highestValue, display ) }
+                </span>
+              </div>
+              <div className= 'flex justify-between items-end gap-4'>
+                <span className= 'truncate uppercase tracking-wider text-[10px] font-medium text-slate-400'>
+                  { i18n.t( $ => $.assetDetail.low ) }
+                </span>
+                <span className= 'font-semibold'>
+                  { formatCurrency( assetStats.lowestValue, display ) }
                 </span>
               </div>
             </div>

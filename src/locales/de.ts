@@ -28,9 +28,12 @@ export default ( {
       class: 'Klasse',
       confidence: 'Sicherheit',
       details: 'Details',
+      evaluation: 'Asset-Bewertung',
       growth: 'Jährliche Änderungen in Prozent',
+      high: 'Höchster Wert',
       history: 'Historischer Verlauf',
       liquidity: 'Liquidität',
+      low: 'Niedrigster Wert',
       maximum: 'Hoch',
       minimum: 'Niedrig',
       notional: 'Fiktivwert',
@@ -38,7 +41,8 @@ export default ( {
       share: 'Portfolio-Anteil',
       status: 'Status',
       type: 'Bewertung',
-      value: 'Aktueller Wert'
+      value: 'Aktueller Wert',
+      year: 'Jahr'
     },
     assets: {
       absolute: 'Absolut',
