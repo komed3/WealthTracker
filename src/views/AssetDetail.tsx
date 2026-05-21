@@ -416,6 +416,34 @@ export const AssetDetail = () => {
               { i18n.t( $ => $.assetDetail.evaluation ) }
             </Heading>
             <div className= 'space-y-4'>
+              { assetStats.evaluation && (
+                <>
+                  <div className= 'flex justify-between items-end gap-4'>
+                    <span className= 'truncate uppercase tracking-wider text-[10px] font-medium text-slate-400'>
+                      { i18n.t( $ => $.assetDetail.volatility ) }
+                    </span>
+                    <span className= 'font-semibold'>
+                      { i18n.t( $ => $.volatility[ assetStats.evaluation!.volatility ] ) }
+                    </span>
+                  </div>
+                  <div className= 'flex justify-between items-end gap-4'>
+                    <span className= 'truncate uppercase tracking-wider text-[10px] font-medium text-slate-400'>
+                      { i18n.t( $ => $.assetDetail.trend ) }
+                    </span>
+                    <span className= 'font-semibold'>
+                      { i18n.t( $ => $.trend[ assetStats.evaluation!.trend ] ) }
+                    </span>
+                  </div>
+                  <div className= 'flex justify-between items-end gap-4'>
+                    <span className= 'truncate uppercase tracking-wider text-[10px] font-medium text-slate-400'>
+                      { i18n.t( $ => $.assetDetail.stability ) }
+                    </span>
+                    <span className= 'font-semibold'>
+                      { i18n.t( $ => $.stability[ assetStats.evaluation!.stability ] ) }
+                    </span>
+                  </div>
+                </>
+              ) }
               <div className= 'flex justify-between items-end gap-4'>
                 <span className= 'truncate uppercase tracking-wider text-[10px] font-medium text-slate-400'>
                   { i18n.t( $ => $.assetDetail.high ) }
