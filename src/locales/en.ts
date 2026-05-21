@@ -23,6 +23,7 @@ export default ( {
     },
     assetDetail: {
       confidence: 'Confidence',
+      growth: 'Annual Percent Changes',
       history: 'Historical Trend',
       maximum: 'High',
       minimum: 'Low',

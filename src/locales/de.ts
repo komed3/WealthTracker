@@ -23,6 +23,7 @@ export default ( {
     },
     assetDetail: {
       confidence: 'Sicherheit',
+      growth: 'Jährliche Änderungen in Prozent',
       history: 'Historischer Verlauf',
       maximum: 'Hoch',
       minimum: 'Niedrig',
