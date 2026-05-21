@@ -10,7 +10,10 @@ import i18n from '@/src/lib/i18n';
 import { ArrowLeft } from 'lucide-react';
 import { useEffect, useMemo } from 'react';
 import { Link, useNavigate, useParams } from 'react-router';
-import { Area, Bar, BarChart, CartesianGrid, ComposedChart, Line, Rectangle, ReferenceLine, ResponsiveContainer, Tooltip, XAxis, YAxis } from 'recharts';
+import {
+  Area, Bar, BarChart, CartesianGrid, ComposedChart, Line, Rectangle,
+  ReferenceLine, ResponsiveContainer, Tooltip, XAxis, YAxis
+} from 'recharts';
 
 export const AssetDetail = () => {
   const { assetId } = useParams < { assetId: string } > ();
