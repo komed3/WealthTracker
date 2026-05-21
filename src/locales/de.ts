@@ -22,12 +22,22 @@ export default ( {
       wallet: 'Wallet'
     },
     assetDetail: {
+      active: 'Aktiv',
+      archived: 'Archiviert',
+      category: 'Kategorie',
+      class: 'Klasse',
       confidence: 'Sicherheit',
+      details: 'Details',
       growth: 'Jährliche Änderungen in Prozent',
       history: 'Historischer Verlauf',
+      liquidity: 'Liquidität',
       maximum: 'Hoch',
       minimum: 'Niedrig',
+      notional: 'Fiktivwert',
+      real: 'Realwert',
       share: 'Portfolio-Anteil',
+      status: 'Status',
+      type: 'Bewertung',
       value: 'Aktueller Wert'
     },
     assets: {
