@@ -1,5 +1,6 @@
 import { useLayout } from '@/src/context/LayoutCtx';
 import { Menu } from 'lucide-react';
+import faviconUrl from '/favicon.svg?url';
 
 export const MobileTopBar = () => {
   const { toggleSidebar } = useLayout();
@@ -16,7 +17,7 @@ export const MobileTopBar = () => {
         WealthTracker
       </span>
       <div className= 'flex justify-center items-center shrink-0 w-8 h-8'>
-        <img src= './favicon.svg' className= 'w-auto h-6' />
+        <img src= { faviconUrl } className= 'w-auto h-6' />
       </div>
     </div>
   );
