@@ -69,7 +69,7 @@ export default ( {
     breakdown: {
       asset: 'Asset',
       breakdown: 'Annual Breakdown',
-      breakdownInfo: 'Detailed composition for the year {{year}}.',
+      breakdownInfo: 'Detailed composition for the year {{year}}',
       class: 'Class',
       description: 'Detailed breakdown of your financial positions by assets, liquidity and class.',
       history: 'Historical Development',
