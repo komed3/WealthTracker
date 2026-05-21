@@ -232,9 +232,9 @@ export const Breakdown = () => {
             </ResponsiveContainer>
           </div>
 
-          <div className= 'self-stretch shrink-0 w-0 border-l-2 border-dashed border-slate-200' />
+          <div className= 'hidden 2xl:block self-stretch shrink-0 w-0 border-l-2 border-dashed border-slate-200' />
 
-          <div className= 'flex-3 w-md max-h-90 space-y-3 overflow-y-auto'>
+          <div className= 'flex-3 w-full max-h-90 space-y-3 overflow-y-auto'>
             { currentListData.length === 0 ? (
               <div className= 'py-16 text-center text-lg font-light tracking-wider text-slate-400'>
                 { i18n.t( $ => $.breakdown.noData ) }
