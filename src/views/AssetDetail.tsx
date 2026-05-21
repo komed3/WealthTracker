@@ -448,7 +448,7 @@ export const AssetDetail = () => {
                 <span className= 'truncate uppercase tracking-wider text-[10px] font-medium text-slate-400'>
                   { i18n.t( $ => $.assetDetail.high ) }
                 </span>
-                <span className= 'font-semibold'>
+                <span className= 'font-mono font-semibold'>
                   { formatCurrency( assetStats.highestValue, display ) }
                 </span>
               </div>
@@ -456,7 +456,7 @@ export const AssetDetail = () => {
                 <span className= 'truncate uppercase tracking-wider text-[10px] font-medium text-slate-400'>
                   { i18n.t( $ => $.assetDetail.low ) }
                 </span>
-                <span className= 'font-semibold'>
+                <span className= 'font-mono font-semibold'>
                   { formatCurrency( assetStats.lowestValue, display ) }
                 </span>
               </div>
@@ -464,7 +464,7 @@ export const AssetDetail = () => {
                 <span className= 'truncate uppercase tracking-wider text-[10px] font-medium text-slate-400'>
                   { i18n.t( $ => $.assetDetail.avgGrowth ) }
                 </span>
-                <span className= 'font-semibold'>
+                <span className= 'font-mono font-semibold'>
                   { formatPercent( assetStats.averageAnnualGrowth, display ) }
                 </span>
               </div>
