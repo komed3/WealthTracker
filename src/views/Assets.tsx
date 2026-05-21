@@ -163,6 +163,8 @@ export const Assets = () => {
         />
       </div>
 
+      <div className= 'my-10 border-t-2 border-dashed border-slate-200' />
+
       { /** Assets Grid */ }
       { filteredRecords.length === 0 ? (
         <div className= 'flex flex-col justify-center items-center gap-2 py-20 text-center'>
@@ -219,7 +221,7 @@ export const Assets = () => {
                           <Heading level= { 4 } className= 'truncate text-lg font-semibold text-slate-800'>
                             { entry.title }
                           </Heading>
-                          <div className= 'flex items-center gap-2 truncate uppercase text-[10px] font-semibold tracking-wide text-slate-400'>
+                          <div className= 'flex items-center gap-2 -mt-1 truncate uppercase text-[9.5px] font-semibold tracking-wide text-slate-400'>
                             <span>{ classLabel }</span>
                             <span className= 'text-slate-300'>—</span>
                             <span>L{ entry.liquidity }</span>
