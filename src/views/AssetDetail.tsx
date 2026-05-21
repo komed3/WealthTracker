@@ -208,7 +208,7 @@ export const AssetDetail = () => {
                 <ReferenceLine
                   y= { 0 }
                   stroke= '#cbd5e1'
-                  strokeWidth= { 1 }
+                  strokeWidth= { 2 }
                   style= { { opacity: 0.6 } }
                 />
                 <Area
@@ -315,8 +315,7 @@ export const AssetDetail = () => {
                   y= { 0 }
                   stroke= '#cbd5e1'
                   strokeWidth= { 2 }
-                  strokeDasharray= { 5 }
-                  style={ { opacity: 0.6 } }
+                  style= { { opacity: 0.6 } }
                 />
                 <Bar
                   dataKey= 'change'

@@ -7,7 +7,10 @@ import { useLayout } from '@/src/context/LayoutCtx';
 import { formatCurrency, formatPercent } from '@/src/lib/formatter';
 import i18n from '@/src/lib/i18n';
 import { useEffect, useMemo } from 'react';
-import { Area, CartesianGrid, ComposedChart, Line, ReferenceLine, ResponsiveContainer, Tooltip, XAxis, YAxis } from 'recharts';
+import {
+  Area, CartesianGrid, ComposedChart, Line, ReferenceLine, ResponsiveContainer,
+  Tooltip, XAxis, YAxis
+} from 'recharts';
 
 export const Dashboard = () => {
   const { settings, data } = useData();
@@ -141,7 +144,7 @@ export const Dashboard = () => {
               <ReferenceLine
                 y= { 0 }
                 stroke= '#cbd5e1'
-                strokeWidth= { 1 }
+                strokeWidth= { 2 }
                 style= { { opacity: 0.6 } }
               />
 

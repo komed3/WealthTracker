@@ -10,7 +10,10 @@ import i18n from '@/src/lib/i18n';
 import { cn } from '@/src/lib/utils';
 import { Percent, Sigma } from 'lucide-react';
 import { useEffect, useMemo, useState } from 'react';
-import { Bar, BarChart, Rectangle, ReferenceLine, ResponsiveContainer, Tooltip, XAxis, YAxis } from 'recharts';
+import {
+  Bar, BarChart, Rectangle, ReferenceLine, ResponsiveContainer,
+  Tooltip, XAxis, YAxis
+} from 'recharts';
 
 export const Momentum = () => {
   const { settings, data } = useData();
@@ -152,8 +155,7 @@ export const Momentum = () => {
               y= { 0 }
               stroke= '#cbd5e1'
               strokeWidth= { 2 }
-              strokeDasharray= { 5 }
-              style={ { opacity: 0.6 } }
+              style= { { opacity: 0.6 } }
             />
             <Bar
               dataKey= 'value'
