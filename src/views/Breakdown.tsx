@@ -290,7 +290,6 @@ export const Breakdown = () => {
           <BarChart
             data= { stackedChartData }
             margin= { { top: 10, right: 20, left: 20, bottom: 10 } }
-            barCategoryGap= '20%'
           >
             <CartesianGrid
               strokeDasharray= '3 3'
