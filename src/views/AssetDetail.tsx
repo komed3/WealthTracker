@@ -133,7 +133,7 @@ export const AssetDetail = () => {
       { /** Content */ }
       <div className= 'flex flex-col 2xl:flex-row items-start gap-8'>
         { /** Charts */ }
-        <div className= 'flex-1 space-y-8'>
+        <div className= 'flex-1 w-full space-y-8'>
           { /** Historical Trend */ }
           <Card>
             <Heading level= { 4 } className= 'mb-6'>
@@ -339,7 +339,7 @@ export const AssetDetail = () => {
         </div>
 
         { /** Sidebar */ }
-        <div className= 'shrink-0 w-sm space-y-8'>
+        <div className= 'shrink-0 w-full 2xl:w-sm space-y-8'>
           { /** Asset Details */ }
           <Card>
             <Heading level= { 4 } className= 'mb-4'>
