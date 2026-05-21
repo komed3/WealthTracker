@@ -23,7 +23,11 @@ export default ( {
     },
     assets: {
       absolute: 'Absolut',
+      all: 'Alle',
+      category: 'Kategorie',
+      class: 'Klasse',
       description: 'Analysiere und filtere deine individuellen finanziellen Positionen und Verpflichtungen über die Zeit.',
+      liquidity: 'Liquidität',
       relative: 'Relativ',
       title: 'Vermögenswerte'
     },

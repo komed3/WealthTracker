@@ -23,7 +23,11 @@ export default ( {
     },
     assets: {
       absolute: 'Absolute',
+      all: 'All',
+      category: 'Category',
+      class: 'Class',
       description: 'Analyze and filter your individual financial holdings and obligations over time.',
+      liquidity: 'Liquidity',
       relative: 'Relative',
       title: 'Assets'
     },
