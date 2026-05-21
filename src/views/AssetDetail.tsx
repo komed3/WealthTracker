@@ -1,8 +1,8 @@
 import { Card } from '@/src/components/ui/Card';
-import { yAxisFormatter } from '@/src/components/ui/Chart';
+import { CustomTooltip, yAxisFormatter } from '@/src/components/ui/Chart';
 import { Heading } from '@/src/components/ui/Heading';
 import { Icon } from '@/src/components/ui/Icon';
-import type { ASSET_CLASS, LIABILITY_CLASS } from '@/src/config/constants';
+import type { ASSET_CLASS, CONFIDENCE, LIABILITY_CLASS } from '@/src/config/constants';
 import { useData } from '@/src/context/DataCtx';
 import { useLayout } from '@/src/context/LayoutCtx';
 import { formatCurrency, formatPercent } from '@/src/lib/formatter';
@@ -10,7 +10,7 @@ import i18n from '@/src/lib/i18n';
 import { ArrowLeft } from 'lucide-react';
 import { useEffect, useMemo } from 'react';
 import { Link, useNavigate, useParams } from 'react-router';
-import { CartesianGrid, ComposedChart, ResponsiveContainer, XAxis, YAxis } from 'recharts';
+import { Area, CartesianGrid, ComposedChart, Line, ReferenceLine, ResponsiveContainer, Tooltip, XAxis, YAxis } from 'recharts';
 
 export const AssetDetail = () => {
   const { assetId } = useParams < { assetId: string } > ();
@@ -38,6 +38,7 @@ export const AssetDetail = () => {
 
   const { mainChartData, growthChartData, hasMinMax } = useMemo( () => {
     let checkMinMax = false;
+    let hasValue = false;
 
     const mainDetails = sortedYears.map( yearKey => {
       const yearStr = String( yearKey ) as `${number}`;
@@ -46,23 +47,18 @@ export const AssetDetail = () => {
       const minVal = h?.min ?? valueVal;
       const maxVal = h?.max ?? valueVal;
 
+      if ( ! hasValue && valueVal === 0 ) return;
+      hasValue = true;
+
       if ( minVal !== valueVal || maxVal !== valueVal ) checkMinMax = true;
 
       return {
         year: yearKey, value: valueVal, min: minVal, max: maxVal,
-        confidence: h?.confidence || 'medium'
+        range: [ minVal, maxVal ], confidence: h?.confidence || 'medium'
       };
-    } );
+    } ).filter( Boolean );
 
-    const growthDetails = sortedYears.map( ( year, index ) => {
-      const prevYrStr = String( sortedYears[ index - 1 ] ) as `${number}`;
-      const currYrStr = String( year ) as `${number}`;
-      const prevVal = assetData.history[ prevYrStr ]?.value ?? 0;
-      const currVal = assetData.history[ currYrStr ]?.value ?? 0;
-      const change = prevVal !== 0 ? ( ( currVal - prevVal ) / prevVal ) * 100 : 0;
-
-      return { year, change };
-    } ).slice( 1 );
+    const growthDetails = {};
 
     return {
       mainChartData: mainDetails,
@@ -135,7 +131,7 @@ export const AssetDetail = () => {
         <div className= 'flex-1'>
           { /** History */ }
           <Card>
-            <Heading level= { 4 }>
+            <Heading level= { 4 } className= 'mb-6'>
               { i18n.t( $ => $.assetDetail.history ) }
             </Heading>
             <ResponsiveContainer width= '100%' height= { 320 }>
@@ -150,7 +146,7 @@ export const AssetDetail = () => {
                 />
                 <XAxis
                   dataKey= 'year'
-                  interval= { 3 }
+                  interval= 'preserveStartEnd'
                   stroke= '#94a3b8'
                   fontSize= { 12 }
                   fontWeight= { 600 }
@@ -167,6 +163,95 @@ export const AssetDetail = () => {
                   fontWeight= { 600 }
                   tickLine= { false }
                   axisLine= { false }
+                />
+                <Tooltip
+                  content= { ( { active, payload } ) => {
+                    if ( active && payload && payload.length ) {
+                      const dataPoint = payload[ 0 ].payload;
+
+                      return (
+                        <CustomTooltip
+                          label= { String( dataPoint.year ) }
+                          value= { formatCurrency( dataPoint.value, display ) }
+                          color= '#2563eb'
+                        >
+                          <div className= 'flex justify-between gap-4'>
+                            <span>{ i18n.t( $ => $.assetDetail.maximum ) }</span>
+                            <span className= 'font-mono font-semibold text-slate-800'>
+                              { formatCurrency( dataPoint.max, display ) }
+                            </span>
+                          </div>
+                          <div className= 'flex justify-between gap-4'>
+                            <span>{ i18n.t( $ => $.assetDetail.minimum ) }</span>
+                            <span className= 'font-mono font-semibold text-slate-800'>
+                              { formatCurrency( dataPoint.min, display ) }
+                            </span>
+                          </div>
+                          <div className= 'flex justify-between gap-4'>
+                            <span>{ i18n.t( $ => $.assetDetail.confidence ) }</span>
+                            <span className= 'font-mono font-semibold text-slate-800'>
+                              { i18n.t( $ => $.confidence[ dataPoint.confidence as CONFIDENCE ] ) }
+                            </span>
+                          </div>
+                        </CustomTooltip>
+                      );
+                    }
+                  } }
+                  cursor= { { stroke: '#cbd5e1', strokeWidth: 0.5 } }
+                />
+                <ReferenceLine
+                  y= { 0 }
+                  stroke= '#cbd5e1'
+                  strokeWidth= { 1 }
+                  style= { { opacity: 0.6 } }
+                />
+                <Area
+                  type= 'monotone'
+                  dataKey= 'range'
+                  fill= '#2563eb'
+                  fillOpacity= { 0.08 }
+                  stroke= 'none'
+                  activeDot= { false }
+                />
+                <Line
+                  type= 'monotone'
+                  dataKey= 'max'
+                  stroke= '#2563eb'
+                  strokeOpacity= { 0.25 }
+                  strokeWidth= { 1 }
+                  strokeDasharray= '4 4'
+                  dot= { false }
+                  activeDot= { false }
+                />
+                <Line
+                  type= 'monotone'
+                  dataKey= 'min'
+                  stroke= '#2563eb'
+                  strokeOpacity= { 0.25 }
+                  strokeWidth= { 1 }
+                  strokeDasharray= '4 4'
+                  dot= { false }
+                  activeDot= { false }
+                />
+                <Line
+                  type= 'monotone'
+                  dataKey= 'value'
+                  stroke= '#2563eb'
+                  strokeWidth= { 3 }
+                  dot= { {
+                    stroke: '#2563eb',
+                    strokeWidth: 2,
+                    fill: '#fff',
+                    r: 5,
+                    fillOpacity: 1
+                  } }
+                  activeDot= { {
+                    stroke: '#2563eb',
+                    strokeWidth: 3,
+                    fill: '#fff',
+                    r: 7,
+                    fillOpacity: 1
+                  } }
                 />
               </ComposedChart>
             </ResponsiveContainer>
