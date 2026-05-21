@@ -68,6 +68,8 @@ export default ( {
     },
     breakdown: {
       asset: 'Vermögenswert',
+      breakdown: 'Jährliche Aufteilung',
+      breakdownInfo: 'Detaillierte Zusammensetzung für das Jahr {{year}}.',
       class: 'Klasse',
       description: 'Detaillierte Aufschlüsselung deiner finanziellen Positionen nach Assets, Liquidität und Klasse.',
       liquidity: 'Liquidität',
