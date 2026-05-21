@@ -108,3 +108,7 @@ export const LIQUIDITY_COLORS: Record< LIQUIDITY, string > = {
   1: '#10b981', 2: '#14b8a6', 3: '#3b82f6',
   4: '#8b5cf6', 5: '#f43f5e'
 };
+
+export const REALIZATION_COLORS: Record< 'real' | 'nonReal', string > = {
+  real: '#10b981', nonReal: '#f59e0b'
+};
