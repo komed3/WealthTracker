@@ -235,6 +235,18 @@ export const Breakdown = () => {
           </div>
         </div>
       </Card>
+
+      { /** Historical Development */ }
+      <Card className= 'flex flex-col gap-6'>
+        <div>
+          <Heading level= { 3 }>
+            { i18n.t( $ => $.breakdown.history ) }
+          </Heading>
+          <p className= 'text-sm text-slate-500'>
+            { i18n.t( $ => $.breakdown.historyInfo ) }
+          </p>
+        </div>
+      </Card>
     </div>
   );
 };
