@@ -3,6 +3,7 @@ import { Icon } from '@/src/components/ui/Icon';
 import type { ASSET_CLASS, LIABILITY_CLASS } from '@/src/config/constants';
 import { useData } from '@/src/context/DataCtx';
 import { useLayout } from '@/src/context/LayoutCtx';
+import { formatCurrency, formatPercent } from '@/src/lib/formatter';
 import i18n from '@/src/lib/i18n';
 import { ArrowLeft } from 'lucide-react';
 import { useEffect, useMemo } from 'react';
@@ -21,6 +22,16 @@ export const AssetDetail = () => {
   if ( ! assetId || ! assetData ) return null;
 
   useEffect( () => { setTitle( assetData.entry.title ) }, [ setTitle, display.language ] );
+
+  const sortedYears = useMemo(
+    () => Object.values( data.computed.years ?? [] ).map( s => s.year ).sort( ( a, b ) => a - b ),
+    [ data ]
+  );
+
+  const lastYear = sortedYears[ sortedYears.length - 1 ];
+  const entryStats = useMemo( () => data.computed.entries[ assetData.entry.id ], [ data ] );
+  const currentAbs = entryStats?.latestValue ?? 0;
+  const currentRel = entryStats?.relativeHistory?.[ String( lastYear ) as `${number}` ] ?? 0;
 
   const classLabel = useMemo( () => {
     return assetData.entry.category === 'asset'
@@ -52,9 +63,30 @@ export const AssetDetail = () => {
             <Heading level= { 1 } className= 'truncate leading-tight text-xl sm:text-2xl font-bold tracking-tight text-slate-900'>
               { assetData.entry.title }
             </Heading>
-            <p className= 'truncate uppercase tracking-wider text-xs font-semibold text-slate-400'>
+            <p className= 'truncate uppercase tracking-wider text-xs font-medium text-slate-400'>
               { i18n.t( $ => $.category[ assetData.entry.category ] ) } — { classLabel }
             </p>
+          </div>
+        </div>
+
+        { /** Asset Value */ }
+        <div className= 'flex justify-between sm:justify-end items-center gap-6 sm:gap-8 w-full sm:w-auto text-right'>
+          <div className= 'flex flex-col items-start sm:items-end'>
+            <span className= 'leading-none font-mono text-xl sm:text-2xl font-bold text-slate-900'>
+              { formatCurrency( currentAbs, display ) }
+            </span>
+            <span className= 'mt-1.5 uppercase tracking-wider text-xs font-medium text-slate-400'>
+              { i18n.t( $ => $.assetDetail.value ) }
+            </span>
+          </div>
+
+          <div className= 'flex flex-col items-end'>
+            <span className= 'font-mono text-xl sm:text-2xl font-bold leading-none'>
+              { formatPercent( currentRel, display ) }
+            </span>
+            <span className= 'mt-1.5 uppercase tracking-wider text-xs font-medium text-slate-400'>
+              { i18n.t( $ => $.assetDetail.share ) }
+            </span>
           </div>
         </div>
       </div>
