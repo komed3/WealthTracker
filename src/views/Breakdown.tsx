@@ -5,7 +5,10 @@ import { Intro } from '@/src/components/ui/Intro';
 import { NoData } from '@/src/components/ui/NoData';
 import { Select } from '@/src/components/ui/Select';
 import { Tabs } from '@/src/components/ui/Tabs';
-import { ASSET_CLASS, CLASS, CLASS_COLORS, LIABILITY_CLASS, LIQUIDITY, LIQUIDITY_COLORS } from '@/src/config/constants';
+import {
+  ASSET_CLASS, CLASS, CLASS_COLORS, LIABILITY_CLASS, LIQUIDITY,
+  LIQUIDITY_COLORS, REALIZATION_COLORS
+} from '@/src/config/constants';
 import { useData } from '@/src/context/DataCtx';
 import { useLayout } from '@/src/context/LayoutCtx';
 import { formatCurrency, formatPercent } from '@/src/lib/formatter';
@@ -80,6 +83,19 @@ export const Breakdown = () => {
           value: b?.value ?? 0, share: b?.percentage ?? 0,
           color: LIQUIDITY_COLORS[ Number( liq ) as LIQUIDITY ] || '#64748b'
         } ) );
+
+      case 'realization':
+        return [ {
+          id: 'real', title: i18n.t( $ => $.breakdown.real ),
+          value: snapshot.realization.real.value,
+          share: snapshot.realization.real.percentage,
+          color: REALIZATION_COLORS.real
+        }, {
+          id: 'nonReal', title: i18n.t( $ => $.breakdown.notional ),
+          value: snapshot.realization.nonReal.value,
+          share: snapshot.realization.nonReal.percentage,
+          color: REALIZATION_COLORS.nonReal
+        } ];
     }
 
     return [];
