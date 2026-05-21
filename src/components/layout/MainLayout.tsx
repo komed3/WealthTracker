@@ -22,7 +22,7 @@ export const MainLayout = ( { children }: LayoutProps ) => {
         className= 'flex-1 flex flex-col min-w-0 overflow-y-auto transition-all duration-300 ease-in-out'
         ref= { mainRef }
       >
-        <div className= 'flex-1 flex flex-col w-full max-w-400 mx-auto px-8 py-8 md:px-12 md:py-10'>
+        <div className= 'flex-1 flex flex-col w-full max-w-400 mx-auto px-4 py-6 sm:px-8 sm:py-8 md:px-12 md:py-10'>
           { children }
         </div>
       </main>
