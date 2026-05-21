@@ -204,8 +204,8 @@ export const Assets = () => {
                   exit= { { opacity: 0, scale: 0.9 } }
                   transition= { { duration: 0.3 } }
                 >
-                  <Card className= 'flex flex-col p-0 md:p-0'>
-                    <div className= 'flex justify-between items-start gap-4 mb-2 p-3 space-y-4'>
+                  <Card className= 'flex flex-col p-2 md:p-2'>
+                    <div className= 'flex justify-between items-start gap-4 p-2 space-y-4'>
                       { /** Header Link */ }
                       <Link
                         to= { `/asset/${ entry.id }` }
