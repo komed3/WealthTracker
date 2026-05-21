@@ -16,8 +16,10 @@ export const Dashboard = () => {
 
   useEffect( () => { setTitle( i18n.t( $ => $.dashboard.title ) ) }, [ setTitle, display.language ] );
 
-  const hasData = data && Object.keys( data.computed.years ).length;
   const portfolioStats = data?.computed?.portfolio;
+  const hasData = data && Object.keys( data.computed.years ).length;
+
+  if ( ! hasData ) return <NoData />;
 
   const snapshots = useMemo( () => (
     Object.values( data?.computed.years ?? {} ).sort( ( a, b ) => a.year - b.year )
@@ -37,7 +39,7 @@ export const Dashboard = () => {
 
   const latest = useMemo( () => yearDetails.slice().reverse()[ 0 ], [ yearDetails ] );
 
-  return ! hasData ? <NoData /> : (
+  return (
     <div className= 'space-y-8'>
       { /** Key Metrics */ }
       { portfolioStats && latest && (

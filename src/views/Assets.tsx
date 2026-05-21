@@ -26,6 +26,8 @@ export const Assets = () => {
 
   useEffect( () => { setTitle( i18n.t( $ => $.assets.title ) ) }, [ setTitle, display.language ] );
 
+  if ( entries.length === 0 ) return <NoData />;
+
   const [ viewMode, setViewMode ] = useState( 'absolute' );
   const [ category, setCategory ] = useState( 'all' );
   const [ classVal, setClassVal ] = useState( 'all' );
@@ -110,7 +112,7 @@ export const Assets = () => {
     } );
   }, [ entries, category, classVal, liquidity, archived, notional ] );
 
-  return entries.length === 0 ? <NoData /> : (
+  return (
     <div className= 'space-y-8'>
       { /** Page Header */ }
       <Intro

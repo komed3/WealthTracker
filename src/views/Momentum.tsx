@@ -20,8 +20,10 @@ export const Momentum = () => {
   useEffect( () => { setTitle( i18n.t( $ => $.momentum.title ) ) }, [ setTitle, display.language ] );
 
   const [ activeTab, setActiveTab ] = useState( 'relative' );
-  const hasData = data && Object.keys( data.computed.years ).length;
   const portfolioStats = data?.computed?.portfolio;
+  const hasData = data && Object.keys( data.computed.years ).length;
+
+  if ( ! hasData ) return <NoData />;
 
   const snapshots = useMemo( () => (
     Object.values( data?.computed.years ?? [] ).sort( ( a, b ) => a.year - b.year )
@@ -57,9 +59,6 @@ export const Momentum = () => {
           ] }
         /> }
       </Intro>
-
-      { /** No Data Available */ }
-      { ! hasData && <NoData /> }
 
       { /** Key Metrics */ }
       { portfolioStats && (
