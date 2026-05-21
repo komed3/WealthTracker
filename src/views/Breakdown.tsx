@@ -16,7 +16,7 @@ import i18n from '@/src/lib/i18n';
 import type { YearSnapshot } from '@/src/types/data';
 import { BookOpenText, Layers, LayoutDashboard, PiggyBank } from 'lucide-react';
 import { useEffect, useMemo, useState } from 'react';
-import { BarChart, Pie, PieChart, ReferenceLine, ResponsiveContainer, Sector, Tooltip, XAxis, YAxis } from 'recharts';
+import { Bar, BarChart, Pie, PieChart, ReferenceLine, ResponsiveContainer, Sector, Tooltip, XAxis, YAxis } from 'recharts';
 
 export const Breakdown = () => {
   const { setTitle } = useLayout();
@@ -120,6 +120,27 @@ export const Breakdown = () => {
       return row;
     } );
   }, [ sortedYears, viewMode, data ] );
+
+  const stackedItems = useMemo( () => {
+    const activeIds = new Set< string >();
+    stackedChartData.forEach( row => {
+      Object.entries( row ).forEach( ( [ key, val ] ) => {
+        if ( key !== 'year' && Number( val ) > 0 ) activeIds.add( key );
+      } );
+    } );
+
+    const idToMeta = new Map< string, { title: string; color: string } >();
+    sortedYears.forEach( y => {
+      const snapshot = data.computed.years[ String( y ) as `${number}` ];
+      getBreakdown( snapshot, y ).forEach( item => {
+        idToMeta.set( item.id, { title: item.title, color: item.color } );
+      } );
+    } );
+
+    return Array.from( activeIds ).map( id => ( {
+      id, title: idToMeta.get( id )?.title, color: idToMeta.get( id )?.color
+    } ) );
+  }, [ stackedChartData, sortedYears, viewMode, data ] );
 
   return (
     <div className= 'space-y-8'>
@@ -289,12 +310,40 @@ export const Breakdown = () => {
               axisLine= { false }
               dx= { -10 }
             />
+            <Tooltip
+              content= { ( { active, payload } ) => {
+                if ( active && payload && payload.length ) {
+                  const sortedPayload = payload.slice().sort( ( a, b ) => Number( b.value ) - Number( a.value ) );
+                  const totalNetWorth = sortedPayload.reduce( ( sum, p ) => sum + Number( p.value ), 0 );
+
+                  return (
+                    <CustomTooltip
+                      label= { String( sortedPayload[ 0 ].payload.year ) }
+                      value= { formatCurrency( totalNetWorth, display ) }
+                    ></CustomTooltip>
+                  );
+                }                  
+              } }
+              cursor= { { fill: '#f1f5f9', opacity: 0.4 } }
+            />
             <ReferenceLine
               y= { 0 }
               stroke= '#cbd5e1'
               strokeWidth= { 2 }
               style= { { opacity: 0.6 } }
             />
+
+            { stackedItems.map( ( item ) => (
+              <Bar
+                key= { item.id }
+                dataKey= { item.id }
+                name= { item.title }
+                stackId= 'a'
+                fill= { item.color }
+                stroke= '#ffffff'
+                strokeWidth= { 2 }
+              />
+            ) ) }
           </BarChart>
         </ResponsiveContainer>
       </Card>
