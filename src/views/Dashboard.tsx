@@ -67,7 +67,7 @@ export const Dashboard = () => {
 
       { /** Wealth Timeline */ }
       <Card className= 'flex flex-col gap-6 p-6'>
-        <div className= 'flex flex-col gap-1.5'>
+        <div className= 'flex flex-col gap-1.5 mb-4'>
           <Heading level= { 3 }>
             { i18n.t( $ => $.dashboard.chartTitle ) }
           </Heading>
