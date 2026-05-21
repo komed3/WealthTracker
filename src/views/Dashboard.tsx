@@ -90,7 +90,7 @@ export const Dashboard = () => {
               />
               <XAxis
                 dataKey= 'year'
-                interval= { 3 }
+                interval= 'preserveStartEnd'
                 stroke= '#94a3b8'
                 fontSize= { 12 }
                 fontWeight= { 600 }

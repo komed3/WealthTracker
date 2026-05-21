@@ -91,6 +91,7 @@ export const Momentum = () => {
           >
             <XAxis
               dataKey= 'year'
+              interval= 'preserveStartEnd'
               stroke= '#94a3b8'
               fontSize= { 12 }
               fontWeight= { 600 }
