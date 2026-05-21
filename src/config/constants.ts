@@ -92,3 +92,19 @@ export type GENDER = ( typeof GENDER )[ number ];
 export const GENDER = [
   'male', 'female', 'diverse', 'unspecified'
 ] as const;
+
+export const CLASS_COLORS: Record< CLASS, string > = {
+  cash: '#10b981', bank: '#0ea5e9', moneyMarket: '#06b6d4',
+  stocks: '#3b82f6', etf: '#6366f1', funds: '#8b5cf6',
+  bonds: '#64748b', crypto: '#f59e0b', commodities: '#d4a373',
+  realEstate: '#bc6c25', pension: '#a855f7', insurance: '#eab308',
+  collectibles: '#ec4899', vehicles: '#f97316', luxury: '#d946ef',
+  lending: '#14b8a6', privateEquity: '#606c38', mortgage: '#ef4444',
+  loan: '#f43f5e', creditCard: '#a53f2b', tax: '#94a3b8',
+  leasing: '#d4a373', other: '#64748b'
+};
+
+export const LIQUIDITY_COLORS: Record< LIQUIDITY, string > = {
+  1: '#10b981', 2: '#14b8a6', 3: '#3b82f6',
+  4: '#8b5cf6', 5: '#f43f5e'
+};
