@@ -4,7 +4,7 @@ import i18n from '@/src/lib/i18n';
 import { useEffect, useState } from 'react';
 import { Intro } from '@/src/components/ui/Intro';
 import { Tabs } from '@/src/components/ui/Tabs';
-import { ChartPie, ClockFading, Layers, LayoutDashboard } from 'lucide-react';
+import { BookOpenText, Layers, LayoutDashboard, PiggyBank } from 'lucide-react';
 
 export const Breakdown = () => {
   const { setTitle } = useLayout();
@@ -26,8 +26,8 @@ export const Breakdown = () => {
           options= { [
             { id: 'asset', label: i18n.t( $ => $.breakdown.asset ), icon: Layers },
             { id: 'class', label: i18n.t( $ => $.breakdown.class ), icon: LayoutDashboard },
-            { id: 'liquidity', label: i18n.t( $ => $.breakdown.liquidity ), icon: ClockFading },
-            { id: 'realization', label: i18n.t( $ => $.breakdown.realization ), icon: ChartPie }
+            { id: 'liquidity', label: i18n.t( $ => $.breakdown.liquidity ), icon: PiggyBank },
+            { id: 'realization', label: i18n.t( $ => $.breakdown.realization ), icon: BookOpenText }
           ] }
           activeId= { viewMode }
           onChange= { setViewMode }
