@@ -10,7 +10,7 @@ import i18n from '@/src/lib/i18n';
 import { ArrowLeft } from 'lucide-react';
 import { useEffect, useMemo } from 'react';
 import { Link, useNavigate, useParams } from 'react-router';
-import { Area, CartesianGrid, ComposedChart, Line, ReferenceLine, ResponsiveContainer, Tooltip, XAxis, YAxis } from 'recharts';
+import { Area, Bar, BarChart, CartesianGrid, ComposedChart, Line, Rectangle, ReferenceLine, ResponsiveContainer, Tooltip, XAxis, YAxis } from 'recharts';
 
 export const AssetDetail = () => {
   const { assetId } = useParams < { assetId: string } > ();
@@ -265,6 +265,74 @@ export const AssetDetail = () => {
             <Heading level= { 4 } className= 'mb-6'>
               { i18n.t( $ => $.assetDetail.growth ) }
             </Heading>
+            <ResponsiveContainer width= '100%' height= { 220 }>
+              <BarChart
+                data= { growthChartData }
+                margin= { { top: 10, right: 20, left: 20, bottom: 10 } }
+              >
+                <XAxis
+                  dataKey= 'year'
+                  interval= { 3 }
+                  stroke= '#94a3b8'
+                  fontSize= { 12 }
+                  fontWeight= { 600 }
+                  tickLine= { false }
+                  axisLine= { false }
+                  dy= { 10 }
+                />
+                <YAxis
+                  tickFormatter= { ( value: number ) => yAxisFormatter( {
+                    type: 'percent', value, display
+                  } ) }
+                  stroke= '#94a3b8'
+                  fontSize= { 12 }
+                  fontWeight= { 600 }
+                  tickLine= { false }
+                  axisLine= { false }
+                  dx= { -10 }
+                />
+                <Tooltip
+                  content= { ( { active, payload } ) => {
+                    if ( active && payload && payload.length ) {
+                      const dataPoint = payload[ 0 ].payload;
+                      const isPositive = dataPoint.change >= 0;
+
+                      return (
+                        <CustomTooltip
+                          label= { dataPoint.year }
+                          value= { formatPercent( Math.abs( dataPoint.change ), display ) }
+                          color= { isPositive ? '#10b981' : '#ef4444' }
+                        />
+                      );
+                    }
+                  } }
+                  cursor= { { fill: 'oklch(98.4% 0.003 247.858)' } }
+                />
+                <ReferenceLine
+                  y= { 0 }
+                  stroke= '#cbd5e1'
+                  strokeWidth= { 2 }
+                  strokeDasharray= { 5 }
+                  style={ { opacity: 0.6 } }
+                />
+                <Bar
+                  dataKey= 'change'
+                  shape={ ( props ) => {
+                    const { payload } = props;
+                    const isPositive = payload.change >= 0;
+
+                    return (
+                      <Rectangle
+                        { ...props }
+                        className= 'transition-all duration-300'
+                        fill= { isPositive ? '#10b981' : '#ef4444' }
+                        radius= { [ 4, 4, 0, 0 ] }
+                      />
+                    );
+                  } }
+                />
+              </BarChart>
+            </ResponsiveContainer>
           </Card>
         </div>
 
