@@ -67,8 +67,12 @@ export default ( {
       type: 'Bewertung'
     },
     breakdown: {
-      title: 'Aufschlüsselung',
-      description: 'Detaillierte Aufschlüsselung deiner finanziellen Positionen nach Kategorie, Liquidität und Klasse.'
+      asset: 'Vermögenswert',
+      class: 'Klasse',
+      description: 'Detaillierte Aufschlüsselung deiner finanziellen Positionen nach Assets, Liquidität und Klasse.',
+      liquidity: 'Liquidität',
+      realization: 'Realisierung',
+      title: 'Aufschlüsselung'
     },
     category: {
       asset: 'Vermögenswert',
