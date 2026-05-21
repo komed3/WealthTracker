@@ -68,7 +68,7 @@ export const Settings = () => {
   } ) );
 
   return (
-    <div className= 'space-y-8 max-w-4xl mx-auto'>
+    <div className= 'flex-1 space-y-8 w-full max-w-4xl mx-auto'>
       <Intro
         title= { i18n.t( $ => $.settings.title ) }
         description= { i18n.t( $ => $.settings.description ) }
