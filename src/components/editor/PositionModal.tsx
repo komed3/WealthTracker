@@ -94,7 +94,7 @@ export const PositionModal = ( { isOpen, onClose, onSave, initialEntry }: Positi
   } );
 
   const liquidityOptions = LIQUIDITY.map( liq => ( {
-    value: liq, label: `${ i18n.t( $ => $.liquidity[ liq as 1 | 2 | 3 | 4 | 5 ] ) }`
+    value: liq, label: `${ i18n.t( $ => $.liquidity[ liq ] ) }`
   } ) );
 
   return (

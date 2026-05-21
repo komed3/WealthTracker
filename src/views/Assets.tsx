@@ -72,7 +72,7 @@ export const Assets = () => {
   }, [ category, display.language ] );
 
   const liquidityOptions = useMemo( () => [ all, ...LIQUIDITY.map( liq => ( {
-    value: liq, label: `${ i18n.t( $ => $.liquidity[ liq as 1 | 2 | 3 | 4 | 5 ] ) }`
+    value: String( liq ), label: `${ i18n.t( $ => $.liquidity[ liq ] ) }`
   } ) ) ], [ display.language ] );
 
   const archivedOptions = useMemo( () => [
