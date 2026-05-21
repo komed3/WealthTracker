@@ -1,3 +1,4 @@
+import { Card } from '@/src/components/ui/Card';
 import { Heading } from '@/src/components/ui/Heading';
 import { Icon } from '@/src/components/ui/Icon';
 import type { ASSET_CLASS, LIABILITY_CLASS } from '@/src/config/constants';
@@ -8,6 +9,7 @@ import i18n from '@/src/lib/i18n';
 import { ArrowLeft } from 'lucide-react';
 import { useEffect, useMemo } from 'react';
 import { Link, useNavigate, useParams } from 'react-router';
+import { ResponsiveContainer } from 'recharts';
 
 export const AssetDetail = () => {
   const { assetId } = useParams < { assetId: string } > ();
@@ -32,6 +34,41 @@ export const AssetDetail = () => {
   const entryStats = useMemo( () => data.computed.entries[ assetData.entry.id ], [ data ] );
   const currentAbs = entryStats?.latestValue ?? 0;
   const currentRel = entryStats?.relativeHistory?.[ String( lastYear ) as `${number}` ] ?? 0;
+
+  const { mainChartData, growthChartData, hasMinMax } = useMemo( () => {
+    let checkMinMax = false;
+
+    const mainDetails = sortedYears.map( yearKey => {
+      const yearStr = String( yearKey ) as `${number}`;
+      const h = assetData.history[ yearStr ];
+      const valueVal = h?.value ?? 0;
+      const minVal = h?.min ?? valueVal;
+      const maxVal = h?.max ?? valueVal;
+
+      if ( minVal !== valueVal || maxVal !== valueVal ) checkMinMax = true;
+
+      return {
+        year: yearKey, value: valueVal, min: minVal, max: maxVal,
+        confidence: h?.confidence || 'medium'
+      };
+    } );
+
+    const growthDetails = sortedYears.map( ( year, index ) => {
+      const prevYrStr = String( sortedYears[ index - 1 ] ) as `${number}`;
+      const currYrStr = String( year ) as `${number}`;
+      const prevVal = assetData.history[ prevYrStr ]?.value ?? 0;
+      const currVal = assetData.history[ currYrStr ]?.value ?? 0;
+      const change = prevVal !== 0 ? ( ( currVal - prevVal ) / prevVal ) * 100 : 0;
+
+      return { year, change };
+    } ).slice( 1 );
+
+    return {
+      mainChartData: mainDetails,
+      growthChartData: growthDetails,
+      hasMinMax: checkMinMax
+    };
+  }, [ assetData, sortedYears ] );
 
   const classLabel = useMemo( () => {
     return assetData.entry.category === 'asset'
@@ -88,6 +125,27 @@ export const AssetDetail = () => {
               { i18n.t( $ => $.assetDetail.share ) }
             </span>
           </div>
+        </div>
+      </div>
+
+      { /** Content */ }
+      <div className= 'flex flex-col 2xl:flex-row items-start gap-8'>
+        { /** Charts */ }
+        <div className= 'flex-1'>
+          { /** History */ }
+          <Card>
+            <Heading level= { 4 }>
+              { i18n.t( $ => $.assetDetail.history ) }
+            </Heading>
+            <ResponsiveContainer width= '100%' height= { 320 }>
+              //
+            </ResponsiveContainer>
+          </Card>
+        </div>
+
+        { /** Infos */ }
+        <div className= 'shrink-0 w-sm'>
+          ...
         </div>
       </div>
     </div>
