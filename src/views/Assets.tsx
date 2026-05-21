@@ -205,7 +205,7 @@ export const Assets = () => {
                   transition= { { duration: 0.3 } }
                 >
                   <Card className= 'flex flex-col p-0 md:p-0'>
-                    <div className= 'flex justify-between items-start gap-4 p-3 space-y-4'>
+                    <div className= 'flex justify-between items-start gap-4 mb-2 p-3 space-y-4'>
                       { /** Header Link */ }
                       <Link
                         to= { `/asset/${ entry.id }` }
@@ -221,7 +221,7 @@ export const Assets = () => {
                           <Heading level= { 4 } className= 'truncate text-lg font-semibold text-slate-800'>
                             { entry.title }
                           </Heading>
-                          <div className= 'flex items-center gap-2 -mt-1 truncate uppercase text-[9.5px] font-semibold tracking-wide text-slate-400'>
+                          <div className= 'flex items-center gap-2 truncate uppercase text-[9.5px] font-semibold tracking-wide text-slate-400'>
                             <span>{ classLabel }</span>
                             <span className= 'text-slate-300'>—</span>
                             <span>L{ entry.liquidity }</span>
