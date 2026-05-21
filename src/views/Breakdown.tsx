@@ -346,7 +346,7 @@ export const Breakdown = () => {
                       ) ) }
                     </CustomTooltip>
                   );
-                }                  
+                }
               } }
               cursor= { { fill: '#f1f5f9', opacity: 0.4 } }
             />
