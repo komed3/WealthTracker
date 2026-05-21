@@ -107,7 +107,7 @@ export const Editor = () => {
   };
 
   return (
-    <div className= 'space-y-8'>
+    <div className= 'flex-1 flex flex-col space-y-8'>
       { /** Page Header */ }
       <Intro
         title= { i18n.t( $ => $.editor.title ) }
@@ -124,9 +124,9 @@ export const Editor = () => {
       </Intro>
 
       { /** Tab Content */ }
-      <div className= 'w-full transition-all duration-300'>
+      <div className= 'flex-1 flex flex-col w-full transition-all duration-300'>
         { activeTab === 'entries' ? (
-          <div className= 'flex flex-col gap-4'>
+          <div className= 'flex-1 flex flex-col gap-6'>
             <div className= 'flex justify-end'>
               <Button
                 variant= 'primary'
