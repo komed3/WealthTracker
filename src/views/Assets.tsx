@@ -8,6 +8,7 @@ import { Tabs } from '@/src/components/ui/Tabs';
 import { ASSET_CLASS, CATEGORY, LIABILITY_CLASS, LIQUIDITY } from '@/src/config/constants';
 import { useData } from '@/src/context/DataCtx';
 import { useLayout } from '@/src/context/LayoutCtx';
+import { formatCurrency, formatPercent } from '@/src/lib/formatter';
 import i18n from '@/src/lib/i18n';
 import { Percent, Sigma } from 'lucide-react';
 import { AnimatePresence, motion } from 'motion/react';
@@ -199,10 +200,11 @@ export const Assets = () => {
                   transition= { { duration: 0.3 } }
                 >
                   <Card className= 'flex flex-col p-0 md:p-0'>
-                    <div className= 'p-3 space-y-4 flex justify-between items-center gap-4'>
+                    <div className= 'flex justify-between items-center gap-4 p-3 space-y-4'>
+                      { /** Header Link */ }
                       <Link
                         to= { `/asset/${ entry.id }` }
-                        className= 'group flex items-center gap-3 min-w-0 w-full'
+                        className= 'flex items-center gap-3 m-0 w-full min-w-0'
                       >
                         <div
                           className= 'flex justify-center items-center shrink-0 w-10 h-10 text-white rounded-xl'
@@ -211,10 +213,7 @@ export const Assets = () => {
                           <Icon name= { entry.icon } size= { 20 } />
                         </div>
                         <div className= 'min-w-0'>
-                          <Heading level= { 4 } className= {
-                            'truncate text-lg font-semibold text-slate-800 group-hover:text-primary ' +
-                            'transition-colors duration-100'
-                          }>
+                          <Heading level= { 4 } className= 'truncate text-lg font-semibold text-slate-800'>
                             { entry.title }
                           </Heading>
                           <div className= 'flex items-center gap-2 truncate uppercase text-[10px] font-semibold tracking-wide text-slate-400'>
@@ -224,6 +223,14 @@ export const Assets = () => {
                           </div>
                         </div>
                       </Link>
+
+                      { /** Value / Fraction Indicator */ }
+                      <div className= 'shrink-0 text-right font-mono text-lg font-bold text-slate-950'>
+                        { viewMode === 'absolute'
+                          ? formatCurrency( currentAbs, display )
+                          : formatPercent( currentRel, display )
+                        }
+                      </div>
                     </div>
                   </Card>
                 </motion.div>
