@@ -21,6 +21,10 @@ export default ( {
       vehicles: 'Fahrzeuge',
       wallet: 'Wallet'
     },
+    assetDetail: {
+      share: 'Portfolio-Anteil',
+      value: 'Aktueller Wert'
+    },
     assets: {
       absolute: 'Absolut',
       active: 'Aktiv',

@@ -21,6 +21,10 @@ export default ( {
       vehicles: 'Vehicles',
       wallet: 'Wallet'
     },
+    assetDetail: {
+      share: 'Portfolio Share',
+      value: 'Current Value'
+    },
     assets: {
       absolute: 'Absolute',
       active: 'Active',
