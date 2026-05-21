@@ -39,9 +39,12 @@ export default ( {
       notional: 'Fiktivwert',
       real: 'Realwert',
       share: 'Portfolio-Anteil',
+      stability: 'Stabilität',
       status: 'Status',
+      trend: 'Trend',
       type: 'Bewertung',
       value: 'Aktueller Wert',
+      volatility: 'Volatilität',
       year: 'Jahr'
     },
     assets: {
@@ -211,9 +214,30 @@ export default ( {
       expand: 'Aufklappen',
       settings: 'Einstellungen'
     },
+    stability: {
+      balanced: 'Ausgeglichen',
+      defensive: 'Defensiv',
+      dynamic: 'Dynamisch',
+      risky: 'Risikoreich',
+      stable: 'Stabil'
+    },
     status: {
       active: 'Aktiv',
       archived: 'Archiviert'
+    },
+    trend: {
+      cyclical: 'Zyklisch',
+      downward: 'Abwärts',
+      stable: 'Stabil',
+      unpredictable: 'Unvorhersehbar',
+      upward: 'Aufwärts'
+    },
+    volatility: {
+      high: 'Hoch',
+      low: 'Niedrig',
+      medium: 'Mittel',
+      veryHigh: 'Sehr hoch',
+      veryLow: 'Sehr niedrig'
     }
   }
 } ) as const;

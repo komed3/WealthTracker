@@ -39,9 +39,12 @@ export default ( {
       notional: 'Notional',
       real: 'Real',
       share: 'Portfolio Share',
+      stability: 'Stability',
       status: 'Status',
+      trend: 'Trend',
       type: 'Type',
       value: 'Current Value',
+      volatility: 'Volatility',
       year: 'Year'
     },
     assets: {
@@ -211,9 +214,30 @@ export default ( {
       expand: 'Expand',
       settings: 'Settings'
     },
+    stability: {
+      balanced: 'Balanced',
+      defensive: 'Defensive',
+      dynamic: 'Dynamic',
+      risky: 'Risky',
+      stable: 'Stable'
+    },
     status: {
       active: 'Active',
       archived: 'Archived'
+    },
+    trend: {
+      cyclical: 'Cyclical',
+      downward: 'Downward',
+      stable: 'Stable',
+      unpredictable: 'Unpredictable',
+      upward: 'Upward'
+    },
+    volatility: {
+      high: 'High',
+      low: 'Low',
+      medium: 'Medium',
+      veryHigh: 'Very High',
+      veryLow: 'Very Low'
     }
   }
 } ) as const;
