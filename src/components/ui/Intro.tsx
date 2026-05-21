@@ -4,7 +4,7 @@ import type { IntroProps } from '@/src/types/props';
 
 export const Intro = ( { title, description, children, className }: IntroProps ) => {
   return (
-    <div className= { cn( 'relative flex flex-col md:flex-row md:items-center md:justify-between gap-6 w-full', className ) }>
+    <div className= { cn( 'relative flex flex-col 2xl:flex-row 2xl:items-center 2xl:justify-between gap-6 w-full', className ) }>
       <div className= 'flex flex-col gap-1.5 min-w-0'>
         <Heading level= { 1 }>
           { title }
