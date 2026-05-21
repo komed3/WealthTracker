@@ -14,6 +14,7 @@ import { Percent, Sigma } from 'lucide-react';
 import { AnimatePresence, motion } from 'motion/react';
 import { useEffect, useMemo, useState } from 'react';
 import { Link } from 'react-router';
+import { Area, AreaChart, ResponsiveContainer, Tooltip } from 'recharts';
 
 export const Assets = () => {
   const { data, settings } = useData();
@@ -232,6 +233,53 @@ export const Assets = () => {
                         }
                       </div>
                     </div>
+
+                    { /** Sparkline */ }
+                    <ResponsiveContainer width= '100%' height= { 140 }>
+                      <AreaChart
+                        data= { sparklineData }
+                        margin= { { top: 10, right: 10, left: 10, bottom: 10 } }
+                      >
+                        <Tooltip
+                          content= { ( { active, payload } ) => {
+                            if ( active && payload && payload.length ) {
+                              const dataPoint = payload[ 0 ].payload;
+                              const formattedValue = viewMode === 'absolute'
+                                ? formatCurrency( dataPoint.absolute, display )
+                                : formatPercent( dataPoint.relative, display );
+
+                              return (
+                                <div className= {
+                                  'flex items-center gap-1 px-2 py-1 font-mono font-bold text-[10px] ' +
+                                  'bg-white border border-slate-200/80 rounded-lg shadow-sm'
+                                }>
+                                  <span className= 'text-slate-400'>{ dataPoint.year }:</span>
+                                  <span style= { { color: entry.color } }>{ formattedValue }</span>
+                                </div>
+                              );
+                            }
+                          } }
+                          cursor= { { stroke: '#cbd5e1', strokeWidth: 0.25 } }
+                        />
+
+                        <defs>
+                          <linearGradient id= { `gradient-${entry.id}` } x1= '0' y1= '0' x2= '0' y2= '1'>
+                            <stop offset= '0%' stopColor= { entry.color } stopOpacity= { 0.15 } />
+                            <stop offset= '100%' stopColor= { entry.color } stopOpacity= { 0.0 } />
+                          </linearGradient>
+                        </defs>
+
+                        <Area
+                          type= 'monotone'
+                          dataKey= { viewMode === 'absolute' ? 'absolute' : 'relative' }
+                          stroke= { entry.color }
+                          strokeWidth= { 2 }
+                          fill= { `url(#gradient-${entry.id})` }
+                          dot= { false }
+                          activeDot= { { stroke: entry.color, strokeWidth: 2, fill: '#fff', r: 3.5 } }
+                        />
+                      </AreaChart>
+                    </ResponsiveContainer>
                   </Card>
                 </motion.div>
               );
