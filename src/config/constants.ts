@@ -42,6 +42,21 @@ export const LIQUIDITY_DEFAULT: Record< ASSET_CLASS, LIQUIDITY > = {
   lending: 3, privateEquity: 5, other: 3
 };
 
+export type VOLATILITY = ( typeof VOLATILITY )[ number ];
+export const VOLATILITY = [
+  'veryLow', 'low', 'medium', 'high', 'veryHigh'
+] as const;
+
+export type STABILITY = ( typeof STABILITY )[ number ];
+export const STABILITY = [
+  'stable', 'defensive', 'balanced', 'dynamic', 'risky'
+] as const;
+
+export type TREND = ( typeof TREND )[ number ];
+export const TREND = [
+  'upward', 'stable', 'downward', 'cyclical', 'unpredictable'
+] as const;
+
 export type CONFIDENCE = ( typeof CONFIDENCE )[ number ];
 export const CONFIDENCE = [
   'low', 'medium', 'high'
