@@ -22,6 +22,10 @@ export default ( {
       wallet: 'Wallet'
     },
     assetDetail: {
+      confidence: 'Confidence',
+      history: 'Historical Trend',
+      maximum: 'High',
+      minimum: 'Low',
       share: 'Portfolio Share',
       value: 'Current Value'
     },
