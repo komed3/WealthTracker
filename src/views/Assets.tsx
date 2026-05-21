@@ -35,24 +35,40 @@ export const Assets = () => {
 
   const lastYear = sortedYears[ sortedYears.length - 1 ];
 
-  const categoryOptions = [ all, ...CATEGORY.map( cat => ( {
+  const categoryOptions = useMemo( () => [ all, ...CATEGORY.map( cat => ( {
     value: cat, label: i18n.t( $ => $.category[ cat ] )
-  } ) ) ];
+  } ) ) ], [ display.language ] );
 
   const handleCategoryChange = ( value: string ) => {
     setCategory( value );
     setClassVal( 'all' );
   };
 
-  const classOptions = [ all, ...ASSET_CLASS.map( cls => ( {
-    value: cls, label: i18n.t( $ => $.assetClass[ cls ] )
-  } ) ), ...LIABILITY_CLASS.map( cls => ( {
-    value: cls, label: i18n.t( $ => $.liabilityClass[ cls ] )
-  } ) ) ];
+  const classOptions = useMemo( () => {
+    const list: { value: string, label: string }[] = [ all ];
+    const seen = new Set< string >();
+    seen.add( 'all' );
 
-  const liquidityOptions = [ all, ...LIQUIDITY.map( liq => ( {
+    if ( category === 'all' || category === 'asset' ) ASSET_CLASS.forEach( c => {
+      if ( ! seen.has( c ) ) {
+        list.push( { value: c, label: i18n.t( $ => $.assetClass[ c ] ) } );
+        seen.add( c );
+      }
+    } );
+
+    if ( category === 'all' || category === 'liability' ) LIABILITY_CLASS.forEach( c => {
+      if ( ! seen.has( c ) ) {
+        list.push( { value: c, label: i18n.t( $ => $.liabilityClass[ c ] ) } );
+        seen.add( c );
+      }
+    } );
+
+    return list;
+  }, [ category, display.language ] );
+
+  const liquidityOptions = useMemo( () => [ all, ...LIQUIDITY.map( liq => ( {
     value: liq, label: `${ i18n.t( $ => $.liquidity[ liq as 1 | 2 | 3 | 4 | 5 ] ) }`
-  } ) ) ];
+  } ) ) ], [ display.language ] );
 
   const archivedOptions = useMemo( () => [
     { value: 'all', label: i18n.t( $ => $.assets.all ) },
