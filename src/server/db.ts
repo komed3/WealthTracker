@@ -158,6 +158,11 @@ export class Database {
     const sortedYears = Array.from( allYearsSet ).sort( ( a, b ) => a - b );
     let prevNetWorth = 0;
 
+    const relativeHistoryByEntry: Record< string, Record< `${number}`, number > > = {};
+    for ( const record of entries ) {
+      relativeHistoryByEntry[ record.entry.id ] = {};
+    }
+
     const makeBreakdown = ( value: number, min: number, max: number, total: number ) : Breakdown => ( {
       value: round( value ), min: round( min ), max: round( max ), percentage: percentage( value, total )
     } );
@@ -271,6 +276,16 @@ export class Database {
         byClass: classBreakdown
       };
 
+      for ( const record of entries ) {
+        const valObj = record.history[ `${year}` ];
+        if ( ! valObj ) continue;
+
+        const val = valObj.value;
+        const total = record.entry.category === 'asset' ? assetsSum : liabilitiesSum;
+        const percentageValue = total === 0 ? 0 : roundOther( val / total );
+        relativeHistoryByEntry[ record.entry.id ][ String( year ) as `${number}` ] = percentageValue;
+      }
+
       prevNetWorth = netWorth;
     }
 
@@ -334,6 +349,13 @@ export class Database {
         notional: portfolioSummary.nonRealCount
       }
     };
+
+    for ( const record of entries ) {
+      const entryId = record.entry.id;
+      if ( entryStatsRecord[ entryId ] ) {
+        entryStatsRecord[ entryId ].relativeHistory = relativeHistoryByEntry[ entryId ];
+      }
+    }
 
     return {
       years: yearSnapshots as Record< `${number}`, YearSnapshot >,
