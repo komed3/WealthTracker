@@ -66,6 +66,10 @@ export default ( {
       title: 'Assets',
       type: 'Type'
     },
+    breakdown: {
+      title: 'Breakdown',
+      description: 'Detailed breakdown of your financial positions by category, liquidity and class.'
+    },
     category: {
       asset: 'Asset',
       liability: 'Liability'

@@ -66,6 +66,10 @@ export default ( {
       title: 'Vermögenswerte',
       type: 'Bewertung'
     },
+    breakdown: {
+      title: 'Aufschlüsselung',
+      description: 'Detaillierte Aufschlüsselung deiner finanziellen Positionen nach Kategorie, Liquidität und Klasse.'
+    },
     category: {
       asset: 'Vermögenswert',
       liability: 'Verbindlichkeit'
