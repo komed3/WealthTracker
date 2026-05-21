@@ -1,3 +1,4 @@
+import { Card } from '@/src/components/ui/Card';
 import { Intro } from '@/src/components/ui/Intro';
 import { NoData } from '@/src/components/ui/NoData';
 import { Select } from '@/src/components/ui/Select';
@@ -7,6 +8,7 @@ import { useData } from '@/src/context/DataCtx';
 import { useLayout } from '@/src/context/LayoutCtx';
 import i18n from '@/src/lib/i18n';
 import { Percent, Sigma } from 'lucide-react';
+import { AnimatePresence, motion } from 'motion/react';
 import { useEffect, useMemo, useState } from 'react';
 
 export const Assets = () => {
@@ -148,7 +150,40 @@ export const Assets = () => {
             { i18n.t( $ => $.assets.emptyInfo ) }
           </p>
         </div>
-      ) : ( <></> ) }
+      ) : (
+        <div className= 'grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6'>
+          <AnimatePresence mode= 'popLayout'>
+            { filteredRecords.map( ( { entry, history }, index ) => {
+            const entryStats = computed?.entries?.[ entry.id ];
+            const currentAbs = entryStats?.latestValue ?? 0;
+            const currentRel = entryStats?.relativeHistory?.[ String( lastYear ) as `${number}` ] ?? 0;
+
+            const sparklineData = sortedYears.map( yearKey => {
+              const yearStr = String( yearKey ) as `${number}`;
+              const val = history[ yearStr ]?.value ?? 0;
+              const relVal = entryStats?.relativeHistory?.[ yearStr ] ?? 0;
+
+              return { year: yearKey, absolute: val, relative: relVal };
+            } );
+
+            return (
+              <motion.div
+                layout
+                key= { entry.id }
+                initial= { { opacity: 0, scale: 0.9 } }
+                animate= { { opacity: 1, scale: 1 } }
+                exit= { { opacity: 0, scale: 0.9 } }
+                transition= { { duration: 0.4, delay: index * 0.05 } }
+              >
+                <Card className= 'flex flex-col p-0 md:p-0'>
+                  &nbsp;
+                </Card>
+              </motion.div>
+            );
+          } ) }
+          </AnimatePresence>
+        </div>
+      ) }
     </div>
   );
 };
