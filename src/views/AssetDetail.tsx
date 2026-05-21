@@ -36,35 +36,37 @@ export const AssetDetail = () => {
   const currentAbs = entryStats?.latestValue ?? 0;
   const currentRel = entryStats?.relativeHistory?.[ String( lastYear ) as `${number}` ] ?? 0;
 
-  const { mainChartData, growthChartData, hasMinMax } = useMemo( () => {
-    let checkMinMax = false;
+  const { mainChartData, growthChartData } = useMemo( () => {
     let hasValue = false;
 
-    const mainDetails = sortedYears.map( yearKey => {
-      const yearStr = String( yearKey ) as `${number}`;
-      const h = assetData.history[ yearStr ];
-      const valueVal = h?.value ?? 0;
-      const minVal = h?.min ?? valueVal;
-      const maxVal = h?.max ?? valueVal;
+    const mainChartData = sortedYears.map( yearKey => {
+      const year = String( yearKey );
+      const h = assetData.history[ year as `${number}` ];
+      const value = h?.value ?? 0;
+      const min = h?.min ?? value;
+      const max = h?.max ?? value;
 
-      if ( ! hasValue && valueVal === 0 ) return;
+      if ( ! hasValue && value === 0 ) return;
       hasValue = true;
 
-      if ( minVal !== valueVal || maxVal !== valueVal ) checkMinMax = true;
-
       return {
-        year: yearKey, value: valueVal, min: minVal, max: maxVal,
-        range: [ minVal, maxVal ], confidence: h?.confidence || 'medium'
+        year, value, min: min, max: max, range: [ min, max ],
+        confidence: h?.confidence || 'medium'
       };
     } ).filter( Boolean );
 
-    const growthDetails = {};
+    const growthChartData = mainChartData.map( ( row, index ) => {
+      return {
+        year: row!.year,
+        change: index === 0 ? 0 : (
+          row!.value - mainChartData[ index - 1 ]!.value
+        ) / Math.abs(
+          mainChartData[ index - 1 ]!.value
+        )
+      };
+    } ).slice( 1 );
 
-    return {
-      mainChartData: mainDetails,
-      growthChartData: growthDetails,
-      hasMinMax: checkMinMax
-    };
+    return { mainChartData, growthChartData };
   }, [ assetData, sortedYears ] );
 
   const classLabel = useMemo( () => {
@@ -128,8 +130,8 @@ export const AssetDetail = () => {
       { /** Content */ }
       <div className= 'flex flex-col 2xl:flex-row items-start gap-8'>
         { /** Charts */ }
-        <div className= 'flex-1'>
-          { /** History */ }
+        <div className= 'flex-1 space-y-8'>
+          { /** Historical Trend */ }
           <Card>
             <Heading level= { 4 } className= 'mb-6'>
               { i18n.t( $ => $.assetDetail.history ) }
@@ -256,6 +258,13 @@ export const AssetDetail = () => {
                 />
               </ComposedChart>
             </ResponsiveContainer>
+          </Card>
+
+          { /** YoY Pct Growth */ }
+          <Card>
+            <Heading level= { 4 } className= 'mb-6'>
+              { i18n.t( $ => $.assetDetail.growth ) }
+            </Heading>
           </Card>
         </div>
 
