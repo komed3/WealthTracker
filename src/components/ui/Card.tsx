@@ -11,11 +11,11 @@ export const Card = ( { children, className }: CardProps ) => {
 
 export const InfoCard = ( { label, value } : InfoCardProps ) => {
   return (
-    <Card>
-      <div className= 'mb-2 uppercase text-xs font-bold text-slate-400 tracking-wider'>
+    <Card className= 'p-4 sm:p-6 min-w-0 overflow-hidden'>
+      <div className= 'mb-1 truncate uppercase text-[10px] sm:text-xs font-bold tracking-wider text-slate-400' title= { label }>
         { label }
       </div>
-      <div className= 'font-mono text-3xl font-bold text-slate-900'>
+      <div className= 'truncate font-mono text-xl sm:text-2xl md:text-3xl font-bold tracking-tight text-slate-900' title= { value }>
         { value }
       </div>
     </Card>

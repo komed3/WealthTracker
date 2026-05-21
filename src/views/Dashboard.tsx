@@ -46,7 +46,7 @@ export const Dashboard = () => {
     <div className= 'space-y-8'>
       { /** Key Metrics */ }
       { portfolioStats && latest && (
-        <div className= 'grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 w-full'>
+        <div className= 'grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-6 w-full'>
           <InfoCard
             label= { i18n.t( $ => $.momentum.netWorth ) }
             value= { formatCurrency( portfolioStats.latestNetWorth, display ) }

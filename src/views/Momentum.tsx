@@ -65,7 +65,7 @@ export const Momentum = () => {
 
       { /** Key Metrics */ }
       { portfolioStats && (
-        <div className= 'grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 w-full'>
+        <div className= 'grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-6 w-full'>
           <InfoCard
             label= { i18n.t( $ => $.momentum.avgGrowth ) }
             value= { formatPercent( portfolioStats.averageAnnualGrowth, display ) }
