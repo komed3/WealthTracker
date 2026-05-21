@@ -203,7 +203,7 @@ export const Assets = () => {
                   transition= { { duration: 0.3 } }
                 >
                   <Card className= 'flex flex-col p-0 md:p-0'>
-                    <div className= 'flex justify-between items-center gap-4 p-3 space-y-4'>
+                    <div className= 'flex justify-between items-start gap-4 p-3 space-y-4'>
                       { /** Header Link */ }
                       <Link
                         to= { `/asset/${ entry.id }` }
@@ -237,7 +237,7 @@ export const Assets = () => {
                     </div>
 
                     { /** Sparkline */ }
-                    <ResponsiveContainer width= '100%' height= { 140 }>
+                    <ResponsiveContainer width= '100%' height= { 132 }>
                       <AreaChart
                         data= { sparklineData }
                         margin= { { top: 10, right: 10, left: 10, bottom: 10 } }
