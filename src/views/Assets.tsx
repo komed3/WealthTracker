@@ -1,4 +1,6 @@
 import { Card } from '@/src/components/ui/Card';
+import { Heading } from '@/src/components/ui/Heading';
+import { Icon } from '@/src/components/ui/Icon';
 import { Intro } from '@/src/components/ui/Intro';
 import { NoData } from '@/src/components/ui/NoData';
 import { Select } from '@/src/components/ui/Select';
@@ -10,6 +12,7 @@ import i18n from '@/src/lib/i18n';
 import { Percent, Sigma } from 'lucide-react';
 import { AnimatePresence, motion } from 'motion/react';
 import { useEffect, useMemo, useState } from 'react';
+import { Link } from 'react-router';
 
 export const Assets = () => {
   const { data, settings } = useData();
@@ -168,35 +171,64 @@ export const Assets = () => {
         </div>
       ) : (
         <div className= 'grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6'>
-          <AnimatePresence mode= 'popLayout'>
-            { filteredRecords.map( ( { entry, history }, index ) => {
-            const entryStats = computed?.entries?.[ entry.id ];
-            const currentAbs = entryStats?.latestValue ?? 0;
-            const currentRel = entryStats?.relativeHistory?.[ String( lastYear ) as `${number}` ] ?? 0;
+          <AnimatePresence mode= 'sync'>
+            { filteredRecords.map( ( { entry, history } ) => {
+              const entryStats = computed?.entries?.[ entry.id ];
+              const currentAbs = entryStats?.latestValue ?? 0;
+              const currentRel = entryStats?.relativeHistory?.[ String( lastYear ) as `${number}` ] ?? 0;
 
-            const sparklineData = sortedYears.map( yearKey => {
-              const yearStr = String( yearKey ) as `${number}`;
-              const val = history[ yearStr ]?.value ?? 0;
-              const relVal = entryStats?.relativeHistory?.[ yearStr ] ?? 0;
+              const sparklineData = sortedYears.map( yearKey => {
+                const yearStr = String( yearKey ) as `${number}`;
+                const val = history[ yearStr ]?.value ?? 0;
+                const relVal = entryStats?.relativeHistory?.[ yearStr ] ?? 0;
 
-              return { year: yearKey, absolute: val, relative: relVal };
-            } );
+                return { year: yearKey, absolute: val, relative: relVal };
+              } );
 
-            return (
-              <motion.div
-                layout
-                key= { entry.id }
-                initial= { { opacity: 0, scale: 0.9 } }
-                animate= { { opacity: 1, scale: 1 } }
-                exit= { { opacity: 0, scale: 0.9 } }
-                transition= { { duration: 0.4, delay: index * 0.05 } }
-              >
-                <Card className= 'flex flex-col p-0 md:p-0'>
-                  &nbsp;
-                </Card>
-              </motion.div>
-            );
-          } ) }
+              const classLabel = entry.category === 'asset'
+                ? i18n.t( $ => $.assetClass[ entry.class ] )
+                : i18n.t( $ => $.liabilityClass[ entry.class ] );
+
+              return (
+                <motion.div
+                  layout
+                  key= { entry.id }
+                  initial= { { opacity: 0, scale: 0.9 } }
+                  animate= { { opacity: 1, scale: 1 } }
+                  exit= { { opacity: 0, scale: 0.9 } }
+                  transition= { { duration: 0.3 } }
+                >
+                  <Card className= 'flex flex-col p-0 md:p-0'>
+                    <div className= 'p-3 space-y-4 flex justify-between items-center gap-4'>
+                      <Link
+                        to= { `/asset/${ entry.id }` }
+                        className= 'group flex items-center gap-3 min-w-0 w-full'
+                      >
+                        <div
+                          className= 'flex justify-center items-center shrink-0 w-10 h-10 text-white rounded-xl'
+                          style= { { backgroundColor: entry.color } }
+                        >
+                          <Icon name= { entry.icon } size= { 20 } />
+                        </div>
+                        <div className= 'min-w-0'>
+                          <Heading level= { 4 } className= {
+                            'truncate text-lg font-semibold text-slate-800 group-hover:text-primary ' +
+                            'transition-colors duration-100'
+                          }>
+                            { entry.title }
+                          </Heading>
+                          <div className= 'flex items-center gap-2 truncate uppercase text-[10px] font-semibold tracking-wide text-slate-400'>
+                            <span>{ classLabel }</span>
+                            <span className= 'text-slate-300'>—</span>
+                            <span>L{ entry.liquidity }</span>
+                          </div>
+                        </div>
+                      </Link>
+                    </div>
+                  </Card>
+                </motion.div>
+              );
+            } ) }
           </AnimatePresence>
         </div>
       ) }
