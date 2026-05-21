@@ -6,6 +6,7 @@ import { ChevronLeft, Settings } from 'lucide-react';
 import { AnimatePresence, motion } from 'motion/react';
 import { useEffect, useState } from 'react';
 import { NavLink } from 'react-router';
+import faviconUrl from '/favicon.svg?url';
 
 const BREAKPOINT = 1024;
 
@@ -52,7 +53,7 @@ export const Sidebar = () => {
         { /** Header / Logo */ }
         <div className= 'flex items-center gap-4 shrink-0 h-20 px-6 border-b border-slate-100'>
           <div className= 'flex justify-center items-center shrink-0 w-8'>
-            <img src= './favicon.svg' className= 'w-auto h-8' />
+            <img src= { faviconUrl } className= 'w-auto h-8' />
           </div>
           <span className= 'truncate font-display font-semibold text-xl text-slate-900 tracking-tight'>
             WealthTracker
