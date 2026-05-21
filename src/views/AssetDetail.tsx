@@ -81,7 +81,7 @@ export const AssetDetail = () => {
   return (
     <div className= 'space-y-8'>
       { /** Page Header */ }
-      <div className= 'flex flex-col sm:flex-row justify-between items-start sm:items-end gap-6 pb-6 border-b border-slate-200'>
+      <div className= 'flex flex-col lg:flex-row justify-between items-start lg:items-end gap-6 pb-6 border-b border-slate-200'>
         { /** Asset Title */ }
         <div className= 'flex items-center gap-4 min-w-0'>
           <Link
@@ -93,37 +93,37 @@ export const AssetDetail = () => {
               <ArrowLeft size= { 20 } />
           </Link>
           <div
-            className= 'flex justify-center items-center shrink-0 w-12 h-12 sm:w-14 sm:h-14 text-white rounded-xl'
+            className= 'flex justify-center items-center shrink-0 w-10 h-10 lg:w-14 lg:h-14 text-white rounded-xl'
             style= { { backgroundColor: assetData.entry.color } }
           >
             <Icon name= { assetData.entry.icon } size= { 24 } />
           </div>
           <div className= 'flex flex-col justify-center gap-1 min-w-0'>
-            <Heading level= { 1 } className= 'truncate leading-tight text-xl sm:text-2xl font-bold tracking-tight text-slate-900'>
+            <Heading level= { 1 } className= 'truncate leading-tight text-xl lg:text-2xl font-bold tracking-tight text-slate-900'>
               { assetData.entry.title }
             </Heading>
-            <p className= 'truncate uppercase tracking-wider text-xs font-medium text-slate-400'>
+            <p className= 'hidden lg:block truncate uppercase tracking-wider text-xs font-medium text-slate-400'>
               { i18n.t( $ => $.category[ assetData.entry.category ] ) } — { classLabel }
             </p>
           </div>
         </div>
 
         { /** Asset Value */ }
-        <div className= 'flex justify-between sm:justify-end items-center gap-6 sm:gap-8 w-full sm:w-auto text-right'>
-          <div className= 'flex flex-col items-start sm:items-end'>
-            <span className= 'leading-none font-mono text-xl sm:text-2xl font-bold text-slate-900'>
+        <div className= 'flex justify-between lg:justify-end items-center gap-6 lg:gap-8 w-full lg:w-auto text-right'>
+          <div className= 'flex flex-col items-start lg:items-end'>
+            <span className= 'leading-none font-mono text-xl lg:text-2xl font-bold text-slate-900'>
               { formatCurrency( currentAbs, display ) }
             </span>
-            <span className= 'mt-1.5 uppercase tracking-wider text-xs font-medium text-slate-400'>
+            <span className= 'mt-1.5 truncate uppercase tracking-wider text-xs font-medium text-slate-400'>
               { i18n.t( $ => $.assetDetail.value ) }
             </span>
           </div>
 
           <div className= 'flex flex-col items-end'>
-            <span className= 'font-mono text-xl sm:text-2xl font-bold leading-none'>
+            <span className= 'font-mono text-xl lg:text-2xl font-bold leading-none'>
               { formatPercent( currentRel, display ) }
             </span>
-            <span className= 'mt-1.5 uppercase tracking-wider text-xs font-medium text-slate-400'>
+            <span className= 'mt-1.5 truncate uppercase tracking-wider text-xs font-medium text-slate-400'>
               { i18n.t( $ => $.assetDetail.share ) }
             </span>
           </div>
