@@ -84,7 +84,7 @@ export interface Growth {
   relative: number;
 }
 
-export interface DimensionBreakdown {
+export interface RealizationBreakdown {
   real: Breakdown;
   nonReal: Breakdown;
 }
@@ -96,7 +96,7 @@ export interface YearSnapshot {
   netWorth: number;
   minNetWorth?: number;
   maxNetWorth?: number;
-  realization: DimensionBreakdown;
+  realization: RealizationBreakdown;
   growth?: Growth;
   byCategory: CategoryBreakdown;
   byLiquidity: LiquidityBreakdown;
