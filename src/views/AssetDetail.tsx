@@ -338,7 +338,66 @@ export const AssetDetail = () => {
 
         { /** Infos */ }
         <div className= 'shrink-0 w-sm'>
-          ...
+          <Card>
+            <Heading level= { 4 } className= 'mb-4'>
+              { i18n.t( $ => $.assetDetail.details ) }
+            </Heading>
+            { assetData.entry.description && (
+              <p className= 'mb-6 pb-6 border-b border-dashed border-slate-200'>
+                { assetData.entry.description }
+              </p>
+            ) }
+            <div className= 'space-y-4'>
+              <div className= 'flex justify-between items-end gap-4'>
+                <span className= 'truncate uppercase tracking-wider text-[10px] font-medium text-slate-400'>
+                  { i18n.t( $ => $.assetDetail.category ) }
+                </span>
+                <span className= 'font-semibold'>
+                  { i18n.t( $ => $.category[ assetData.entry.category ] ) }
+                </span>
+              </div>
+              <div className= 'flex justify-between items-end gap-4'>
+                <span className= 'truncate uppercase tracking-wider text-[10px] font-medium text-slate-400'>
+                  { i18n.t( $ => $.assetDetail.class ) }
+                </span>
+                <span className= 'font-semibold'>
+                  { classLabel }
+                </span>
+              </div>
+              <div className= 'flex justify-between items-end gap-4'>
+                <span className= 'truncate uppercase tracking-wider text-[10px] font-medium text-slate-400'>
+                  { i18n.t( $ => $.assetDetail.liquidity ) }
+                </span>
+                <span className= 'font-semibold'>
+                  { i18n.t( $ => $.liquidity[ assetData.entry.liquidity ] ) }
+                </span>
+              </div>
+              <div className= 'flex justify-between items-end gap-4'>
+                <span className= 'truncate uppercase tracking-wider text-[10px] font-medium text-slate-400'>
+                  { i18n.t( $ => $.assetDetail.type ) }
+                </span>
+                <span className= 'font-semibold'>
+                  {
+                    assetData.entry.notional
+                      ? i18n.t( $ => $.assetDetail.notional )
+                      : i18n.t( $ => $.assetDetail.real )
+                  }
+                </span>
+              </div>
+              <div className= 'flex justify-between items-end gap-4'>
+                <span className= 'truncate uppercase tracking-wider text-[10px] font-medium text-slate-400'>
+                  { i18n.t( $ => $.assetDetail.status ) }
+                </span>
+                <span className= 'font-semibold'>
+                  {
+                    assetData.entry.archived
+                      ? i18n.t( $ => $.assetDetail.archived )
+                      : i18n.t( $ => $.assetDetail.active )
+                  }
+                </span>
+              </div>
+            </div>
+          </Card>
         </div>
       </div>
     </div>
