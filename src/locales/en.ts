@@ -72,6 +72,8 @@ export default ( {
       breakdownInfo: 'Detailed composition for the year {{year}}.',
       class: 'Class',
       description: 'Detailed breakdown of your financial positions by assets, liquidity and class.',
+      history: 'Historical Development',
+      historyInfo: 'Composition and shares across years',
       liquidity: 'Liquidity',
       noData: 'No active items in this year',
       notional: 'Notional',

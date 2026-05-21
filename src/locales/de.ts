@@ -72,6 +72,8 @@ export default ( {
       breakdownInfo: 'Detaillierte Zusammensetzung für das Jahr {{year}}.',
       class: 'Klasse',
       description: 'Detaillierte Aufschlüsselung deiner finanziellen Positionen nach Assets, Liquidität und Klasse.',
+      history: 'Historischer Verlauf',
+      historyInfo: 'Zusammensetzung und Anteile über alle Jahrgänge',
       liquidity: 'Liquidität',
       noData: 'Keine aktiven Positionen in diesem Jahr',
       notional: 'Fiktivwert',
