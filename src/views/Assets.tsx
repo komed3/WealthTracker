@@ -1,4 +1,5 @@
 import { Intro } from '@/src/components/ui/Intro';
+import { NoData } from '@/src/components/ui/NoData';
 import { Select } from '@/src/components/ui/Select';
 import { Tabs } from '@/src/components/ui/Tabs';
 import { ASSET_CLASS, CATEGORY, LIABILITY_CLASS, LIQUIDITY } from '@/src/config/constants';
@@ -24,6 +25,13 @@ export const Assets = () => {
   const [ liquidity, setLiquidity ] = useState( 'all' );
   const [ archived, setArchived ] = useState( 'all' );
   const [ notional, setNotional ] = useState( 'all' );
+
+  const sortedYears = useMemo( () => {
+    if ( ! computed?.years ) return [];
+    return Object.values( computed.years ).map( s => s.year ).sort( ( a, b ) => a - b );
+  }, [ computed ] );
+
+  const lastYear = sortedYears[ sortedYears.length - 1 ];
 
   const categoryOptions = [ all, ...CATEGORY.map( cat => ( {
     value: cat, label: i18n.t( $ => $.category[ cat ] )
@@ -56,7 +64,30 @@ export const Assets = () => {
     { value: 'notional', label: i18n.t( $ => $.assets.notional ) }
   ], [ display.language ] );
 
-  return (
+  const filteredRecords = useMemo( () => {
+    return entries.filter( record => {
+      const { entry } = record;
+
+      if ( category !== 'all' && entry.category !== category ) return false;
+      if ( classVal !== 'all' && entry.class !== classVal ) return false;
+      if ( liquidity !== 'all' && String( entry.liquidity ) !== liquidity ) return false;
+
+      if ( archived !== 'all' ) {
+        if ( archived === 'archived' && ! entry.archived ) return false;
+        if ( archived === 'active' && entry.archived ) return false;
+      }
+
+      if ( notional !== 'all' ) {
+        const isEntryNotional = entry.notional ?? false;
+        if ( notional === 'notional' && ! isEntryNotional ) return false;
+        if ( notional === 'real' && isEntryNotional ) return false;
+      }
+
+      return true;
+    } );
+  }, [ entries, category, classVal, liquidity, archived, notional ] );
+
+  return entries.length === 0 ? <NoData /> : (
     <div className= 'space-y-8'>
       { /** Page Header */ }
       <Intro
