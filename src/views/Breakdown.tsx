@@ -16,7 +16,10 @@ import i18n from '@/src/lib/i18n';
 import type { YearSnapshot } from '@/src/types/data';
 import { BookOpenText, Layers, LayoutDashboard, PiggyBank } from 'lucide-react';
 import { useEffect, useMemo, useState } from 'react';
-import { Bar, BarChart, Pie, PieChart, ReferenceLine, ResponsiveContainer, Sector, Tooltip, XAxis, YAxis } from 'recharts';
+import {
+  Bar, BarChart, CartesianGrid, Pie, PieChart, ReferenceLine,
+  ResponsiveContainer, Sector, Tooltip, XAxis, YAxis
+} from 'recharts';
 
 export const Breakdown = () => {
   const { setTitle } = useLayout();
@@ -289,6 +292,11 @@ export const Breakdown = () => {
             margin= { { top: 10, right: 20, left: 20, bottom: 10 } }
             barCategoryGap= '20%'
           >
+            <CartesianGrid
+              strokeDasharray= '3 3'
+              stroke= '#f1f5f9'
+              vertical= { false }
+            />
             <XAxis
               dataKey= 'year'
               interval= { 3 }
@@ -313,14 +321,31 @@ export const Breakdown = () => {
             <Tooltip
               content= { ( { active, payload } ) => {
                 if ( active && payload && payload.length ) {
-                  const sortedPayload = payload.slice().sort( ( a, b ) => Number( b.value ) - Number( a.value ) );
-                  const totalNetWorth = sortedPayload.reduce( ( sum, p ) => sum + Number( p.value ), 0 );
+                  const sortedPayload = payload.slice()
+                    .filter( r => r.value ?? 0 > 0 )
+                    .sort( ( a, b ) => Number( b.value ) - Number( a.value ) );
+                  const total = sortedPayload
+                    .reduce( ( sum, p ) => sum + Number( p.value ), 0 );
 
                   return (
                     <CustomTooltip
                       label= { String( sortedPayload[ 0 ].payload.year ) }
-                      value= { formatCurrency( totalNetWorth, display ) }
-                    ></CustomTooltip>
+                      value= { formatCurrency( total, display ) }
+                    >
+                      { sortedPayload.map( ( { dataKey, name, value } ) => (
+                        <div key= { String( dataKey ) } className= 'flex justify-between gap-6'>
+                          <span>{ name }</span>
+                          <span className= 'flex gap-2 font-mono'>
+                            <span className= 'font-semibold text-slate-800'>
+                              { formatCurrency( value, display ) }
+                            </span>
+                            <span className= 'text-slate-600'>
+                              ({ formatPercent( total ? ( value as number ) / total : 0, display ) })
+                            </span>
+                          </span>
+                        </div>
+                      ) ) }
+                    </CustomTooltip>
                   );
                 }                  
               } }
