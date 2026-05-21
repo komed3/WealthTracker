@@ -1,4 +1,5 @@
 import { Card } from '@/src/components/ui/Card';
+import { yAxisFormatter } from '@/src/components/ui/Chart';
 import { Heading } from '@/src/components/ui/Heading';
 import { Icon } from '@/src/components/ui/Icon';
 import type { ASSET_CLASS, LIABILITY_CLASS } from '@/src/config/constants';
@@ -9,7 +10,7 @@ import i18n from '@/src/lib/i18n';
 import { ArrowLeft } from 'lucide-react';
 import { useEffect, useMemo } from 'react';
 import { Link, useNavigate, useParams } from 'react-router';
-import { ResponsiveContainer } from 'recharts';
+import { CartesianGrid, ComposedChart, ResponsiveContainer, XAxis, YAxis } from 'recharts';
 
 export const AssetDetail = () => {
   const { assetId } = useParams < { assetId: string } > ();
@@ -138,7 +139,36 @@ export const AssetDetail = () => {
               { i18n.t( $ => $.assetDetail.history ) }
             </Heading>
             <ResponsiveContainer width= '100%' height= { 320 }>
-              //
+              <ComposedChart
+                data= { mainChartData }
+                margin= { { top: 10, right: 10, left: 10, bottom: 10 } }
+              >
+                <CartesianGrid
+                  strokeDasharray= '3 3'
+                  stroke= '#f1f5f9'
+                  vertical= { false }
+                />
+                <XAxis
+                  dataKey= 'year'
+                  interval= { 3 }
+                  stroke= '#94a3b8'
+                  fontSize= { 12 }
+                  fontWeight= { 600 }
+                  tickLine= { false }
+                  axisLine= { false }
+                  dy= { 10 }
+                />
+                <YAxis
+                  tickFormatter= { ( value: number ) => yAxisFormatter( {
+                    type: 'currency', value, display
+                  } ) }
+                  stroke= '#94a3b8'
+                  fontSize= { 12 }
+                  fontWeight= { 600 }
+                  tickLine= { false }
+                  axisLine= { false }
+                />
+              </ComposedChart>
             </ResponsiveContainer>
           </Card>
         </div>

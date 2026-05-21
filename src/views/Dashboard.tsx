@@ -90,6 +90,7 @@ export const Dashboard = () => {
               />
               <XAxis
                 dataKey= 'year'
+                interval= { 3 }
                 stroke= '#94a3b8'
                 fontSize= { 12 }
                 fontWeight= { 600 }
@@ -98,8 +99,8 @@ export const Dashboard = () => {
                 dy= { 10 }
               />
               <YAxis
-                tickFormatter= { ( valueVal: number ) => yAxisFormatter( {
-                  type: 'currency', value: valueVal, display
+                tickFormatter= { ( value: number ) => yAxisFormatter( {
+                  type: 'currency', value, display
                 } ) }
                 stroke= '#94a3b8'
                 fontSize= { 12 }
