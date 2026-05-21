@@ -81,7 +81,7 @@ export const Dashboard = () => {
         <ResponsiveContainer width= '100%' height= { 480 }>
           <ComposedChart
             data= { yearDetails }
-            margin= { { top: 10, right: 10, left: 10, bottom: 10 } }
+            margin= { { top: 10, right: 20, left: 20, bottom: 10 } }
           >
               <CartesianGrid
                 strokeDasharray= '3 3'
@@ -90,7 +90,7 @@ export const Dashboard = () => {
               />
               <XAxis
                 dataKey= 'year'
-                interval= 'preserveStartEnd'
+                interval= { 3 }
                 stroke= '#94a3b8'
                 fontSize= { 12 }
                 fontWeight= { 600 }
@@ -107,6 +107,7 @@ export const Dashboard = () => {
                 fontWeight= { 600 }
                 tickLine= { false }
                 axisLine= { false }
+                dx= { -10 }
               />
               <Tooltip
                 content= { ( { active, payload } ) => {

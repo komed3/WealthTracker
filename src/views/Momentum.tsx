@@ -87,11 +87,11 @@ export const Momentum = () => {
         <ResponsiveContainer width= '100%' height= { 420 }>
           <BarChart
             data= { chartData }
-            margin= { { top: 10, right: 10, left: 10, bottom: 10 } }
+            margin= { { top: 10, right: 20, left: 20, bottom: 10 } }
           >
             <XAxis
               dataKey= 'year'
-              interval= 'preserveStartEnd'
+              interval= { 3 }
               stroke= '#94a3b8'
               fontSize= { 12 }
               fontWeight= { 600 }
@@ -109,6 +109,7 @@ export const Momentum = () => {
               fontWeight= { 600 }
               tickLine= { false }
               axisLine= { false }
+              dx= { -10 }
             />
             <Tooltip
               content= { ( { active, payload } ) => {
