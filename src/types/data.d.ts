@@ -105,6 +105,7 @@ export interface EntryStats {
   firstYear: number;
   lastYear: number;
   latestValue: number;
+  relativeHistory?: Record< `${number}`, number >;
   growth?: Growth;
   highestValue?: number;
   lowestValue?: number;
