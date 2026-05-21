@@ -1,4 +1,7 @@
-import type { ASSET_CLASS, COLOR, CONFIDENCE, CURRENCY, GENDER, ICON, LIABILITY_CLASS, LIQUIDITY } from '@/src/config/constants';
+import type {
+  ASSET_CLASS, COLOR, CONFIDENCE, CURRENCY, GENDER, ICON,
+  LIABILITY_CLASS, LIQUIDITY, STABILITY, TREND, VOLATILITY
+} from '@/src/config/constants';
 import type { resources } from '@/src/lib/i18n';
 
 export interface DisplaySettings {
@@ -112,6 +115,11 @@ export interface EntryStats {
   averageValue?: number;
   averageAnnualGrowth?: number;
   volatility?: number;
+  evaluation?: {
+    volatility: VOLATILITY;
+    stability: STABILITY;
+    trend: TREND;
+  };
 }
 
 export interface PortfolioStats {
