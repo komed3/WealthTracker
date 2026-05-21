@@ -150,13 +150,13 @@ export const Assets = () => {
           onChange= { ( e ) => setLiquidity( e.target.value ) }
         />
         <Select
-          label= { i18n.t( $ => $.assets.archived ) }
+          label= { i18n.t( $ => $.assets.status ) }
           value= { archived }
           options= { archivedOptions }
           onChange= { ( e ) => setArchived( e.target.value ) }
         />
         <Select
-          label= { i18n.t( $ => $.assets.notional ) }
+          label= { i18n.t( $ => $.assets.type ) }
           value= { notional }
           options= { notionalOptions }
           onChange= { ( e ) => setNotional( e.target.value ) }

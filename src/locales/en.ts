@@ -54,7 +54,9 @@ export default ( {
       notional: 'Notional',
       real: 'Real',
       relative: 'Relative',
-      title: 'Assets'
+      status: 'Status',
+      title: 'Assets',
+      type: 'Type'
     },
     category: {
       asset: 'Asset',

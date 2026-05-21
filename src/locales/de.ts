@@ -51,10 +51,12 @@ export default ( {
       emptyInfo: 'Passe deine Filtereinstellungen an oder füge neue Vermögenswerte hinzu.',
       emptyTitle: 'Keine Daten passend zu den Filtern gefunden',
       liquidity: 'Liquidität',
-      notional: 'Nicht verfügbar',
-      real: 'Real',
+      notional: 'Fiktivwert',
+      real: 'Realwert',
       relative: 'Relativ',
-      title: 'Vermögenswerte'
+      status: 'Status',
+      title: 'Vermögenswerte',
+      type: 'Bewertung'
     },
     category: {
       asset: 'Vermögenswert',
