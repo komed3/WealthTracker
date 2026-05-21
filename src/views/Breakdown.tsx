@@ -1,5 +1,5 @@
 import { Card } from '@/src/components/ui/Card';
-import { CustomTooltip } from '@/src/components/ui/Chart';
+import { CustomTooltip, yAxisFormatter } from '@/src/components/ui/Chart';
 import { Heading } from '@/src/components/ui/Heading';
 import { Intro } from '@/src/components/ui/Intro';
 import { NoData } from '@/src/components/ui/NoData';
@@ -16,7 +16,7 @@ import i18n from '@/src/lib/i18n';
 import type { YearSnapshot } from '@/src/types/data';
 import { BookOpenText, Layers, LayoutDashboard, PiggyBank } from 'lucide-react';
 import { useEffect, useMemo, useState } from 'react';
-import { Pie, PieChart, ResponsiveContainer, Sector, Tooltip } from 'recharts';
+import { BarChart, Pie, PieChart, ReferenceLine, ResponsiveContainer, Sector, Tooltip, XAxis, YAxis } from 'recharts';
 
 export const Breakdown = () => {
   const { setTitle } = useLayout();
@@ -108,6 +108,19 @@ export const Breakdown = () => {
       .sort( ( a, b ) => b.value - a.value );
   }, [ selectedYear, viewMode, data ] );
 
+  const stackedChartData = useMemo( () => {
+    return sortedYears.map( yearKey => {
+      const snapshot = data.computed.years[ String( yearKey ) as `${number}` ];
+      const row: any = { year: yearKey };
+
+      getBreakdown( snapshot, yearKey ).forEach( item => {
+        row[ item.id ] = item.value;
+      } );
+
+      return row;
+    } );
+  }, [ sortedYears, viewMode, data ] );
+
   return (
     <div className= 'space-y-8'>
       { /** Page Header */ }
@@ -194,7 +207,9 @@ export const Breakdown = () => {
               </PieChart>
             </ResponsiveContainer>
           </div>
+
           <div className= 'self-stretch shrink-0 w-0 border-l-2 border-dashed border-slate-200' />
+
           <div className= 'flex-3 w-md max-h-90 space-y-3 overflow-y-auto'>
             { currentListData.length === 0 ? (
               <div className= 'py-16 text-center text-lg font-light tracking-wider text-slate-400'>
@@ -246,6 +261,42 @@ export const Breakdown = () => {
             { i18n.t( $ => $.breakdown.historyInfo ) }
           </p>
         </div>
+
+        <ResponsiveContainer width= '100%' height= { 420 }>
+          <BarChart
+            data= { stackedChartData }
+            margin= { { top: 10, right: 20, left: 20, bottom: 10 } }
+            barCategoryGap= '20%'
+          >
+            <XAxis
+              dataKey= 'year'
+              interval= { 3 }
+              stroke= '#94a3b8'
+              fontSize= { 12 }
+              fontWeight= { 600 }
+              tickLine= { false }
+              axisLine= { false }
+              dy= { 10 }
+            />
+            <YAxis
+              tickFormatter= { ( value: number ) => yAxisFormatter( {
+                type: 'currency', value, display
+              } ) }
+              stroke= '#94a3b8'
+              fontSize= { 12 }
+              fontWeight= { 600 }
+              tickLine= { false }
+              axisLine= { false }
+              dx= { -10 }
+            />
+            <ReferenceLine
+              y= { 0 }
+              stroke= '#cbd5e1'
+              strokeWidth= { 2 }
+              style= { { opacity: 0.6 } }
+            />
+          </BarChart>
+        </ResponsiveContainer>
       </Card>
     </div>
   );
