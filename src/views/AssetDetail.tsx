@@ -42,7 +42,7 @@ export const AssetDetail = () => {
   return (
     <div className= 'space-y-8'>
       { /** Page Header */ }
-      <div className= 'flex flex-col sm:flex-row justify-between items-start sm:items-center gap-6 pb-6 border-b border-slate-200'>
+      <div className= 'flex flex-col sm:flex-row justify-between items-start sm:items-end gap-6 pb-6 border-b border-slate-200'>
         { /** Asset Title */ }
         <div className= 'flex items-center gap-4 min-w-0'>
           <Link
