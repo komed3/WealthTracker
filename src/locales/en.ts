@@ -73,6 +73,7 @@ export default ( {
       class: 'Class',
       description: 'Detailed breakdown of your financial positions by assets, liquidity and class.',
       liquidity: 'Liquidity',
+      noData: 'No active items in this year',
       notional: 'Notional',
       real: 'Real',
       realization: 'Realization',

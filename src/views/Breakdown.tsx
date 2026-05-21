@@ -195,7 +195,44 @@ export const Breakdown = () => {
             </ResponsiveContainer>
           </div>
           <div className= 'self-stretch shrink-0 w-0 border-l-2 border-dashed border-slate-200' />
-          <div className= 'flex-3 w-md'></div>
+          <div className= 'flex-3 w-md max-h-90 space-y-3 overflow-y-auto'>
+            { currentListData.length === 0 ? (
+              <div className= 'py-16 text-center text-lg font-light tracking-wider text-slate-400'>
+                { i18n.t( $ => $.breakdown.noData ) }
+              </div>
+            ) : (
+              <div className= 'divide-y divide-dashed divide-slate-200'>
+                { currentListData.map( ( item ) => {
+                  if ( ! item ) return null;
+
+                  return (
+                    <div
+                      key= { item.id }
+                      className= 'flex justify-between items-center gap-4 py-4'
+                    >
+                      <div className= 'flex items-center gap-3 min-w-0'>
+                        <div
+                          className= 'shrink-0 w-3 h-3 rounded-full'
+                          style= { { backgroundColor: item.color } }
+                        />
+                        <p className= 'truncate leading-snug font-semibold text-slate-800'>
+                          { item.title }
+                        </p>
+                      </div>
+                      <div className= 'shrink-0 flex items-baseline gap-4 text-right text-slate-800'>
+                        <p className= 'font-mono font-bold text-lg leading-none'>
+                          { formatCurrency( item.value, display ) }
+                        </p>
+                        <p className= 'font-mono font-semibold text-xs leading-none'>
+                          ({ formatPercent( item.share, display ) })
+                        </p>
+                      </div>
+                    </div>
+                  );
+                } ) }
+              </div>
+            ) }
+          </div>
         </div>
       </Card>
     </div>

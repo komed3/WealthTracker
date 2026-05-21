@@ -73,6 +73,7 @@ export default ( {
       class: 'Klasse',
       description: 'Detaillierte Aufschlüsselung deiner finanziellen Positionen nach Assets, Liquidität und Klasse.',
       liquidity: 'Liquidität',
+      noData: 'Keine aktiven Positionen in diesem Jahr',
       notional: 'Fiktivwert',
       real: 'Realwert',
       realization: 'Realisierung',
