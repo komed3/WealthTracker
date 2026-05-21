@@ -1,7 +1,11 @@
+import { Heading } from '@/src/components/ui/Heading';
+import { Icon } from '@/src/components/ui/Icon';
+import type { ASSET_CLASS, LIABILITY_CLASS } from '@/src/config/constants';
 import { useData } from '@/src/context/DataCtx';
 import { useLayout } from '@/src/context/LayoutCtx';
+import i18n from '@/src/lib/i18n';
 import { ArrowLeft } from 'lucide-react';
-import { useEffect } from 'react';
+import { useEffect, useMemo } from 'react';
 import { Link, useNavigate, useParams } from 'react-router';
 
 export const AssetDetail = () => {
@@ -18,6 +22,12 @@ export const AssetDetail = () => {
 
   useEffect( () => { setTitle( assetData.entry.title ) }, [ setTitle, display.language ] );
 
+  const classLabel = useMemo( () => {
+    return assetData.entry.category === 'asset'
+      ? i18n.t( $ => $.assetClass[ assetData.entry.class as ASSET_CLASS ] )
+      : i18n.t( $ => $.liabilityClass[ assetData.entry.class as LIABILITY_CLASS ] );
+  }, [ assetData, display.language ] );
+
   return (
     <div className= 'space-y-8'>
       { /** Page Header */ }
@@ -32,6 +42,20 @@ export const AssetDetail = () => {
             }>
               <ArrowLeft size= { 20 } />
           </Link>
+          <div
+            className= 'flex justify-center items-center shrink-0 w-12 h-12 sm:w-14 sm:h-14 text-white rounded-xl'
+            style= { { backgroundColor: assetData.entry.color } }
+          >
+            <Icon name= { assetData.entry.icon } size= { 24 } />
+          </div>
+          <div className= 'flex flex-col justify-center gap-1 min-w-0'>
+            <Heading level= { 1 } className= 'truncate leading-tight text-xl sm:text-2xl font-bold tracking-tight text-slate-900'>
+              { assetData.entry.title }
+            </Heading>
+            <p className= 'truncate uppercase tracking-wider text-xs font-semibold text-slate-400'>
+              { i18n.t( $ => $.category[ assetData.entry.category ] ) } — { classLabel }
+            </p>
+          </div>
         </div>
       </div>
     </div>
