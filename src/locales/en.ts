@@ -24,6 +24,7 @@ export default ( {
     assetDetail: {
       active: 'Active',
       archived: 'Archived',
+      avgGrowth: 'Avg. Growth',
       category: 'Category',
       class: 'Class',
       confidence: 'Confidence',

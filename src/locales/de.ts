@@ -24,6 +24,7 @@ export default ( {
     assetDetail: {
       active: 'Aktiv',
       archived: 'Archiviert',
+      avgGrowth: 'Ø Wachstum',
       category: 'Kategorie',
       class: 'Klasse',
       confidence: 'Sicherheit',

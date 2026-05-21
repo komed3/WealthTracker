@@ -460,6 +460,14 @@ export const AssetDetail = () => {
                   { formatCurrency( assetStats.lowestValue, display ) }
                 </span>
               </div>
+              <div className= 'flex justify-between items-end gap-4'>
+                <span className= 'truncate uppercase tracking-wider text-[10px] font-medium text-slate-400'>
+                  { i18n.t( $ => $.assetDetail.avgGrowth ) }
+                </span>
+                <span className= 'font-semibold'>
+                  { formatPercent( assetStats.averageAnnualGrowth, display ) }
+                </span>
+              </div>
             </div>
           </Card>
         </div>
