@@ -22,6 +22,9 @@ export default ( {
       wallet: 'Wallet'
     },
     assets: {
+      absolute: 'Absolut',
+      description: 'Analysiere und filtere deine individuellen finanziellen Positionen und Verpflichtungen über die Zeit.',
+      relative: 'Relativ',
       title: 'Vermögenswerte'
     },
     category: {

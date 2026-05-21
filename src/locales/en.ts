@@ -22,6 +22,9 @@ export default ( {
       wallet: 'Wallet'
     },
     assets: {
+      absolute: 'Absolute',
+      description: 'Analyze and filter your individual financial holdings and obligations over time.',
+      relative: 'Relative',
       title: 'Assets'
     },
     category: {
