@@ -74,7 +74,8 @@ export default ( {
       description: 'Detaillierte Aufschlüsselung deiner finanziellen Positionen nach Assets, Liquidität und Klasse.',
       liquidity: 'Liquidität',
       realization: 'Realisierung',
-      title: 'Aufschlüsselung'
+      title: 'Aufschlüsselung',
+      value: 'Wert'
     },
     category: {
       asset: 'Vermögenswert',

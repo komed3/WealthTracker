@@ -1,4 +1,5 @@
 import { Card } from '@/src/components/ui/Card';
+import { CustomTooltip } from '@/src/components/ui/Chart';
 import { Heading } from '@/src/components/ui/Heading';
 import { Intro } from '@/src/components/ui/Intro';
 import { NoData } from '@/src/components/ui/NoData';
@@ -7,11 +8,12 @@ import { Tabs } from '@/src/components/ui/Tabs';
 import { ASSET_CLASS, CLASS, CLASS_COLORS, LIABILITY_CLASS, LIQUIDITY, LIQUIDITY_COLORS } from '@/src/config/constants';
 import { useData } from '@/src/context/DataCtx';
 import { useLayout } from '@/src/context/LayoutCtx';
+import { formatCurrency, formatPercent } from '@/src/lib/formatter';
 import i18n from '@/src/lib/i18n';
 import type { YearSnapshot } from '@/src/types/data';
 import { BookOpenText, Layers, LayoutDashboard, PiggyBank } from 'lucide-react';
 import { useEffect, useMemo, useState } from 'react';
-import { Pie, PieChart, ResponsiveContainer, Sector } from 'recharts';
+import { Pie, PieChart, ResponsiveContainer, Sector, Tooltip } from 'recharts';
 
 export const Breakdown = () => {
   const { setTitle } = useLayout();
@@ -131,15 +133,15 @@ export const Breakdown = () => {
 
         <div className= 'flex flex-col 2xl:flex-row gap-10'>
           <div className= 'flex-2'>
-            <ResponsiveContainer width= '100%' height= { 320 }>
+            <ResponsiveContainer width= '100%' height= { 360 }>
               <PieChart>
                 <Pie
                   data= { currentListData }
                   dataKey= 'value'
                   cx= '50%'
                   cy= '50%'
-                  innerRadius= { 80 }
-                  outerRadius= { 120 }
+                  innerRadius= '65%'
+                  outerRadius= '90%'
                   paddingAngle= { 2 }
                   shape={ ( props ) => {
                     return (
@@ -150,10 +152,33 @@ export const Breakdown = () => {
                     );
                   } }
                 />
+                <Tooltip
+                  content= { ( { active, payload } ) => {
+                    if ( active && payload && payload.length ) {
+                      const item = payload[ 0 ].payload;
+
+                      return (
+                        <CustomTooltip
+                          label= { item.title }
+                          value= { formatPercent( item.share, display ) }
+                          color= { item.color }
+                        >
+                          <div className= 'flex justify-between gap-4'>
+                            <span>{ i18n.t( $ => $.breakdown.value ) }</span>
+                            <span className= 'font-mono font-semibold text-slate-800'>
+                              { formatCurrency( item.value, display ) }
+                            </span>
+                          </div>
+                        </CustomTooltip>
+                      );
+                    }
+                    return null;
+                  } }
+                />
               </PieChart>
             </ResponsiveContainer>
           </div>
-          <div className= 'self-stretch shrink-0 w-0 border-l border-dashed border-slate-200' />
+          <div className= 'self-stretch shrink-0 w-0 border-l-2 border-dashed border-slate-200' />
           <div className= 'flex-3 w-md'></div>
         </div>
       </Card>

@@ -74,7 +74,8 @@ export default ( {
       description: 'Detailed breakdown of your financial positions by assets, liquidity and class.',
       liquidity: 'Liquidity',
       realization: 'Realization',
-      title: 'Breakdown'
+      title: 'Breakdown',
+      value: 'Value'
     },
     category: {
       asset: 'Asset',
