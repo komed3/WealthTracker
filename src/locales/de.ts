@@ -21,6 +21,9 @@ export default ( {
       vehicles: 'Fahrzeuge',
       wallet: 'Wallet'
     },
+    assets: {
+      title: 'Vermögenswerte'
+    },
     category: {
       asset: 'Vermögenswert',
       liability: 'Verbindlichkeit'

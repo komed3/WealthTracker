@@ -21,6 +21,9 @@ export default ( {
       vehicles: 'Vehicles',
       wallet: 'Wallet'
     },
+    assets: {
+      title: 'Assets'
+    },
     category: {
       asset: 'Asset',
       liability: 'Liability'
