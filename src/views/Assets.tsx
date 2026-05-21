@@ -137,6 +137,18 @@ export const Assets = () => {
           onChange= { ( e ) => setNotional( e.target.value ) }
         />
       </div>
+
+      { /** Assets Grid */ }
+      { filteredRecords.length === 0 ? (
+        <div className= 'flex flex-col justify-center items-center gap-2 py-20 text-center'>
+          <p className= 'text-xl font-semibold text-slate-600'>
+            { i18n.t( $ => $.assets.emptyTitle ) }
+          </p>
+          <p className= 'text-slate-400'>
+            { i18n.t( $ => $.assets.emptyInfo ) }
+          </p>
+        </div>
+      ) : ( <></> ) }
     </div>
   );
 };

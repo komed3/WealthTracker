@@ -29,6 +29,8 @@ export default ( {
       category: 'Kategorie',
       class: 'Klasse',
       description: 'Analysiere und filtere deine individuellen finanziellen Positionen und Verpflichtungen über die Zeit.',
+      emptyInfo: 'Passe deine Filtereinstellungen an oder füge neue Vermögenswerte hinzu.',
+      emptyTitle: 'Keine Daten passend zu den Filtern gefunden',
       liquidity: 'Liquidität',
       notional: 'Nicht verfügbar',
       real: 'Real',

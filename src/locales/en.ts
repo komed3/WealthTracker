@@ -29,6 +29,8 @@ export default ( {
       category: 'Category',
       class: 'Class',
       description: 'Analyze and filter your individual financial holdings and obligations over time.',
+      emptyInfo: 'Adjust your filter settings or add new assets to find matching records.',
+      emptyTitle: 'No records found matching the filters',
       liquidity: 'Liquidity',
       notional: 'Notional',
       real: 'Real',
