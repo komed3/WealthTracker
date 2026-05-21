@@ -1,4 +1,8 @@
-import type { Breakdown, ComputedData, Data, EntryRecord, EntryStats, PortfolioStats, Settings, YearSnapshot } from '@/src/types/data';
+import type {
+  Breakdown, ComputedData, Data, EntryRecord, EntryStats,
+  PortfolioStats, Settings, YearSnapshot
+} from '@/src/types/data';
+import type { STABILITY, TREND, VOLATILITY } from '@/src/config/constants';
 import { existsSync, mkdirSync, readFileSync, writeFileSync } from 'node:fs';
 import { dirname, resolve } from 'node:path';
 
@@ -91,10 +95,45 @@ export class Database {
     const roundOther = ( value: number ) => Number( value.toFixed( 5 ) );
     const percentage = ( value: number, total: number ) => total === 0 ? 0 : roundOther( Math.abs( value ) / total );
 
+    const volatilityEval = ( vol: number ): VOLATILITY => {
+      if ( vol <= 0.05 ) return 'veryLow';
+      if ( vol <= 0.15 ) return 'low';
+      if ( vol <= 0.3 ) return 'medium';
+      if ( vol <= 0.6 ) return 'high';
+      return 'veryHigh';
+    };
+
+    const stabilityEval = ( vol: number ): STABILITY => {
+      if ( vol <= 0.05 ) return 'stable';
+      if ( vol <= 0.15 ) return 'defensive';
+      if ( vol <= 0.3 ) return 'balanced';
+      if ( vol <= 0.6 ) return 'dynamic';
+      return 'risky';
+    };
+
+    const trendEval = ( avgGrowth: number, returns: number[], vol: number ): TREND => {
+      const positiveCount = returns.filter( r => r > 0 ).length;
+      const negativeCount = returns.filter( r => r < 0 ).length;
+      const signChanges = returns.slice( 1 ).reduce( ( count, value, index ) => {
+        const previous = returns[ index ];
+        return count + ( previous * value < 0 ? 1 : 0 );
+      }, 0 );
+      const signChangeRate = returns.length > 1 ? signChanges / ( returns.length - 1 ) : 0;
+
+      if ( returns.length === 0 ) return 'stable';
+      if ( vol <= 0.15 && Math.abs( avgGrowth ) <= 0.02 ) return 'stable';
+      if ( avgGrowth > 0.02 && vol <= 0.3 && positiveCount / returns.length >= 0.75 ) return 'upward';
+      if ( avgGrowth < -0.02 && vol <= 0.3 && negativeCount / returns.length >= 0.75 ) return 'downward';
+      if ( signChangeRate >= 0.6 ) return 'cyclical';
+      return 'unpredictable';
+    };
+
     const portfolioSummary = {
       assetCount: 0, liabilityCount: 0, archivedCount: 0,
       nonRealCount: 0, realValue: 0, nonRealValue: 0
     };
+
+    const annualReturnsByEntry: Record< string, number[] > = {};
 
     for ( const record of entries ) {
       const { entry, history } = record;
@@ -105,7 +144,7 @@ export class Database {
       const firstVal = hasHistory ? round( history[ `${firstYear}` ].value ) : 0;
       const latestValue = hasHistory ? round( history[ `${lastYear}` ].value ) : 0;
 
-      const values = hasHistory ? historyYears.map( year => round( history[ `${year}` ].value ) ) : [];
+      const values = hasHistory ? historyYears.map( year => history[ `${year}` ].value ) : [];
       const highestValue = values.length > 0 ? round( Math.max( ...values ) ) : undefined;
       const lowestValue = values.length > 0 ? round( Math.min( ...values ) ) : undefined;
       const averageValue = values.length > 0 ? round( values.reduce( ( sum, v ) => sum + v, 0 ) / values.length ) : undefined;
@@ -113,11 +152,22 @@ export class Database {
       const absoluteGrowth = round( latestValue - firstVal );
       const relativeGrowth = firstVal !== 0 ? roundOther( absoluteGrowth / firstVal ) : 0;
 
+      const annualReturns = historyYears.length > 1 ? historyYears.slice( 1 ).map( ( year, index ) => {
+        const previousYear = historyYears[ index ];
+        const previousValue = history[ `${previousYear}` ].value;
+        const currentValue = history[ `${year}` ].value;
+        return previousValue !== 0 ? ( currentValue / previousValue ) - 1 : 0;
+      } ) : [];
+
+      annualReturnsByEntry[ entry.id ] = annualReturns;
+
       let volatility: number | undefined;
-      if ( values.length > 1 ) {
-        const mean = averageValue ?? 0;
-        const variance = values.reduce( ( sum, v ) => sum + Math.pow( v - mean, 2 ), 0 ) / ( values.length - 1 );
+      if ( annualReturns.length > 1 ) {
+        const meanReturn = annualReturns.reduce( ( sum, r ) => sum + r, 0 ) / annualReturns.length;
+        const variance = annualReturns.reduce( ( sum, r ) => sum + Math.pow( r - meanReturn, 2 ), 0 ) / ( annualReturns.length - 1 );
         volatility = round( Math.sqrt( variance ) );
+      } else if ( annualReturns.length === 1 ) {
+        volatility = round( Math.abs( annualReturns[ 0 ] ) );
       }
 
       let averageAnnualGrowth: number | undefined;
@@ -353,7 +403,18 @@ export class Database {
     for ( const record of entries ) {
       const entryId = record.entry.id;
       if ( entryStatsRecord[ entryId ] ) {
-        entryStatsRecord[ entryId ].relativeHistory = relativeHistoryByEntry[ entryId ];
+        const stats = entryStatsRecord[ entryId ];
+        stats.relativeHistory = relativeHistoryByEntry[ entryId ];
+
+        const effectiveVol = stats.volatility ?? 0;
+        const averageGrowth = stats.averageAnnualGrowth ?? 0;
+        const evaluation = {
+          volatility: volatilityEval( effectiveVol ),
+          stability: stabilityEval( effectiveVol ),
+          trend: trendEval( averageGrowth, annualReturnsByEntry[ entryId ] ?? [], effectiveVol )
+        };
+
+        stats.evaluation = evaluation;
       }
     }
 
