@@ -1,12 +1,12 @@
 import { Intro } from '@/src/components/ui/Intro';
+import { Select } from '@/src/components/ui/Select';
 import { Tabs } from '@/src/components/ui/Tabs';
+import { ASSET_CLASS, CATEGORY, LIABILITY_CLASS, LIQUIDITY } from '@/src/config/constants';
 import { useData } from '@/src/context/DataCtx';
 import { useLayout } from '@/src/context/LayoutCtx';
 import i18n from '@/src/lib/i18n';
 import { Percent, Sigma } from 'lucide-react';
-import { useEffect, useState } from 'react';
-import { ASSET_CLASS, CATEGORY, LIABILITY_CLASS, LIQUIDITY } from '@/src/config/constants';
-import { Select } from '@/src/components/ui/Select';
+import { useEffect, useMemo, useState } from 'react';
 
 export const Assets = () => {
   const { data, settings } = useData();
@@ -44,6 +44,18 @@ export const Assets = () => {
     value: liq, label: `${ i18n.t( $ => $.liquidity[ liq as 1 | 2 | 3 | 4 | 5 ] ) }`
   } ) ) ];
 
+  const archivedOptions = useMemo( () => [
+    { value: 'all', label: i18n.t( $ => $.assets.all ) },
+    { value: 'active', label: i18n.t( $ => $.assets.active ) },
+    { value: 'archived', label: i18n.t( $ => $.assets.archived ) }
+  ], [ display.language ] );
+
+  const notionalOptions = useMemo( () => [
+    { value: 'all', label: i18n.t( $ => $.assets.all ) },
+    { value: 'real', label: i18n.t( $ => $.assets.real ) },
+    { value: 'notional', label: i18n.t( $ => $.assets.notional ) }
+  ], [ display.language ] );
+
   return (
     <div className= 'space-y-8'>
       { /** Page Header */ }
@@ -80,6 +92,18 @@ export const Assets = () => {
           value= { liquidity }
           options= { liquidityOptions }
           onChange= { ( e ) => setLiquidity( e.target.value ) }
+        />
+        <Select
+          label= { i18n.t( $ => $.assets.archived ) }
+          value= { archived }
+          options= { archivedOptions }
+          onChange= { ( e ) => setArchived( e.target.value ) }
+        />
+        <Select
+          label= { i18n.t( $ => $.assets.notional ) }
+          value= { notional }
+          options= { notionalOptions }
+          onChange= { ( e ) => setNotional( e.target.value ) }
         />
       </div>
     </div>
