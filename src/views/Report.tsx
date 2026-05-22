@@ -16,12 +16,17 @@ import { useEffect, useMemo, useState } from 'react';
 const ReportRow = ( { key, label, value, percentage, display }: ReportRowProps ) => {
   return ( <div key= { key } className= 'space-y-1'>
     <div className= 'flex justify-between items-baseline'>
-      <span className= 'font-medium text-sm text-slate-800'>
+      <span className= 'min-w-0 truncate font-medium text-sm text-slate-800'>
         { label }
       </span>
-      <span className= 'font-mono font-bold'>
-        { formatCurrency( value, display ) }
-      </span>
+      <div className= 'flex items-baseline gap-3 font-mono'>
+        <span className= 'text-lg font-bold'>
+          { formatCurrency( value, display ) }
+        </span>
+        <span className= 'text-sm'>
+          ({ formatPercent( percentage, display ) })
+        </span>
+      </div>
     </div>
     <div className= 'h-2 bg-slate-200 rounded-full overflow-hidden'>
       <div
@@ -152,10 +157,26 @@ export const Report = () => {
           </div>
         </Card>
         <Card className= 'break-inside-avoid'>
-          <Heading level= { 4 } className= 'flex items-center gap-4'>
+          <Heading level= { 4 } className= 'flex items-center gap-4 mb-6'>
             <BookOpenText size= { 20 } />
             <span>{ i18n.t( $ => $.report.realization ) }</span>
           </Heading>
+          <div className= 'space-y-4'>
+            <ReportRow
+              key= { 'real' }
+              label= { i18n.t( $ => $.report.real ) }
+              value= { snapshot.realization.real.value }
+              percentage= { snapshot.realization.real.percentage }
+              display= { display }
+            />
+            <ReportRow
+              key= { 'real' }
+              label= { i18n.t( $ => $.report.notional ) }
+              value= { snapshot.realization.nonReal.value }
+              percentage= { snapshot.realization.nonReal.percentage }
+              display= { display }
+            />
+          </div>
         </Card>
       </div>
     </div>
