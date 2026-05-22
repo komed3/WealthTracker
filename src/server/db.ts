@@ -437,7 +437,7 @@ export class Database {
       nonRealValue: round( portfolioSummary.nonRealValue ),
       totalGrowth, averageAnnualGrowth, bestYear, worstYear,
       milestones, equivalents, inUSD: round( inUSD ),
-      globalPercentile: round( Math.max( 0.01, globalPercentile ) ),
+      globalPercentile: round( Math.max( 0.01, globalPercentile ) ) / 100,
       count: {
         asset: portfolioSummary.assetCount,
         liability: portfolioSummary.liabilityCount,
