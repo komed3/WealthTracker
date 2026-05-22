@@ -12,6 +12,7 @@ import { cn } from '@/src/lib/utils';
 import type { ClassReportProps, ReportRowProps } from '@/src/types/props';
 import { BookOpenText, CircleAlert, Layers3, PiggyBank, TrendingDown, TrendingUp } from 'lucide-react';
 import { useEffect, useMemo, useState } from 'react';
+import { Link } from 'react-router';
 
 const ReportRow = ( { label, value, percentage, display }: ReportRowProps ) => {
   return ( <div className= 'space-y-1'>
@@ -79,6 +80,10 @@ export const Report = () => {
 
   if ( ! data || sortedYears.length === 0 ) return <NoData />;
 
+  const yearOptions = useMemo( () => sortedYears.slice().reverse().map( y => ( {
+    value: String( y ), label: String( y )
+  } ) ), [ sortedYears ] );
+
   const [ selectedYear, setSelectedYear ] = useState < number > ( sortedYears[ sortedYears.length - 1 ] );
 
   const snapshot = useMemo(
@@ -86,13 +91,12 @@ export const Report = () => {
     [ data, selectedYear ]
   );
 
-  const trendUp = ( snapshot.growth?.absolute ?? 0 ) >= 0;
+  const positions = useMemo( () => data.entries.map( p => {
+    const h = p.history[ String( selectedYear ) as `${number}` ];
+    if ( h ) return { entry: p.entry, data: h };
+  } ).filter( Boolean ), [ data, selectedYear ] );
 
-  const yearOptions = useMemo( () => (
-    sortedYears.slice().reverse().map( y => ( {
-      value: String( y ), label: String( y )
-    } ) )
-  ), [ sortedYears ] );
+  const trendUp = ( snapshot.growth?.absolute ?? 0 ) >= 0;
 
   return (
     <div className= 'space-y-8'>
@@ -151,6 +155,39 @@ export const Report = () => {
             <span>({ formatPercent( snapshot.growth.relative, display ) })</span>
           </div>
         </Card>
+      ) }
+
+      { /** Net Worth Range */ }
+
+      { /** Assets / Positions List */ }
+      { positions && (
+        <div className= 'flex flex-col w-full bg-white border border-slate-200 rounded-2xl shadow-sm overflow-hidden'>
+          <div className= 'whitespace-nowrap overflow-x-auto'>
+            <table className= 'w-full text-left text-sm text-slate-800 border-collapse'>
+              <thead>
+                <tr className= 'uppercase font-semibold text-xs text-slate-500 tracking-wider bg-slate-50 border-b border-slate-200'>
+                  <th className= 'px-6 py-4'>{ i18n.t( $ => $.report.asset ) }</th>
+                  <th className= 'px-6 py-4 text-right'>{ i18n.t( $ => $.report.value ) }</th>
+                </tr>
+              </thead>
+              <tbody className= 'divide-y divide-dashed divide-slate-200'>
+                { positions.map( item => item && (
+                  <tr key= { item.entry.id } className= 'h-16 align-middle'>
+                    <td className= 'px-6 py-4 font-semibold text-sm text-slate-800'>
+                      <Link to= { `/asset/${ item.entry.id }` } className= 'flex items-center gap-2'>
+                        <div
+                          className= 'shrink-0 w-3 h-3 rounded-full'
+                          style= { { backgroundColor: item.entry.color } }
+                        />
+                        <span>{ item.entry.title }</span>
+                      </Link>
+                    </td>
+                  </tr>
+                ) ) }
+              </tbody>
+            </table>
+          </div>
+        </div>
       ) }
 
       { /** Masonry Grid */ }
