@@ -1,10 +1,12 @@
-import { InfoCard } from '@/src/components/ui/Card';
+import { Card, InfoCard } from '@/src/components/ui/Card';
+import { Heading } from '@/src/components/ui/Heading';
 import { Intro } from '@/src/components/ui/Intro';
 import { NoData } from '@/src/components/ui/NoData';
 import { useData } from '@/src/context/DataCtx';
 import { useLayout } from '@/src/context/LayoutCtx';
 import { formatCurrency, formatNumber, formatPercent } from '@/src/lib/formatter';
 import i18n from '@/src/lib/i18n';
+import { BriefcaseBusiness, PiggyBank, Scale } from 'lucide-react';
 import { useEffect } from 'react';
 
 export const Stats = () => {
@@ -70,6 +72,33 @@ export const Stats = () => {
           ) ) }
         </div>
       ) }
+
+      { /** Masonry Grid */ }
+      <div className= 'columns-1 md:columns-2 gap-8 space-y-8'>
+        { /** Equivalents */ }
+        <Card className= 'break-inside-avoid'>
+          <Heading level= { 4 } className= 'flex items-center gap-4 mb-6'>
+            <Scale size= { 20 } />
+            <span>{ i18n.t( $ => $.stats.equivalents ) }</span>
+          </Heading>
+        </Card>
+
+        { /** Working Hours */ }
+        <Card className= 'break-inside-avoid'>
+          <Heading level= { 4 } className= 'flex items-center gap-4 mb-6'>
+            <BriefcaseBusiness size= { 20 } />
+            <span>{ i18n.t( $ => $.stats.workingHrs ) }</span>
+          </Heading>
+        </Card>
+
+        { /** Average Earnings */ }
+        <Card className= 'break-inside-avoid'>
+          <Heading level= { 4 } className= 'flex items-center gap-4 mb-6'>
+            <PiggyBank size= { 20 } />
+            <span>{ i18n.t( $ => $.stats.avgEarnings ) }</span>
+          </Heading>
+        </Card>
+      </div>
     </div>
   );
 };
