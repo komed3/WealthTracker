@@ -1,5 +1,5 @@
 import type { STABILITY, TREND, VOLATILITY } from '@/src/config/constants';
-import { CURRENCY_CONV, EQUIV_FACTOR, EQUIVALENTS } from '@/src/config/constants';
+import { CURRENCY_CONV, EQUIV_FACTOR, EQUIVALENT } from '@/src/config/constants';
 import type {
   Breakdown, ComputedData, Data, EntryRecord, EntryStats, Milestone,
   PortfolioStats, Settings, YearSnapshot
@@ -417,7 +417,7 @@ export class Database {
     }
 
     const inUSD = latestNetWorth * CURRENCY_CONV[ currency ];
-    const equivalents = Object.fromEntries( EQUIVALENTS.map( e => ( [
+    const equivalents = Object.fromEntries( EQUIVALENT.map( e => ( [
       e, round( inUSD / EQUIV_FACTOR[ e ] )
     ] ) ) ) as PortfolioStats[ 'equivalents' ];
 

@@ -62,8 +62,8 @@ export const CONFIDENCE = [
   'low', 'medium', 'high'
 ] as const;
 
-export type EQUIVALENTS = ( typeof EQUIVALENTS )[ number ];
-export const EQUIVALENTS = [
+export type EQUIVALENT = ( typeof EQUIVALENT )[ number ];
+export const EQUIVALENT = [
   'gold', 'coinStack', 'savings', 'income', 'burger', 'workingHrs'
 ] as const;
 
@@ -125,7 +125,7 @@ export const CURRENCY_CONV: Record< CURRENCY, number > = {
   HKD: 0.13, NZD: 0.58, TRY: 0.022, AED: 0.27, INR: 0.01
 };
 
-export const EQUIV_FACTOR: Record< EQUIVALENTS, number > = {
+export const EQUIV_FACTOR: Record< EQUIVALENT, number > = {
   gold: 150, coinStack: 500, savings: 8000, income: 66600,
   burger: 5, workingHrs: 30
 };
