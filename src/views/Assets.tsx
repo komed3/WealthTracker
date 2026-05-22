@@ -239,7 +239,7 @@ export const Assets = () => {
                     </div>
 
                     { /** Sparkline */ }
-                    <ResponsiveContainer width= '100%' height= { 132 }>
+                    <ResponsiveContainer width= '100%' aspect= { 3 } maxHeight= { 140 }>
                       <AreaChart
                         data= { sparklineData }
                         margin= { { top: 10, right: 10, left: 10, bottom: 10 } }

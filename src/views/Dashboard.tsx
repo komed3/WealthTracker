@@ -82,7 +82,7 @@ export const Dashboard = () => {
           </p>
         </div>
 
-        <ResponsiveContainer width= '100%' height= { 480 }>
+        <ResponsiveContainer width= '100%' aspect= { 1.8 } maxHeight= { 460 }>
           <ComposedChart
             data= { yearDetails }
             margin= { { top: 10, right: 20, left: 20, bottom: 10 } }

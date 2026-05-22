@@ -140,7 +140,7 @@ export const AssetDetail = () => {
             <Heading level= { 4 } className= 'mb-6'>
               { i18n.t( $ => $.assetDetail.history ) }
             </Heading>
-            <ResponsiveContainer width= '100%' height= { 320 }>
+            <ResponsiveContainer width= '100%' aspect= { 2.4 } maxHeight= { 320 }>
               <ComposedChart
                 data= { mainChartData }
                 margin= { { top: 10, right: 20, left: 20, bottom: 10 } }
@@ -270,7 +270,7 @@ export const AssetDetail = () => {
             <Heading level= { 4 } className= 'mb-6'>
               { i18n.t( $ => $.assetDetail.growth ) }
             </Heading>
-            <ResponsiveContainer width= '100%' height= { 220 }>
+            <ResponsiveContainer width= '100%' aspect= { 3.6 } maxHeight= { 240 }>
               <BarChart
                 data= { growthChartData }
                 margin= { { top: 10, right: 20, left: 20, bottom: 10 } }

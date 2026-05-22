@@ -287,7 +287,7 @@ export const Breakdown = () => {
           </p>
         </div>
 
-        <ResponsiveContainer width= '100%' height= { 420 }>
+        <ResponsiveContainer width= '100%' aspect= { 1.8 } maxHeight= { 420 }>
           <BarChart
             data= { stackedChartData }
             margin= { { top: 10, right: 20, left: 20, bottom: 10 } }

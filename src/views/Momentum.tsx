@@ -88,7 +88,7 @@ export const Momentum = () => {
 
       { /** Momentum Chart */ }
       <Card>
-        <ResponsiveContainer width= '100%' height= { 420 }>
+        <ResponsiveContainer width= '100%' aspect= { 2 } maxHeight= { 420 }>
           <BarChart
             data= { chartData }
             margin= { { top: 10, right: 20, left: 20, bottom: 10 } }
