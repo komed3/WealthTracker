@@ -122,6 +122,11 @@ export interface EntryStats {
   };
 }
 
+export interface Milestone {
+  value: number;
+  year: number;
+}
+
 export interface PortfolioStats {
   firstYear: number;
   lastYear: number;
@@ -135,6 +140,7 @@ export interface PortfolioStats {
   bestYear?: number;
   worstYear?: number;
   averageLiquidity?: number;
+  milestones: Milestone[];
   count: {
     asset: number;
     liability: number;
