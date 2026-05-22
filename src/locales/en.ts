@@ -214,6 +214,7 @@ export default ( {
       stats: 'Statistics'
     },
     report: {
+      description: 'Comprehensive financial balance sheet and generated report for {{year}}.',
       title: 'Annual Report'
     },
     settings: {

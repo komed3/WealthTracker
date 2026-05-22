@@ -214,6 +214,7 @@ export default ( {
       stats: 'Statistiken'
     },
     report: {
+      description: 'Umfassender Finanzbericht und Bilanzierung für das Kalenderjahr {{year}}.',
       title: 'Jahresbericht'
     },
     settings: {

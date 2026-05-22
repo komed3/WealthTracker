@@ -1,4 +1,6 @@
+import { Intro } from '@/src/components/ui/Intro';
 import { NoData } from '@/src/components/ui/NoData';
+import { Select } from '@/src/components/ui/Select';
 import { useData } from '@/src/context/DataCtx';
 import { useLayout } from '@/src/context/LayoutCtx';
 import i18n from '@/src/lib/i18n';
@@ -41,6 +43,20 @@ export const Report = () => {
   ), [ sortedYears ] );
 
   return (
-    <></>
+    <div className= 'space-y-8'>
+      { /** Page Header */ }
+      <Intro
+        title= { i18n.t( $ => $.report.title ) }
+        description= { i18n.t( $ => $.report.description, { year: selectedYear } ) }
+      >
+        <div className= 'shrink-0 min-w-36'>
+          <Select
+            value= { String( selectedYear ) }
+            options= { yearOptions }
+            onChange= { ( e ) => setSelectedYear( Number( e.target.value ) ) }
+          />
+        </div>
+      </Intro>
+    </div>
   );
 };
