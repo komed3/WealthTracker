@@ -105,6 +105,11 @@ export interface yAxisFormatterProps {
   display: DisplaySettings;
 }
 
+export interface xAxisIntervalProps {
+  value: number;
+  isMobile?: boolean;
+}
+
 export interface PositionListProps {
   entries: EntryRecord[];
   onEdit: ( record: Entry ) => void;

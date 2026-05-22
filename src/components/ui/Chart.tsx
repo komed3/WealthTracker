@@ -1,5 +1,5 @@
 import { formatCurrency, formatPercent } from '@/src/lib/formatter';
-import type { CustomTooltipProps, yAxisFormatterProps } from '@/src/types/props';
+import type { CustomTooltipProps, xAxisIntervalProps, yAxisFormatterProps } from '@/src/types/props';
 
 export const CustomTooltip = ( { label, value, children, color }: CustomTooltipProps ) => {
   return (
@@ -23,4 +23,8 @@ export const yAxisFormatter = ( { type, value, display }: yAxisFormatterProps ) 
     case 'percent': return formatPercent( value, { ...display, decimals: 0 } );
     default: return String( value );
   }
+};
+
+export const xAxisInterval = ( { value, isMobile = false }: xAxisIntervalProps ) => {
+  return Math.round( value / 8 ) * ( isMobile ? 0.5 : 1 );
 };
