@@ -1,9 +1,9 @@
 import { Card, InfoCard } from '@/src/components/ui/Card';
-import { CustomTooltip, yAxisFormatter } from '@/src/components/ui/Chart';
+import { CustomTooltip, xAxisInterval, yAxisFormatter } from '@/src/components/ui/Chart';
 import { Heading } from '@/src/components/ui/Heading';
 import { NoData } from '@/src/components/ui/NoData';
 import { useData } from '@/src/context/DataCtx';
-import { useLayout } from '@/src/context/LayoutCtx';
+import { useIsMobile, useLayout } from '@/src/context/LayoutCtx';
 import { formatCurrency, formatPercent } from '@/src/lib/formatter';
 import i18n from '@/src/lib/i18n';
 import { useEffect, useMemo } from 'react';
@@ -15,6 +15,7 @@ import {
 export const Dashboard = () => {
   const { settings, data } = useData();
   const { setTitle } = useLayout();
+  const isMobile = useIsMobile();
   const display = settings!.display;
 
   useEffect( () => { setTitle( i18n.t( $ => $.dashboard.title ) ) }, [ setTitle, display.language ] );
@@ -71,7 +72,7 @@ export const Dashboard = () => {
       ) }
 
       { /** Wealth Timeline */ }
-      <Card className= 'flex flex-col gap-6 p-6'>
+      <Card className= 'flex flex-col gap-6'>
         <div className= 'flex flex-col gap-1.5 mb-4'>
           <Heading level= { 3 }>
             { i18n.t( $ => $.dashboard.chartTitle ) }
@@ -93,7 +94,7 @@ export const Dashboard = () => {
               />
               <XAxis
                 dataKey= 'year'
-                interval= { 3 }
+                interval= { xAxisInterval( { value: yearDetails.length, isMobile } ) }
                 stroke= '#94a3b8'
                 fontSize= { 12 }
                 fontWeight= { 600 }
@@ -102,6 +103,7 @@ export const Dashboard = () => {
                 dy= { 10 }
               />
               <YAxis
+                hide= { isMobile }
                 tickFormatter= { ( value: number ) => yAxisFormatter( {
                   type: 'currency', value, display
                 } ) }

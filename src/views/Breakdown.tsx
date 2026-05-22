@@ -1,5 +1,5 @@
 import { Card } from '@/src/components/ui/Card';
-import { CustomTooltip, yAxisFormatter } from '@/src/components/ui/Chart';
+import { CustomTooltip, xAxisInterval, yAxisFormatter } from '@/src/components/ui/Chart';
 import { Heading } from '@/src/components/ui/Heading';
 import { Intro } from '@/src/components/ui/Intro';
 import { NoData } from '@/src/components/ui/NoData';
@@ -10,7 +10,7 @@ import {
   LIQUIDITY_COLORS, REALIZATION_COLORS
 } from '@/src/config/constants';
 import { useData } from '@/src/context/DataCtx';
-import { useLayout } from '@/src/context/LayoutCtx';
+import { useIsMobile, useLayout } from '@/src/context/LayoutCtx';
 import { formatCurrency, formatPercent } from '@/src/lib/formatter';
 import i18n from '@/src/lib/i18n';
 import type { YearSnapshot } from '@/src/types/data';
@@ -23,6 +23,7 @@ import {
 
 export const Breakdown = () => {
   const { setTitle } = useLayout();
+  const isMobile = useIsMobile();
   const { data, settings } = useData();
   const display = settings!.display;
 
@@ -298,7 +299,7 @@ export const Breakdown = () => {
             />
             <XAxis
               dataKey= 'year'
-              interval= { 3 }
+              interval= { xAxisInterval( { value: stackedChartData.length, isMobile } ) }
               stroke= '#94a3b8'
               fontSize= { 12 }
               fontWeight= { 600 }
@@ -307,6 +308,7 @@ export const Breakdown = () => {
               dy= { 10 }
             />
             <YAxis
+              hide= { isMobile }
               tickFormatter= { ( value: number ) => yAxisFormatter( {
                 type: 'currency', value, display
               } ) }

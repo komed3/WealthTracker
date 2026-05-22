@@ -1,10 +1,10 @@
 import { Card, InfoCard } from '@/src/components/ui/Card';
-import { CustomTooltip, yAxisFormatter } from '@/src/components/ui/Chart';
+import { CustomTooltip, xAxisInterval, yAxisFormatter } from '@/src/components/ui/Chart';
 import { Intro } from '@/src/components/ui/Intro';
 import { NoData } from '@/src/components/ui/NoData';
 import { Tabs } from '@/src/components/ui/Tabs';
 import { useData } from '@/src/context/DataCtx';
-import { useLayout } from '@/src/context/LayoutCtx';
+import { useIsMobile, useLayout } from '@/src/context/LayoutCtx';
 import { formatCurrency, formatPercent } from '@/src/lib/formatter';
 import i18n from '@/src/lib/i18n';
 import { cn } from '@/src/lib/utils';
@@ -18,6 +18,7 @@ import {
 export const Momentum = () => {
   const { settings, data } = useData();
   const { setTitle } = useLayout();
+  const isMobile = useIsMobile();
   const display = settings!.display;
 
   useEffect( () => { setTitle( i18n.t( $ => $.momentum.title ) ) }, [ setTitle, display.language ] );
@@ -94,7 +95,7 @@ export const Momentum = () => {
           >
             <XAxis
               dataKey= 'year'
-              interval= { 3 }
+              interval= { xAxisInterval( { value: chartData.length, isMobile } ) }
               stroke= '#94a3b8'
               fontSize= { 12 }
               fontWeight= { 600 }
@@ -103,6 +104,7 @@ export const Momentum = () => {
               dy= { 10 }
             />
             <YAxis
+              hide= { isMobile }
               tickFormatter= { ( value: number ) => yAxisFormatter( {
                 type: activeTab === 'relative' ? 'percent' : 'currency',
                 value, display

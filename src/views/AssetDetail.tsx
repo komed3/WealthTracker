@@ -1,10 +1,10 @@
 import { Card } from '@/src/components/ui/Card';
-import { CustomTooltip, yAxisFormatter } from '@/src/components/ui/Chart';
+import { CustomTooltip, xAxisInterval, yAxisFormatter } from '@/src/components/ui/Chart';
 import { Heading } from '@/src/components/ui/Heading';
 import { Icon } from '@/src/components/ui/Icon';
 import type { ASSET_CLASS, CONFIDENCE, LIABILITY_CLASS } from '@/src/config/constants';
 import { useData } from '@/src/context/DataCtx';
-import { useLayout } from '@/src/context/LayoutCtx';
+import { useIsMobile, useLayout } from '@/src/context/LayoutCtx';
 import { formatCurrency, formatPercent } from '@/src/lib/formatter';
 import i18n from '@/src/lib/i18n';
 import { ArrowLeft } from 'lucide-react';
@@ -18,6 +18,7 @@ import {
 export const AssetDetail = () => {
   const { assetId } = useParams < { assetId: string } > ();
   const navigate = useNavigate();
+  const isMobile = useIsMobile();
   const { setTitle } = useLayout();
 
   const { data, settings } = useData();
@@ -151,7 +152,7 @@ export const AssetDetail = () => {
                 />
                 <XAxis
                   dataKey= 'year'
-                  interval= { 3 }
+                  interval= { xAxisInterval( { value: mainChartData.length, isMobile } ) }
                   stroke= '#94a3b8'
                   fontSize= { 12 }
                   fontWeight= { 600 }
@@ -160,6 +161,7 @@ export const AssetDetail = () => {
                   dy= { 10 }
                 />
                 <YAxis
+                  hide= { isMobile }
                   tickFormatter= { ( value: number ) => yAxisFormatter( {
                     type: 'currency', value, display
                   } ) }
@@ -275,7 +277,7 @@ export const AssetDetail = () => {
               >
                 <XAxis
                   dataKey= 'year'
-                  interval= { 3 }
+                  interval= { xAxisInterval( { value: growthChartData.length, isMobile } ) }
                   stroke= '#94a3b8'
                   fontSize= { 12 }
                   fontWeight= { 600 }
@@ -284,6 +286,7 @@ export const AssetDetail = () => {
                   dy= { 10 }
                 />
                 <YAxis
+                  hide= { isMobile }
                   tickFormatter= { ( value: number ) => yAxisFormatter( {
                     type: 'percent', value, display
                   } ) }
