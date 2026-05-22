@@ -118,7 +118,6 @@ export default ( {
       avgGrowth: 'Ø Wachstum / Jahr',
       chartSubtitle: 'Zeitlicher Verlauf deines Vermögens, umfasst Vermögenswerte, Verbindlichkeiten und geschätzte Spanne',
       chartTitle: 'Vermögensentwicklung',
-      gold: 'Gold-Äquivalent',
       liabilities: 'Verbindlichkeiten',
       maximum: 'Hoch',
       minimum: 'Niedrig',
@@ -167,6 +166,14 @@ export default ( {
       valuePlaceholder: 'z.B. 100,00',
       year: 'Jahr',
       yearPlaceholder: 'z.B. 2024'
+    },
+    equivalent: {
+      burger: 'Burger',
+      coinStack: 'Münzstapel',
+      gold: 'Gold-Äquivalent',
+      income: 'Jahreseinkommen',
+      savings: 'Rücklagen',
+      workingHrs: 'Arbeitsstunden'
     },
     genders: {
       diverse: 'Divers',

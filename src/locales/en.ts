@@ -118,7 +118,6 @@ export default ( {
       avgGrowth: 'Avg. Growth / Year',
       chartSubtitle: 'Temporal progression of your wealth, including assets, liabilities and estimated range',
       chartTitle: 'Wealth Development',
-      gold: 'Gold Equivalent',
       liabilities: 'Liabilities',
       maximum: 'High',
       minimum: 'Low',
@@ -167,6 +166,14 @@ export default ( {
       valuePlaceholder: 'e.g. 100.00',
       year: 'Year',
       yearPlaceholder: 'e.g. 2024'
+    },
+    equivalent: {
+      burger: 'Burgers',
+      coinStack: 'Coin Stack',
+      gold: 'Gold Equivalent',
+      income: 'Annual Income',
+      savings: 'Savings Equivalent',
+      workingHrs: 'Working Hours'
     },
     genders: {
       diverse: 'Diverse',

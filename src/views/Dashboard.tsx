@@ -217,8 +217,16 @@ export const Dashboard = () => {
             value= { formatPercent( portfolioStats.globalPercentile, display ) }
           />
           <InfoCard
-            label= { i18n.t( $ => $.dashboard.gold ) }
+            label= { i18n.t( $ => $.equivalent.gold ) }
             value= { formatUnit( 'gram', portfolioStats.equivalents?.gold, display ) }
+          />
+          <InfoCard
+            label= { i18n.t( $ => $.equivalent.workingHrs ) }
+            value= { formatUnit( 'hour', portfolioStats.equivalents?.workingHrs, { ...display, decimals: 0 } ) }
+          />
+          <InfoCard
+            label= { i18n.t( $ => $.equivalent.coinStack ) }
+            value= { formatUnit( 'meter', portfolioStats.equivalents?.coinStack, { ...display, decimals: 1 } ) }
           />
         </div>
       ) }
