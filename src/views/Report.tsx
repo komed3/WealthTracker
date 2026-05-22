@@ -167,7 +167,12 @@ export const Report = () => {
               <thead>
                 <tr className= 'uppercase font-semibold text-xs text-slate-500 tracking-wider bg-slate-50 border-b border-slate-200'>
                   <th className= 'px-6 py-4'>{ i18n.t( $ => $.report.asset ) }</th>
+                  <th className= 'px-6 py-4'>{ i18n.t( $ => $.report.category ) }</th>
+                  <th className= 'px-6 py-4'>{ i18n.t( $ => $.report.class ) }</th>
+                  <th className= 'px-6 py-4'>{ i18n.t( $ => $.report.liquidity ) }</th>
                   <th className= 'px-6 py-4 text-right'>{ i18n.t( $ => $.report.value ) }</th>
+                  <th className= 'px-6 py-4 text-right'>{ i18n.t( $ => $.report.min ) }</th>
+                  <th className= 'px-6 py-4 text-right'>{ i18n.t( $ => $.report.max ) }</th>
                 </tr>
               </thead>
               <tbody className= 'divide-y divide-dashed divide-slate-200'>
@@ -181,6 +186,24 @@ export const Report = () => {
                         />
                         <span>{ item.entry.title }</span>
                       </Link>
+                    </td>
+                    <td className= 'px-6 py-4 text-sm text-slate-800'>
+                      { i18n.t( $ => $.category[ item.entry.category ] ) }
+                    </td>
+                    <td className= 'px-6 py-4 text-sm text-slate-800'>
+                      { i18n.t( $ => ( $[ item.entry.category === 'asset' ? 'assetClass' : 'liabilityClass' ] as any )[ item.entry.class ] ) }
+                    </td>
+                    <td className= 'px-6 py-4 text-sm text-slate-800'>
+                      { i18n.t( $ => $.liquidity[ item.entry.liquidity ] ) }
+                    </td>
+                    <td className= 'px-6 py-4 text-right font-mono text-lg font-semibold text-slate-900'>
+                      { formatCurrency( item.data.value, display ) }
+                    </td>
+                    <td className= 'px-6 py-4 text-right font-mono text-sm font-semibold text-slate-800'>
+                      { item.data.min ? formatCurrency( item.data.min, display ) : '—' }
+                    </td>
+                    <td className= 'px-6 py-4 text-right font-mono text-sm font-semibold text-slate-800'>
+                      { item.data.max ? formatCurrency( item.data.max, display ) : '—' }
                     </td>
                   </tr>
                 ) ) }
