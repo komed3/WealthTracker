@@ -136,7 +136,7 @@ export const Report = () => {
 
       { /** Annual Growth */ }
       { snapshot.growth && (
-        <Card className= 'flex justify-between items-center gap-6 p-4 md:p-4 bg-transparent border-2 border-dashed shadow-none'>
+        <div className= 'flex justify-between items-center gap-6 p-4 border-2 border-dashed border-slate-200/80 rounded-2xl'>
           <div className= 'flex items-center gap-4 min-w-0'>
             <div className= { cn(
               'flex justify-center items-center shrink-0 w-10 h-10 text-white rounded-xl',
@@ -144,7 +144,7 @@ export const Report = () => {
             ) }>
               { trendUp ? <TrendingUp size= { 22 } /> : <TrendingDown size= { 22 } /> }
             </div>
-            <span className= 'font-medium'>
+            <span className= 'hidden sm:block font-medium'>
               { i18n.t( $ => $.report.trend ) }
             </span>
           </div>
@@ -154,10 +154,74 @@ export const Report = () => {
             </span>
             <span>({ formatPercent( snapshot.growth.relative, display ) })</span>
           </div>
-        </Card>
+        </div>
       ) }
 
       { /** Net Worth Range */ }
+      { ( () => {
+        if ( snapshot.maxNetWorth && snapshot.minNetWorth ) {
+          const max = Math.abs( snapshot.maxNetWorth - snapshot.netWorth ),
+                min = Math.abs( snapshot.minNetWorth - snapshot.netWorth ),
+                range = Math.max( max, min ) * 1.15;
+
+          return (
+            <div className= 'flex flex-col items-center gap-2 p-4'>
+              <div className= 'self-stretch flex flex-col xl:flex-row justify-between items-center gap-6'>
+                <div className= 'shrink-0 flex flex-col items-center xl:items-end w-48 text-center xl:text-right'>
+                  <span className= 'font-mono font-bold text-lg'>
+                    { formatCurrency( snapshot.minNetWorth, display ) }
+                  </span>
+                  <span className= 'uppercase font-bold text-[12px] text-slate-400 tracking-wider'>
+                    { i18n.t( $ => $.report.minimum ) }
+                  </span>
+                </div>
+                <div className= 'flex-1 w-full'>
+                  <div className= 'relative h-2 bg-slate-200 rounded-full'>
+                    <div
+                      className= 'absolute right-[50%] h-2 bg-neg transition-all duration-300'
+                      style= { { width: `${ min / range * 50 }%` } }
+                    >
+                      <div className= {
+                        'absolute left-0 -translate-x-3 -translate-y-2 w-6 h-6 bg-white ' +
+                        'border-2 border-neg rounded-full'
+                      } />
+                    </div>
+                    <div
+                      className= 'absolute left-[50%] h-2 bg-pos transition-all duration-300'
+                      style= { { width: `${ max / range * 50 }%` } }
+                    >
+                      <div className= {
+                        'absolute right-0 translate-x-3 -translate-y-2 w-6 h-6 bg-white ' +
+                        'border-2 border-pos rounded-full'
+                      } />
+                    </div>
+                    <div className= {
+                      'absolute left-[50%] -translate-x-1 -translate-y-4 w-1.5 h-10 ' +
+                      'bg-slate-50 xl:bg-slate-300 border-2 border-slate-50'
+                    } />
+                  </div>
+                </div>
+                <div className= 'shrink-0 flex flex-col items-center xl:items-start w-48 text-center xl:text-left'>
+                  <span className= 'font-mono font-bold text-lg'>
+                    { formatCurrency( snapshot.maxNetWorth, display ) }
+                  </span>
+                  <span className= 'uppercase font-bold text-[12px] text-slate-400 tracking-wider'>
+                    { i18n.t( $ => $.report.maximum ) }
+                  </span>
+                </div>
+              </div>
+              <div className= 'hidden xl:flex flex-col items-center text-center'>
+                <span className= 'font-mono font-bold text-xl'>
+                  { formatCurrency( snapshot.netWorth, display ) }
+                </span>
+                <span className= 'uppercase font-bold text-[12px] text-slate-400 tracking-wider'>
+                  { i18n.t( $ => $.report.netWorth ) }
+                </span>
+              </div>
+            </div>
+          )
+        }
+      } )() }
 
       { /** Assets / Positions List */ }
       { positions && (
