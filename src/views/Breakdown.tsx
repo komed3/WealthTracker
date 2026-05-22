@@ -29,7 +29,7 @@ export const Breakdown = () => {
 
   useEffect( () => { setTitle( i18n.t( $ => $.breakdown.title ) ) }, [ setTitle, display.language ] );
 
-  if ( ! data?.computed.years ) return <NoData />;
+  if ( ! data || Object.keys( data.computed.years ).length === 0 ) return <NoData />;
 
   const [ viewMode, setViewMode ] = useState( 'asset' );
   const [ selectedYear, setSelectedYear ] = useState < number > ( 0 );
