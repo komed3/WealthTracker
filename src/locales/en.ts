@@ -219,6 +219,7 @@ export default ( {
       liabilities: 'Liabilities',
       liquidity: 'Liquidity',
       netWorth: 'Net Worth',
+      noData: 'No data within this asset category for selected year.',
       notional: 'Notional Value',
       real: 'Real Value',
       realization: 'Realization',

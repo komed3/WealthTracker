@@ -219,6 +219,7 @@ export default ( {
       liabilities: 'Verbindlichkeiten',
       liquidity: 'Liquidität',
       netWorth: 'Nettovermögen',
+      noData: 'Keine Daten innerhalb dieser Asset-Kategorie für das ausgewählte Jahr.',
       notional: 'Fiktivwert',
       real: 'Realwert',
       realization: 'Realisierung',

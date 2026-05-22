@@ -47,7 +47,9 @@ const ClassReport = ( { type, breakdown, display }: ClassReportProps ) => {
   } ).filter( Boolean );
 
   return items.length === 0 ? (
-    <p>...</p>
+    <p className= 'py-16 text-center font-medium text-sm text-slate-400'>
+      { i18n.t( $ => $.report.noData ) }
+    </p>
   ) : (
     <div className= 'space-y-3'>
       { items.map( ( [ label, { value, percentage } ]: any, key ) => (
