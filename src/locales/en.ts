@@ -114,10 +114,14 @@ export default ( {
       USD: 'US Dollar (USD)'
     },
     dashboard: {
+      assets: 'Nettovermögen',
+      avgGrowth: 'Avg. Growth / Year',
       chartSubtitle: 'Temporal progression of your wealth, including assets, liabilities and estimated range',
       chartTitle: 'Wealth Development',
+      liabilities: 'Liabilities',
       maximum: 'High',
       minimum: 'Low',
+      netWorth: 'Total Net Worth',
       title: 'Dashboard'
     },
     editor: {

@@ -114,10 +114,14 @@ export default ( {
       USD: 'US-Dollar (USD)'
     },
     dashboard: {
+      assets: 'Nettovermögen',
+      avgGrowth: 'Ø Wachstum / Jahr',
       chartSubtitle: 'Zeitlicher Verlauf deines Vermögens, umfasst Vermögenswerte, Verbindlichkeiten und geschätzte Spanne',
       chartTitle: 'Vermögensentwicklung',
+      liabilities: 'Verbindlichkeiten',
       maximum: 'Hoch',
       minimum: 'Niedrig',
+      netWorth: 'Gesamtvermögen',
       title: 'Dashboard'
     },
     editor: {
@@ -193,7 +197,7 @@ export default ( {
     momentum: {
       absolute: 'Absolut',
       assets: 'Vermögenswerte',
-      avgGrowth: 'Ø Jahreswachstum',
+      avgGrowth: 'Ø Wachstum / Jahr',
       bestYear: 'Bestes Jahr',
       description: 'Analysiere die Dynamik deines Vermögensaufbaus über die Jahre.',
       lastYear: 'Letztes Wachstum',

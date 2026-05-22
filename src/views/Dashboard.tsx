@@ -49,19 +49,19 @@ export const Dashboard = () => {
       { portfolioStats && latest && (
         <div className= 'grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-6 w-full'>
           <InfoCard
-            label= { i18n.t( $ => $.momentum.netWorth ) }
+            label= { i18n.t( $ => $.dashboard.netWorth ) }
             value= { formatCurrency( portfolioStats.latestNetWorth, display ) }
           />
           <InfoCard
-            label= { i18n.t( $ => $.momentum.assets ) }
+            label= { i18n.t( $ => $.dashboard.assets ) }
             value= { formatCurrency( latest.assets, display ) }
           />
           <InfoCard
-            label= { i18n.t( $ => $.momentum.liabilities ) }
+            label= { i18n.t( $ => $.dashboard.liabilities ) }
             value= { formatCurrency( latest.liabilities, display ) }
           />
           <InfoCard
-            label= { i18n.t( $ => $.momentum.avgGrowth ) }
+            label= { i18n.t( $ => $.dashboard.avgGrowth ) }
             value= {
               portfolioStats.averageAnnualGrowth !== undefined
                 ? formatPercent( portfolioStats.averageAnnualGrowth, display )
