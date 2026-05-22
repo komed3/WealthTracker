@@ -219,7 +219,8 @@ export default ( {
       netWorth: 'Nettovermögen',
       real: 'Realwert',
       title: 'Jahresbericht',
-      totalAssets: 'Gesamtvermögen'
+      totalAssets: 'Gesamtvermögen',
+      trend: 'Jährlicher Wachstumstrend'
     },
     settings: {
       birthDate: 'Geburtsdatum',

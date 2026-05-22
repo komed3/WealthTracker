@@ -219,7 +219,8 @@ export default ( {
       netWorth: 'Net Worth',
       real: 'Real Value',
       title: 'Annual Report',
-      totalAssets: 'Total Assets'
+      totalAssets: 'Total Assets',
+      trend: 'Annual Growth Trend'
     },
     settings: {
       birthDate: 'Date of Birth',
