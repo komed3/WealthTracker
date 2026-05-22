@@ -64,7 +64,7 @@ export const CONFIDENCE = [
 
 export type EQUIVALENTS = ( typeof EQUIVALENTS )[ number ];
 export const EQUIVALENTS = [
-  'gold', 'coinStack', 'savings', 'income', 'burger'
+  'gold', 'coinStack', 'savings', 'income', 'burger', 'workingHrs'
 ] as const;
 
 export type ICON = ( typeof ICON )[ number ];
@@ -126,6 +126,6 @@ export const CURRENCY_CONV: Record< CURRENCY, number > = {
 };
 
 export const EQUIV_FACTOR: Record< EQUIVALENTS, number > = {
-  gold: 150, coinStack: 500, savings: 8000,
-  income: 66600, burger: 5
+  gold: 150, coinStack: 500, savings: 8000, income: 66600,
+  burger: 5, workingHrs: 15
 };
