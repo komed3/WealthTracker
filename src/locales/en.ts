@@ -219,6 +219,7 @@ export default ( {
       liabilities: 'Liabilities',
       liquidity: 'Liquidity',
       netWorth: 'Net Worth',
+      notional: 'Notional Value',
       real: 'Real Value',
       realization: 'Realization',
       title: 'Annual Report',

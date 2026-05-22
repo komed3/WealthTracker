@@ -219,6 +219,7 @@ export default ( {
       liabilities: 'Verbindlichkeiten',
       liquidity: 'Liquidität',
       netWorth: 'Nettovermögen',
+      notional: 'Fiktivwert',
       real: 'Realwert',
       realization: 'Realisierung',
       title: 'Jahresbericht',
