@@ -213,6 +213,9 @@ export default ( {
       report: 'Report',
       stats: 'Statistics'
     },
+    report: {
+      title: 'Annual Report'
+    },
     settings: {
       birthDate: 'Date of Birth',
       currency: 'Default Currency',

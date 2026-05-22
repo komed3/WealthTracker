@@ -213,6 +213,9 @@ export default ( {
       report: 'Bericht',
       stats: 'Statistiken'
     },
+    report: {
+      title: 'Jahresbericht'
+    },
     settings: {
       birthDate: 'Geburtsdatum',
       currency: 'Standardwährung',
