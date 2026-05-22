@@ -140,6 +140,7 @@ export interface PortfolioStats {
   bestYear?: number;
   worstYear?: number;
   averageLiquidity?: number;
+  inUSD: number;
   milestones: Milestone[];
   count: {
     asset: number;

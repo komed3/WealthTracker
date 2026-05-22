@@ -1,8 +1,11 @@
+import {
+  CURRENCY_CONV, EQUIV_FACTOR, EQUIVALENTS,
+  type STABILITY, type TREND, type VOLATILITY
+} from '@/src/config/constants';
 import type {
   Breakdown, ComputedData, Data, EntryRecord, EntryStats, Milestone,
   PortfolioStats, Settings, YearSnapshot
 } from '@/src/types/data';
-import type { STABILITY, TREND, VOLATILITY } from '@/src/config/constants';
 import { existsSync, mkdirSync, readFileSync, writeFileSync } from 'node:fs';
 import { dirname, resolve } from 'node:path';
 
@@ -30,6 +33,7 @@ const DEFAULT_DATA: Data = {
       latestNetWorth: 0,
       realValue: 0,
       nonRealValue: 0,
+      inUSD: 0,
       milestones: [],
       count: {
         asset: 0,
@@ -88,7 +92,7 @@ export class Database {
   }
 
   private compute ( entries: EntryRecord[] ) : ComputedData {
-    const { decimals } = this.getSettings().display;
+    const { decimals, currency } = this.getSettings().display;
     const entryStatsRecord: Record< string, EntryStats > = {};
     const yearSnapshots: Record< string, YearSnapshot > = {};
 
@@ -414,6 +418,18 @@ export class Database {
       milestones.sort( ( a, b ) => a.milestone - b.milestone );
     }
 
+    const inUSD = latestNetWorth * CURRENCY_CONV[ currency ];
+    const equivalents = Object.fromEntries( EQUIVALENTS.map( e => ( [
+      e, round( inUSD * EQUIV_FACTOR[ e ] )
+    ] ) ) ) as PortfolioStats[ 'equivalents' ];
+
+    const globalPercentile = inUSD < 1e3 ? 100 - ( inUSD / 1e3 ) * 45
+      : inUSD < 1e4 ? 55 - ( ( inUSD - 1e3 ) / 9e3 ) * 15
+      : inUSD < 1e5 ? 40 - ( ( inUSD - 1e4 ) / 9e4 ) * 28
+      : inUSD < 1e6 ? 12 - ( ( inUSD - 1e5 ) / 9e5 ) * 10.8
+      : inUSD < 1e7 ? 1.2 - ( ( inUSD - 1e6 ) / 9e6 ) * 1.1
+      : 0.1 - Math.min( 0.09, Math.log10( inUSD / 1e7 ) * 0.02 );
+
     const portfolioStats: PortfolioStats = {
       firstYear, lastYear,
       latestNetWorth: round( latestNetWorth ),
@@ -422,7 +438,8 @@ export class Database {
       realValue: round( portfolioSummary.realValue ),
       nonRealValue: round( portfolioSummary.nonRealValue ),
       totalGrowth, averageAnnualGrowth, bestYear, worstYear,
-      milestones,
+      milestones, equivalents, inUSD: round( inUSD ),
+      globalPercentile: round( Math.max( 0.01, globalPercentile ) ),
       count: {
         asset: portfolioSummary.assetCount,
         liability: portfolioSummary.liabilityCount,
