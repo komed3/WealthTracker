@@ -266,6 +266,10 @@ export default ( {
     },
     stats: {
       description: 'Gain insights into milestones, average earnings, and comparative metrics of your wealth.',
+      growth: 'Avg. Growth / Year',
+      netWorth: 'Total Net Worth',
+      percentile: 'Global Percentile',
+      rank: 'Global Rank',
       title: 'Wealth Stats'
     },
     status: {

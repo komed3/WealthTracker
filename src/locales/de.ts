@@ -266,6 +266,10 @@ export default ( {
     },
     stats: {
       description: 'Erhalte Einblick in Meilensteine, Durchschnittsverdienste und spannende Vermögensvergleiche.',
+      growth: 'Ø Wachstum / Jahr',
+      netWorth: 'Gesamtvermögen',
+      percentile: 'Globales Perzentil',
+      rank: 'Globaler Rang',
       title: 'Statistiken'
     },
     status: {

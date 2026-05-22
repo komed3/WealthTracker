@@ -1,8 +1,9 @@
+import { InfoCard } from '@/src/components/ui/Card';
 import { Intro } from '@/src/components/ui/Intro';
 import { NoData } from '@/src/components/ui/NoData';
 import { useData } from '@/src/context/DataCtx';
 import { useLayout } from '@/src/context/LayoutCtx';
-import { formatCurrency } from '@/src/lib/formatter';
+import { formatCurrency, formatNumber, formatPercent } from '@/src/lib/formatter';
 import i18n from '@/src/lib/i18n';
 import { useEffect } from 'react';
 
@@ -14,7 +15,7 @@ export const Stats = () => {
   useEffect( () => { setTitle( i18n.t( $ => $.stats.title ) ) }, [ setTitle, display.language ] );
 
   if ( data?.entries.length === 0 || ! data?.computed.portfolio ) return <NoData />;
-  const { milestones } = data.computed.portfolio;
+  const stats = data.computed.portfolio;
 
   return (
     <div className= 'space-y-8'>
@@ -24,10 +25,32 @@ export const Stats = () => {
         description= { i18n.t( $ => $.stats.description ) }
       />
 
+      { /** Metrics */ }
+      { stats && (
+        <div className= 'grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-6 w-full'>
+          <InfoCard
+            label= { i18n.t( $ => $.stats.netWorth ) }
+            value= { formatCurrency( stats.latestNetWorth, display ) }
+          />
+          <InfoCard
+            label= { i18n.t( $ => $.stats.growth ) }
+            value= { formatPercent( stats.averageAnnualGrowth, display ) }
+          />
+          <InfoCard
+            label= { i18n.t( $ => $.stats.percentile ) }
+            value= { formatPercent( stats.globalPercentile, display ) }
+          />
+          <InfoCard
+            label= { i18n.t( $ => $.stats.rank ) }
+            value= { formatNumber( ( stats.globalPercentile ?? 0 ) * 8e9, display, { notation: 'compact' } ) }
+          />
+        </div>
+      ) }
+
       { /** Milestones */ }
-      { milestones && (
-        <div className= 'flex py-6'>
-          { milestones.slice( -6 ).map( ( m, i ) => (
+      { stats.milestones && (
+        <div className= 'flex py-12'>
+          { stats.milestones.slice( -6 ).map( ( m, i ) => (
             <div key= { i } className= 'flex-1 w-full space-y-6'>
               <div className= 'relative h-0 border-t-3 border-slate-800'>
                 <div className= {
