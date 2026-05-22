@@ -214,10 +214,15 @@ export default ( {
       stats: 'Statistiken'
     },
     report: {
+      asset: 'Vermögenswert',
       assets: 'Vermögenswerte',
+      category: 'Kategorie',
+      class: 'Klasse',
       description: 'Umfassender Finanzbericht und Bilanzierung für das Kalenderjahr {{year}}.',
       liabilities: 'Verbindlichkeiten',
       liquidity: 'Liquidität',
+      maximum: 'Hoch',
+      minimum: 'Niedrig',
       netWorth: 'Nettovermögen',
       noData: 'Keine Daten innerhalb dieser Asset-Kategorie für das ausgewählte Jahr.',
       notional: 'Fiktivwert',
@@ -225,7 +230,8 @@ export default ( {
       realization: 'Realisierung',
       title: 'Jahresbericht',
       totalAssets: 'Gesamtvermögen',
-      trend: 'Jährlicher Wachstumstrend'
+      trend: 'Jährlicher Wachstumstrend',
+      value: 'Wert'
     },
     settings: {
       birthDate: 'Geburtsdatum',

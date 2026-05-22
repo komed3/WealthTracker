@@ -214,10 +214,15 @@ export default ( {
       stats: 'Statistics'
     },
     report: {
+      asset: 'Asset',
       assets: 'Assets',
+      category: 'Category',
+      class: 'Class',
       description: 'Comprehensive financial balance sheet and generated report for {{year}}.',
       liabilities: 'Liabilities',
       liquidity: 'Liquidity',
+      maximum: 'High',
+      minimum: 'Low',
       netWorth: 'Net Worth',
       noData: 'No data within this asset category for selected year.',
       notional: 'Notional Value',
@@ -225,7 +230,8 @@ export default ( {
       realization: 'Realization',
       title: 'Annual Report',
       totalAssets: 'Total Assets',
-      trend: 'Annual Growth Trend'
+      trend: 'Annual Growth Trend',
+      value: 'Value'
     },
     settings: {
       birthDate: 'Date of Birth',

@@ -171,8 +171,8 @@ export const Report = () => {
                   <th className= 'px-6 py-4'>{ i18n.t( $ => $.report.class ) }</th>
                   <th className= 'px-6 py-4'>{ i18n.t( $ => $.report.liquidity ) }</th>
                   <th className= 'px-6 py-4 text-right'>{ i18n.t( $ => $.report.value ) }</th>
-                  <th className= 'px-6 py-4 text-right'>{ i18n.t( $ => $.report.min ) }</th>
-                  <th className= 'px-6 py-4 text-right'>{ i18n.t( $ => $.report.max ) }</th>
+                  <th className= 'px-6 py-4 text-right'>{ i18n.t( $ => $.report.minimum ) }</th>
+                  <th className= 'px-6 py-4 text-right'>{ i18n.t( $ => $.report.maximum ) }</th>
                 </tr>
               </thead>
               <tbody className= 'divide-y divide-dashed divide-slate-200'>
