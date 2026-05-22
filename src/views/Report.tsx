@@ -131,7 +131,10 @@ export const Report = () => {
                   </span>
                 </div>
                 <div className= 'h-2 bg-slate-200 rounded-full overflow-hidden'>
-                  <div className= 'h-2 bg-primary' style= { { width: `${ percentage * 100 }%` } } />
+                  <div
+                    className= 'h-2 bg-primary transition-all duration-300'
+                    style= { { width: `${ percentage * 100 }%` } }
+                  />
                 </div>
               </div>
             ) ) }
