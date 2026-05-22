@@ -140,23 +140,14 @@ export const Report = () => {
             <span>{ i18n.t( $ => $.report.liquidity ) }</span>
           </Heading>
           <div className= 'space-y-4'>
-            { Object.entries( snapshot.byLiquidity ).map( ( [ liq, { value, percentage } ] ) => (
-              <div className= 'space-y-1'>
-                <div className= 'flex justify-between items-baseline'>
-                  <span className= 'font-medium text-sm text-slate-800'>
-                    { i18n.t( $ => $.liquidity[ liq as unknown as LIQUIDITY ] ) }
-                  </span>
-                  <span className= 'font-mono font-bold'>
-                    { formatCurrency( value, display ) }
-                  </span>
-                </div>
-                <div className= 'h-2 bg-slate-200 rounded-full overflow-hidden'>
-                  <div
-                    className= 'h-2 bg-primary transition-all duration-300'
-                    style= { { width: `${ percentage * 100 }%` } }
-                  />
-                </div>
-              </div>
+            { Object.entries( snapshot.byLiquidity ).map( ( [ liq, { value, percentage } ], index ) => (
+              <ReportRow
+                key= { index }
+                label= { i18n.t( $ => $.liquidity[ liq as unknown as LIQUIDITY ] ) }
+                value= { value }
+                percentage= { percentage }
+                display= { display }
+              />
             ) ) }
           </div>
         </Card>
