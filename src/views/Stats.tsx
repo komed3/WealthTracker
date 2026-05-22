@@ -4,7 +4,6 @@ import { useData } from '@/src/context/DataCtx';
 import { useLayout } from '@/src/context/LayoutCtx';
 import { formatCurrency } from '@/src/lib/formatter';
 import i18n from '@/src/lib/i18n';
-import { Trophy } from 'lucide-react';
 import { useEffect } from 'react';
 
 export const Stats = () => {
@@ -28,8 +27,8 @@ export const Stats = () => {
       { /** Milestones */ }
       { milestones && (
         <div className= 'flex py-6'>
-          { milestones.slice( -6 ).map( m => (
-            <div className= 'flex-1 w-full space-y-6'>
+          { milestones.slice( -6 ).map( ( m, i ) => (
+            <div key= { i } className= 'flex-1 w-full space-y-6'>
               <div className= 'relative h-0 border-t-3 border-slate-800'>
                 <div className= {
                   'absolute left-[50%] -translate-x-1.5 -translate-y-2 w-4 h-4 bg-white ' +
