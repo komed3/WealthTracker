@@ -1,8 +1,10 @@
+import { InfoCard } from '@/src/components/ui/Card';
 import { Intro } from '@/src/components/ui/Intro';
 import { NoData } from '@/src/components/ui/NoData';
 import { Select } from '@/src/components/ui/Select';
 import { useData } from '@/src/context/DataCtx';
 import { useLayout } from '@/src/context/LayoutCtx';
+import { formatCurrency, formatPercent } from '@/src/lib/formatter';
 import i18n from '@/src/lib/i18n';
 import { useEffect, useMemo, useState } from 'react';
 
@@ -20,11 +22,7 @@ export const Report = () => {
 
   if ( ! data || sortedYears.length === 0 ) return <NoData />;
 
-  const [ selectedYear, setSelectedYear ] = useState < number > ( 0 );
-
-  useEffect( () => {
-    if ( sortedYears.length > 0 && selectedYear === 0 ) setSelectedYear( sortedYears[ sortedYears.length - 1 ] );
-  }, [ sortedYears, selectedYear ] );
+  const [ selectedYear, setSelectedYear ] = useState < number > ( sortedYears[ sortedYears.length - 1 ] );
 
   const snapshot = useMemo(
     () => data.computed.years[ String( selectedYear ) as `${number}` ] || null,
@@ -57,6 +55,26 @@ export const Report = () => {
           />
         </div>
       </Intro>
+
+      { /** Key Metrics */ }
+      <div className= 'grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-6 w-full'>
+        <InfoCard
+          label= { i18n.t( $ => $.report.totalAssets ) }
+          value= { formatCurrency( snapshot.netWorth, display ) }
+        />
+        <InfoCard
+          label= { i18n.t( $ => $.report.growth ) }
+          value= { formatPercent( snapshot.growth?.relative, display ) }
+        />
+        <InfoCard
+          label= { i18n.t( $ => $.report.liabilities ) }
+          value= { formatCurrency( snapshot.liabilities, display ) }
+        />
+        <InfoCard
+          label= { i18n.t( $ => $.report.netWorth ) }
+          value= { formatCurrency( snapshot.assets, display ) }
+        />
+      </div>
     </div>
   );
 };
