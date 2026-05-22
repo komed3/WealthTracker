@@ -62,6 +62,11 @@ export const CONFIDENCE = [
   'low', 'medium', 'high'
 ] as const;
 
+export type EQUIVALENTS = ( typeof EQUIVALENTS )[ number ];
+export const EQUIVALENTS = [
+  'gold', 'coinStack', 'savings', 'income', 'burger'
+] as const;
+
 export type ICON = ( typeof ICON )[ number ];
 export const ICON = [
   'Wallet', 'WalletCards', 'Vault', 'PiggyBank', 'Landmark',
@@ -114,8 +119,13 @@ export const REALIZATION_COLORS: Record< 'real' | 'nonReal', string > = {
 };
 
 export const CURRENCY_CONV: Record< CURRENCY, number > = {
-  USD: 1, EUR: 1.18, CHF: 1.27, GBP: 1.34, JPY: 0.006, CNY: 0.15,
-  CAD: 0.72, AUD: 0.71, SEK: 0.11, NOK: 0.11, DKK: 0.16, PLN: 0.27,
-  CZK: 0.05, HUF: 0.003, SGD: 0.002, HKD: 0.13, NZD: 0.58,
-  TRY: 0.022, AED: 0.27, INR: 0.01
+  USD: 1, EUR: 1.18, CHF: 1.27, GBP: 1.34, JPY: 0.006,
+  CNY: 0.15, CAD: 0.72, AUD: 0.71, SEK: 0.11, NOK: 0.11,
+  DKK: 0.16, PLN: 0.27, CZK: 0.05, HUF: 0.003, SGD: 0.002,
+  HKD: 0.13, NZD: 0.58, TRY: 0.022, AED: 0.27, INR: 0.01
+};
+
+export const EQUIV_FACTOR: Record< EQUIVALENTS, number > = {
+  gold: 150, coinStack: 500, savings: 8000,
+  income: 66600, burger: 5
 };
