@@ -258,6 +258,10 @@ export default ( {
       risky: 'Risikoreich',
       stable: 'Stabil'
     },
+    stats: {
+      description: 'Erhalte Einblick in Meilensteine, Durchschnittsverdienste und spannende Vermögensvergleiche.',
+      title: 'Statistiken'
+    },
     status: {
       active: 'Aktiv',
       archived: 'Archiviert'

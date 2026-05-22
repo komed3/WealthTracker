@@ -258,6 +258,10 @@ export default ( {
       risky: 'Risky',
       stable: 'Stable'
     },
+    stats: {
+      description: 'Gain insights into milestones, average earnings, and comparative metrics of your wealth.',
+      title: 'Wealth Stats'
+    },
     status: {
       active: 'Active',
       archived: 'Archived'

@@ -15,27 +15,29 @@ import { useEffect, useMemo, useState } from 'react';
 import { Link } from 'react-router';
 
 const ReportRow = ( { label, value, percentage, display }: ReportRowProps ) => {
-  return ( <div className= 'space-y-1'>
-    <div className= 'flex justify-between items-baseline'>
-      <span className= 'min-w-0 truncate font-medium text-sm text-slate-800'>
-        { label }
-      </span>
-      <div className= 'flex items-baseline gap-3 font-mono'>
-        <span className= 'text-lg font-bold'>
-          { formatCurrency( value, display ) }
+  return (
+    <div className= 'space-y-1'>
+      <div className= 'flex justify-between items-baseline'>
+        <span className= 'min-w-0 truncate font-medium text-sm text-slate-800'>
+          { label }
         </span>
-        <span className= 'text-sm'>
-          ({ formatPercent( percentage, display ) })
-        </span>
+        <div className= 'flex items-baseline gap-3 font-mono'>
+          <span className= 'text-lg font-bold'>
+            { formatCurrency( value, display ) }
+          </span>
+          <span className= 'text-sm'>
+            ({ formatPercent( percentage, display ) })
+          </span>
+        </div>
+      </div>
+      <div className= 'h-2 bg-slate-200 rounded-full overflow-hidden'>
+        <div
+          className= 'h-2 bg-primary transition-all duration-300'
+          style= { { width: `${ percentage * 100 }%` } }
+        />
       </div>
     </div>
-    <div className= 'h-2 bg-slate-200 rounded-full overflow-hidden'>
-      <div
-        className= 'h-2 bg-primary transition-all duration-300'
-        style= { { width: `${ percentage * 100 }%` } }
-      />
-    </div>
-  </div> );
+  );
 };
 
 const ClassReport = ( { type, breakdown, display }: ClassReportProps ) => {
