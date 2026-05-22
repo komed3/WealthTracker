@@ -3,6 +3,7 @@ import { Heading } from '@/src/components/ui/Heading';
 import { Intro } from '@/src/components/ui/Intro';
 import { NoData } from '@/src/components/ui/NoData';
 import { Select } from '@/src/components/ui/Select';
+import type { LIQUIDITY } from '@/src/config/constants';
 import { useData } from '@/src/context/DataCtx';
 import { useLayout } from '@/src/context/LayoutCtx';
 import { formatCurrency, formatPercent } from '@/src/lib/formatter';
@@ -101,25 +102,42 @@ export const Report = () => {
 
       { /** Masonry Grid */ }
       <div className= 'columns-1 md:columns-2 gap-8 space-y-8'>
-        <Card>
+        <Card className= 'break-inside-avoid'>
           <Heading level= { 4 } className= 'flex items-center gap-4'>
             <Layers3 size= { 20 } />
             <span>{ i18n.t( $ => $.report.assets ) }</span>
           </Heading>
         </Card>
-        <Card>
+        <Card className= 'break-inside-avoid'>
           <Heading level= { 4 } className= 'flex items-center gap-4'>
             <CircleAlert size= { 20 } />
             <span>{ i18n.t( $ => $.report.liabilities ) }</span>
           </Heading>
         </Card>
-        <Card>
-          <Heading level= { 4 } className= 'flex items-center gap-4'>
+        <Card className= 'break-inside-avoid'>
+          <Heading level= { 4 } className= 'flex items-center gap-4 mb-6'>
             <PiggyBank size= { 20 } />
             <span>{ i18n.t( $ => $.report.liquidity ) }</span>
           </Heading>
+          <div className= 'space-y-4'>
+            { Object.entries( snapshot.byLiquidity ).map( ( [ liq, { value, percentage } ] ) => (
+              <div className= 'space-y-1'>
+                <div className= 'flex justify-between items-baseline'>
+                  <span className= 'font-medium text-sm text-slate-800'>
+                    { i18n.t( $ => $.liquidity[ liq as unknown as LIQUIDITY ] ) }
+                  </span>
+                  <span className= 'font-mono font-bold'>
+                    { formatCurrency( value, display ) }
+                  </span>
+                </div>
+                <div className= 'h-2 bg-slate-200 rounded-full overflow-hidden'>
+                  <div className= 'h-2 bg-primary' style= { { width: `${ percentage * 100 }%` } } />
+                </div>
+              </div>
+            ) ) }
+          </div>
         </Card>
-        <Card>
+        <Card className= 'break-inside-avoid'>
           <Heading level= { 4 } className= 'flex items-center gap-4'>
             <BookOpenText size= { 20 } />
             <span>{ i18n.t( $ => $.report.realization ) }</span>
