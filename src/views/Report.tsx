@@ -77,7 +77,7 @@ export const Report = () => {
 
       { /** Annual Growth */ }
       { snapshot.growth && (
-        <Card className= 'flex justify-between items-center gap-6 p-4 md:p-4'>
+        <Card className= 'flex justify-between items-center gap-6 p-4 md:p-4 bg-transparent border-2 border-dashed shadow-none'>
           <div className= 'flex items-center gap-4 min-w-0'>
             <div className= { cn(
               'flex justify-center items-center shrink-0 w-10 h-10 text-white rounded-xl',
