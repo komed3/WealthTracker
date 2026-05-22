@@ -3,13 +3,13 @@ import { Heading } from '@/src/components/ui/Heading';
 import { Intro } from '@/src/components/ui/Intro';
 import { NoData } from '@/src/components/ui/NoData';
 import { Select } from '@/src/components/ui/Select';
-import type { LIQUIDITY } from '@/src/config/constants';
+import { ASSET_CLASS, LIABILITY_CLASS, type LIQUIDITY } from '@/src/config/constants';
 import { useData } from '@/src/context/DataCtx';
 import { useLayout } from '@/src/context/LayoutCtx';
 import { formatCurrency, formatPercent } from '@/src/lib/formatter';
 import i18n from '@/src/lib/i18n';
 import { cn } from '@/src/lib/utils';
-import type { ReportRowProps } from '@/src/types/props';
+import type { ClassReportProps, ReportRowProps } from '@/src/types/props';
 import { BookOpenText, CircleAlert, Layers3, PiggyBank, TrendingDown, TrendingUp } from 'lucide-react';
 import { useEffect, useMemo, useState } from 'react';
 
@@ -35,6 +35,32 @@ const ReportRow = ( { key, label, value, percentage, display }: ReportRowProps )
       />
     </div>
   </div> );
+};
+
+const ClassReport = ( { type, breakdown, display }: ClassReportProps ) => {
+  const items = Object.entries( breakdown ).map( ( [ k, r ] ) => {
+    if ( type === 'asset' && ASSET_CLASS.includes( k as any ) )
+      return [ i18n.t( $ => $.assetClass[ k as ASSET_CLASS ] ), r ];
+    else if ( type === 'liability' && LIABILITY_CLASS.includes( k as any ) )
+      return [ i18n.t( $ => $.liabilityClass[ k as LIABILITY_CLASS ] ), r ];
+    return null;
+  } ).filter( Boolean );
+
+  return items.length === 0 ? (
+    <p>...</p>
+  ) : (
+    <div className= 'space-y-3'>
+      { items.map( ( [ label, { value, percentage } ]: any, key ) => (
+        <ReportRow
+          key= { key }
+          label= { label }
+          value= { value }
+          percentage= { percentage }
+          display= { display }
+        />
+      ) ) }
+    </div>
+  );
 };
 
 export const Report = () => {
@@ -129,18 +155,28 @@ export const Report = () => {
       <div className= 'columns-1 md:columns-2 gap-8 space-y-8'>
         { /** Assets */ }
         <Card className= 'break-inside-avoid'>
-          <Heading level= { 4 } className= 'flex items-center gap-4'>
+          <Heading level= { 4 } className= 'flex items-center gap-4 mb-6'>
             <Layers3 size= { 20 } />
             <span>{ i18n.t( $ => $.report.assets ) }</span>
           </Heading>
+          <ClassReport
+            type= 'asset'
+            breakdown= { snapshot.byClass }
+            display= { display }
+          />
         </Card>
 
         { /** Liabilities */ }
         <Card className= 'break-inside-avoid'>
-          <Heading level= { 4 } className= 'flex items-center gap-4'>
+          <Heading level= { 4 } className= 'flex items-center gap-4 mb-6'>
             <CircleAlert size= { 20 } />
             <span>{ i18n.t( $ => $.report.liabilities ) }</span>
           </Heading>
+          <ClassReport
+            type= 'liability'
+            breakdown= { snapshot.byClass }
+            display= { display }
+          />
         </Card>
 
         { /** Liquidity */ }
@@ -149,7 +185,7 @@ export const Report = () => {
             <PiggyBank size= { 20 } />
             <span>{ i18n.t( $ => $.report.liquidity ) }</span>
           </Heading>
-          <div className= 'space-y-4'>
+          <div className= 'space-y-3'>
             { Object.entries( snapshot.byLiquidity ).map( ( [ liq, { value, percentage } ], index ) => (
               <ReportRow
                 key= { index }
@@ -168,7 +204,7 @@ export const Report = () => {
             <BookOpenText size= { 20 } />
             <span>{ i18n.t( $ => $.report.realization ) }</span>
           </Heading>
-          <div className= 'space-y-4'>
+          <div className= 'space-y-3'>
             <ReportRow
               key= { 'real' }
               label= { i18n.t( $ => $.report.real ) }

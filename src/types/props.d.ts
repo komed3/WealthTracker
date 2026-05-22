@@ -1,5 +1,5 @@
 import type { ICON } from '@/src/config/constants';
-import type { DisplaySettings, Entry, EntryRecord, YearValue } from '@/src/types/data';
+import type { Breakdown, DisplaySettings, Entry, EntryRecord, YearValue } from '@/src/types/data';
 import type React from 'react';
 import type { ButtonHTMLAttributes, InputHTMLAttributes, ReactNode } from 'react';
 
@@ -134,5 +134,11 @@ export interface ReportRowProps {
   label: string;
   value: number;
   percentage: number;
+  display: DisplaySettings;
+}
+
+export interface ClassReportProps {
+  type: 'asset' | 'liability';
+  breakdown: Record< any, Breakdown | undefined >;
   display: DisplaySettings;
 }
