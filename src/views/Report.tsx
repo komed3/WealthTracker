@@ -63,8 +63,8 @@ export const Report = () => {
           value= { formatCurrency( snapshot.netWorth, display ) }
         />
         <InfoCard
-          label= { i18n.t( $ => $.report.growth ) }
-          value= { formatPercent( snapshot.growth?.relative, display ) }
+          label= { i18n.t( $ => $.report.real ) }
+          value= { formatCurrency( snapshot.realization.real.value, display ) }
         />
         <InfoCard
           label= { i18n.t( $ => $.report.liabilities ) }

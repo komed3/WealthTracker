@@ -215,9 +215,9 @@ export default ( {
     },
     report: {
       description: 'Umfassender Finanzbericht und Bilanzierung für das Kalenderjahr {{year}}.',
-      growth: 'Wachstum',
       liabilities: 'Verbindlichkeiten',
       netWorth: 'Nettovermögen',
+      real: 'Realwert',
       title: 'Jahresbericht',
       totalAssets: 'Gesamtvermögen'
     },

@@ -215,9 +215,9 @@ export default ( {
     },
     report: {
       description: 'Comprehensive financial balance sheet and generated report for {{year}}.',
-      growth: 'Growth',
       liabilities: 'Liabilities',
       netWorth: 'Net Worth',
+      real: 'Real Value',
       title: 'Annual Report',
       totalAssets: 'Total Assets'
     },
