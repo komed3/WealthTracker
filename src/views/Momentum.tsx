@@ -199,13 +199,13 @@ export const Momentum = () => {
                   <td className= 'px-6 py-4 font-semibold text-sm text-slate-800'>{ item.year }</td>
                   { item.growth ? ( <>
                     <td className= { cn(
-                      'px-6 py-4 text-right font-mono text-lg font-semibold text-slate-900',
+                      'px-6 py-4 text-right font-mono text-lg font-semibold',
                       item.growth.absolute < 0 ? 'text-neg' : 'text-pos'
                     ) }>
                       { formatCurrency( item.growth.absolute, display ) }
                     </td>
                     <td className= { cn(
-                      'px-6 py-4 text-right font-mono text-lg font-semibold text-slate-900',
+                      'px-6 py-4 text-right font-mono text-lg font-semibold',
                       item.growth.relative < 0 ? 'text-neg' : 'text-pos'
                     ) }>
                       { formatPercent( item.growth.relative, display ) }
@@ -214,13 +214,13 @@ export const Momentum = () => {
                     <td className= 'px-6 py-4 text-right font-bold text-slate-400'>—</td>
                     <td className= 'px-6 py-4 text-right font-bold text-slate-400'>—</td>
                   </> ) }
-                  <td className= 'px-6 py-4 text-right font-mono text-sm font-semibold text-slate-900'>
+                  <td className= 'px-6 py-4 text-right font-mono text-sm font-semibold text-slate-800'>
                     { formatCurrency( item.netWorth, display ) }
                   </td>
-                  <td className= 'px-6 py-4 text-right font-mono text-sm font-semibold text-slate-900'>
+                  <td className= 'px-6 py-4 text-right font-mono text-sm font-semibold text-slate-800'>
                     { formatCurrency( item.assets, display ) }
                   </td>
-                  <td className= 'px-6 py-4 text-right font-mono text-sm font-semibold text-slate-900'>
+                  <td className= 'px-6 py-4 text-right font-mono text-sm font-semibold text-slate-800'>
                     { formatCurrency( item.liabilities, display ) }
                   </td>
                 </tr>
