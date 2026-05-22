@@ -214,10 +214,13 @@ export default ( {
       stats: 'Statistiken'
     },
     report: {
+      assets: 'Vermögenswerte',
       description: 'Umfassender Finanzbericht und Bilanzierung für das Kalenderjahr {{year}}.',
       liabilities: 'Verbindlichkeiten',
+      liquidity: 'Liquidität',
       netWorth: 'Nettovermögen',
       real: 'Realwert',
+      realization: 'Realisierung',
       title: 'Jahresbericht',
       totalAssets: 'Gesamtvermögen',
       trend: 'Jährlicher Wachstumstrend'

@@ -214,10 +214,13 @@ export default ( {
       stats: 'Statistics'
     },
     report: {
+      assets: 'Assets',
       description: 'Comprehensive financial balance sheet and generated report for {{year}}.',
       liabilities: 'Liabilities',
+      liquidity: 'Liquidity',
       netWorth: 'Net Worth',
       real: 'Real Value',
+      realization: 'Realization',
       title: 'Annual Report',
       totalAssets: 'Total Assets',
       trend: 'Annual Growth Trend'

@@ -1,4 +1,5 @@
 import { Card, InfoCard } from '@/src/components/ui/Card';
+import { Heading } from '@/src/components/ui/Heading';
 import { Intro } from '@/src/components/ui/Intro';
 import { NoData } from '@/src/components/ui/NoData';
 import { Select } from '@/src/components/ui/Select';
@@ -7,7 +8,7 @@ import { useLayout } from '@/src/context/LayoutCtx';
 import { formatCurrency, formatPercent } from '@/src/lib/formatter';
 import i18n from '@/src/lib/i18n';
 import { cn } from '@/src/lib/utils';
-import { TrendingDown, TrendingUp } from 'lucide-react';
+import { BookOpenText, CircleAlert, Layers3, PiggyBank, TrendingDown, TrendingUp } from 'lucide-react';
 import { useEffect, useMemo, useState } from 'react';
 
 export const Report = () => {
@@ -97,6 +98,34 @@ export const Report = () => {
           </div>
         </Card>
       ) }
+
+      { /** Masonry Grid */ }
+      <div className= 'columns-1 md:columns-2 gap-8 space-y-8'>
+        <Card>
+          <Heading level= { 4 } className= 'flex items-center gap-4'>
+            <Layers3 size= { 20 } />
+            <span>{ i18n.t( $ => $.report.assets ) }</span>
+          </Heading>
+        </Card>
+        <Card>
+          <Heading level= { 4 } className= 'flex items-center gap-4'>
+            <CircleAlert size= { 20 } />
+            <span>{ i18n.t( $ => $.report.liabilities ) }</span>
+          </Heading>
+        </Card>
+        <Card>
+          <Heading level= { 4 } className= 'flex items-center gap-4'>
+            <PiggyBank size= { 20 } />
+            <span>{ i18n.t( $ => $.report.liquidity ) }</span>
+          </Heading>
+        </Card>
+        <Card>
+          <Heading level= { 4 } className= 'flex items-center gap-4'>
+            <BookOpenText size= { 20 } />
+            <span>{ i18n.t( $ => $.report.realization ) }</span>
+          </Heading>
+        </Card>
+      </div>
     </div>
   );
 };
