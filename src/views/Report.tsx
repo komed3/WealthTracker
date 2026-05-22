@@ -159,7 +159,10 @@ export const Report = () => {
 
       { /** Net Worth Range */ }
       { ( () => {
-        if ( snapshot.maxNetWorth && snapshot.minNetWorth ) {
+        if (
+          snapshot.maxNetWorth && snapshot.maxNetWorth !== snapshot.netWorth &&
+          snapshot.minNetWorth && snapshot.minNetWorth !== snapshot.netWorth
+        ) {
           const max = Math.abs( snapshot.maxNetWorth - snapshot.netWorth ),
                 min = Math.abs( snapshot.minNetWorth - snapshot.netWorth ),
                 range = Math.max( max, min ) * 1.15;
