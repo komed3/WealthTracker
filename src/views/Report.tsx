@@ -9,8 +9,28 @@ import { useLayout } from '@/src/context/LayoutCtx';
 import { formatCurrency, formatPercent } from '@/src/lib/formatter';
 import i18n from '@/src/lib/i18n';
 import { cn } from '@/src/lib/utils';
+import type { ReportRowProps } from '@/src/types/props';
 import { BookOpenText, CircleAlert, Layers3, PiggyBank, TrendingDown, TrendingUp } from 'lucide-react';
 import { useEffect, useMemo, useState } from 'react';
+
+const ReportRow = ( { key, label, value, percentage, display }: ReportRowProps ) => {
+  return ( <div key= { key } className= 'space-y-1'>
+    <div className= 'flex justify-between items-baseline'>
+      <span className= 'font-medium text-sm text-slate-800'>
+        { label }
+      </span>
+      <span className= 'font-mono font-bold'>
+        { formatCurrency( value, display ) }
+      </span>
+    </div>
+    <div className= 'h-2 bg-slate-200 rounded-full overflow-hidden'>
+      <div
+        className= 'h-2 bg-primary transition-all duration-300'
+        style= { { width: `${ percentage * 100 }%` } }
+      />
+    </div>
+  </div> );
+};
 
 export const Report = () => {
   const { data, settings } = useData();

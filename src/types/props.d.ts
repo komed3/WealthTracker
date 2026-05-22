@@ -1,5 +1,5 @@
 import type { ICON } from '@/src/config/constants';
-import { DisplaySettings, Entry, EntryRecord, YearValue } from '@/src/types/data';
+import type { DisplaySettings, Entry, EntryRecord, YearValue } from '@/src/types/data';
 import type React from 'react';
 import type { ButtonHTMLAttributes, InputHTMLAttributes, ReactNode } from 'react';
 
@@ -116,15 +116,23 @@ export interface PositionListProps {
   onDelete: ( id: string ) => void;
 }
 
-interface PositionModalProps {
+export interface PositionModalProps {
   isOpen: boolean;
   onClose: () => void;
   onSave: ( entryData: Omit< Entry, 'id' | 'createdAt' | 'updatedAt' > & { id?: string } ) => void;
   initialEntry: Entry | null;
 }
 
-interface DataPointsEditorProps {
+export interface DataPointsEditorProps {
   entries: EntryRecord[];
   onUpdateHistory: ( entryId: string, history: Record< `${number}`, YearValue > ) => void;
   setActiveTab: ( id: string ) => void;
+}
+
+export interface ReportRowProps {
+  key: string | number;
+  label: string;
+  value: number;
+  percentage: number;
+  display: DisplaySettings;
 }
