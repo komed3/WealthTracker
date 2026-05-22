@@ -91,7 +91,9 @@ export const Assets = () => {
 
   const filteredRecords = useMemo( () => {
     return entries.filter( record => {
-      const { entry } = record;
+      const { entry, history } = record;
+
+      if ( Object.keys( history ).length === 0 ) return false;
 
       if ( category !== 'all' && entry.category !== category ) return false;
       if ( classVal !== 'all' && entry.class !== classVal ) return false;
