@@ -215,7 +215,11 @@ export default ( {
     },
     report: {
       description: 'Umfassender Finanzbericht und Bilanzierung für das Kalenderjahr {{year}}.',
-      title: 'Jahresbericht'
+      growth: 'Wachstum',
+      liabilities: 'Verbindlichkeiten',
+      netWorth: 'Nettovermögen',
+      title: 'Jahresbericht',
+      totalAssets: 'Gesamtvermögen'
     },
     settings: {
       birthDate: 'Geburtsdatum',
