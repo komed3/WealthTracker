@@ -73,3 +73,17 @@ export function useLayout () : LayoutCtxType {
   if ( context === undefined ) throw new Error( 'useLayout must be used within a LayoutProvider' );
   return context;
 }
+
+export function useIsMobile ( breakpoint = 768 ) {
+  const [ isMobile, setIsMobile ] = useState( false );
+
+  useEffect( () => {
+    const checkMobile = () => setIsMobile( window.innerWidth < breakpoint );
+
+    checkMobile();
+    window.addEventListener( 'resize', checkMobile );
+    return () => window.removeEventListener( 'resize', checkMobile );
+  }, [ breakpoint ] );
+
+  return isMobile;
+}
