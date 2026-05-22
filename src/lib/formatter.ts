@@ -1,50 +1,31 @@
 import type { DisplaySettings } from '@/src/types/data';
 
-export function formatNumber ( val: any, display?: DisplaySettings ) : string {
-  const parsedVal = typeof val === 'string' ? val.replace( /,/g, '.' ) : val;
-  const num = Number( parsedVal );
+function parseValue ( val: any ) : number | null {
+  return typeof val === 'string' ? Number( val.replace( /,/g, '.' ) ) : Number( val );
+}
 
-  if ( isNaN( num ) || val === '' || val === null || val === undefined ) return '';
+export function formatNumber (
+  val: any, display?: DisplaySettings,
+  options: Intl.NumberFormatOptions = {}
+) : string {
+  const { language = 'en', decimals = 2 } = display || {};
+  const num = parseValue( val );
 
-  const lang = display?.language || 'en';
-  const decs = display?.decimals !== undefined ? display.decimals : 2;
+  if ( num === null || isNaN( num ) ) return '';
 
-  return new Intl.NumberFormat( lang === 'de' ? 'de-DE' : 'en-US', {
-    minimumFractionDigits: decs,
-    maximumFractionDigits: decs
+  return new Intl.NumberFormat( language === 'de' ? 'de-DE' : 'en-US', {
+    minimumFractionDigits: decimals, maximumFractionDigits: decimals, ...options
   } ).format( num );
 }
 
-export function formatCurrency ( val: any, display?: DisplaySettings ) : string {
-  const parsedVal = typeof val === 'string' ? val.replace( /,/g, '.' ) : val;
-  const num = Number( parsedVal );
+export const formatCurrency = ( val: any, display?: DisplaySettings ) : string => {
+  return formatNumber( val, display, { style: 'currency', currency: display?.currency || 'USD' } );
+};
 
-  if ( isNaN( num ) || val === '' || val === null || val === undefined ) return '';
+export const formatPercent = ( val: any, display?: DisplaySettings ) : string => {
+  return formatNumber( val, display, { style: 'percent' } );
+};
 
-  const lang = display?.language || 'en';
-  const curr = display?.currency || 'USD';
-  const decs = display?.decimals !== undefined ? display.decimals : 2;
-
-  return new Intl.NumberFormat( lang === 'de' ? 'de-DE' : 'en-US', {
-    style: 'currency',
-    currency: curr,
-    minimumFractionDigits: decs,
-    maximumFractionDigits: decs
-  } ).format( num );
-}
-
-export function formatPercent ( val: any, display?: DisplaySettings ) : string {
-  const parsedVal = typeof val === 'string' ? val.replace( /,/g, '.' ) : val;
-  const num = Number( parsedVal );
-
-  if ( isNaN( num ) || val === '' || val === null || val === undefined ) return '';
-
-  const lang = display?.language || 'en';
-  const decs = display?.decimals !== undefined ? display.decimals : 2;
-
-  return new Intl.NumberFormat( lang === 'de' ? 'de-DE' : 'en-US', {
-    style: 'percent',
-    minimumFractionDigits: decs,
-    maximumFractionDigits: decs
-  } ).format( num );
-}
+export const formatUnit = ( unit: string, val: any, display?: DisplaySettings ) : string => {
+  return formatNumber( val, display, { style: 'unit', unit } );
+};
