@@ -123,7 +123,7 @@ export interface EntryStats {
 }
 
 export interface Milestone {
-  value: number;
+  milestone: number;
   year: number;
 }
 

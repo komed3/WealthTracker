@@ -1,5 +1,5 @@
 import type {
-  Breakdown, ComputedData, Data, EntryRecord, EntryStats,
+  Breakdown, ComputedData, Data, EntryRecord, EntryStats, Milestone,
   PortfolioStats, Settings, YearSnapshot
 } from '@/src/types/data';
 import type { STABILITY, TREND, VOLATILITY } from '@/src/config/constants';
@@ -30,6 +30,7 @@ const DEFAULT_DATA: Data = {
       latestNetWorth: 0,
       realValue: 0,
       nonRealValue: 0,
+      milestones: [],
       count: {
         asset: 0,
         liability: 0,
@@ -384,6 +385,35 @@ export class Database {
       } );
     }
 
+    const milestones: Milestone[] = [];
+    if ( sortedYears.length > 0 ) {
+      const milestoneCandidates: number[] = [];
+      let power = 100;
+
+      while ( power <= 100000000000 ) {
+        milestoneCandidates.push( power );
+        milestoneCandidates.push( power * 2.5 );
+        milestoneCandidates.push( power * 5 );
+        power *= 10;
+      }
+
+      milestoneCandidates.sort( ( a, b ) => a - b );
+
+      const reachedMilestones = new Set< number >();
+      for ( const year of sortedYears ) {
+        const nw = yearSnapshots[ String( year ) ].netWorth;
+
+        for ( const m of milestoneCandidates ) {
+          if ( nw >= m && ! reachedMilestones.has( m ) ) {
+            reachedMilestones.add( m );
+            milestones.push( { milestone: m, year } );
+          }
+        }
+      }
+
+      milestones.sort( ( a, b ) => a.milestone - b.milestone );
+    }
+
     const portfolioStats: PortfolioStats = {
       firstYear, lastYear,
       latestNetWorth: round( latestNetWorth ),
@@ -392,6 +422,7 @@ export class Database {
       realValue: round( portfolioSummary.realValue ),
       nonRealValue: round( portfolioSummary.nonRealValue ),
       totalGrowth, averageAnnualGrowth, bestYear, worstYear,
+      milestones,
       count: {
         asset: portfolioSummary.assetCount,
         liability: portfolioSummary.liabilityCount,
