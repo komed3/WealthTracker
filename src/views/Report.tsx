@@ -127,18 +127,23 @@ export const Report = () => {
 
       { /** Masonry Grid */ }
       <div className= 'columns-1 md:columns-2 gap-8 space-y-8'>
+        { /** Assets */ }
         <Card className= 'break-inside-avoid'>
           <Heading level= { 4 } className= 'flex items-center gap-4'>
             <Layers3 size= { 20 } />
             <span>{ i18n.t( $ => $.report.assets ) }</span>
           </Heading>
         </Card>
+
+        { /** Liabilities */ }
         <Card className= 'break-inside-avoid'>
           <Heading level= { 4 } className= 'flex items-center gap-4'>
             <CircleAlert size= { 20 } />
             <span>{ i18n.t( $ => $.report.liabilities ) }</span>
           </Heading>
         </Card>
+
+        { /** Liquidity */ }
         <Card className= 'break-inside-avoid'>
           <Heading level= { 4 } className= 'flex items-center gap-4 mb-6'>
             <PiggyBank size= { 20 } />
@@ -156,6 +161,8 @@ export const Report = () => {
             ) ) }
           </div>
         </Card>
+
+        { /** Realization */ }
         <Card className= 'break-inside-avoid'>
           <Heading level= { 4 } className= 'flex items-center gap-4 mb-6'>
             <BookOpenText size= { 20 } />
