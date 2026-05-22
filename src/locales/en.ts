@@ -272,12 +272,18 @@ export default ( {
       stable: 'Stable'
     },
     stats: {
+      avgEarnings: 'Average Earnings',
+      avgEarningsInfo: 'Track your wealth generation speed broken down across exact units of time.',
       description: 'Gain insights into milestones, average earnings, and comparative metrics of your wealth.',
+      equivalents: 'Equivalents',
+      equivalentsInfo: 'Understand the real-world equivalents of your wealth, from burgers to working hours.',
       growth: 'Avg. Growth / Year',
       netWorth: 'Total Net Worth',
       percentile: 'Global Percentile',
       rank: 'Global Rank',
-      title: 'Wealth Stats'
+      title: 'Wealth Stats',
+      workingHrs: 'Working Hours',
+      workingHrsInfo: 'How long would you have to work to generate your current wealth?'
     },
     status: {
       active: 'Active',

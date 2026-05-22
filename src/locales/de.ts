@@ -272,12 +272,18 @@ export default ( {
       stable: 'Stabil'
     },
     stats: {
+      avgEarnings: 'Durchschnittsverdienst',
+      avgEarningsInfo: 'Verfolge die Geschwindigkeit deiner Vermögensgenerierung aufgeschlüsselt nach genauen Zeiteinheiten.',
       description: 'Erhalte Einblick in Meilensteine, Durchschnittsverdienste und spannende Vermögensvergleiche.',
+      equivalents: 'Äquivalente',
+      equivalentsInfo: 'Verstehe die realen Äquivalente deines Vermögens, von Burgern bis zu Arbeitsstunden.',
       growth: 'Ø Wachstum / Jahr',
       netWorth: 'Gesamtvermögen',
       percentile: 'Globales Perzentil',
       rank: 'Globaler Rang',
-      title: 'Statistiken'
+      title: 'Statistiken',
+      workingHrs: 'Arbeitsstunden',
+      workingHrsInfo: 'Wie lange müsstest du arbeiten, um dein aktuelles Vermögen zu generieren?'
     },
     status: {
       active: 'Aktiv',

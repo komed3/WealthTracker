@@ -81,6 +81,9 @@ export const Stats = () => {
             <Scale size= { 20 } />
             <span>{ i18n.t( $ => $.stats.equivalents ) }</span>
           </Heading>
+          <p className= 'mb-6'>
+            { i18n.t( $ => $.stats.equivalentsInfo ) }
+          </p>
         </Card>
 
         { /** Working Hours */ }
@@ -89,6 +92,9 @@ export const Stats = () => {
             <BriefcaseBusiness size= { 20 } />
             <span>{ i18n.t( $ => $.stats.workingHrs ) }</span>
           </Heading>
+          <p className= 'mb-6'>
+            { i18n.t( $ => $.stats.workingHrsInfo ) }
+          </p>
         </Card>
 
         { /** Average Earnings */ }
@@ -97,6 +103,9 @@ export const Stats = () => {
             <PiggyBank size= { 20 } />
             <span>{ i18n.t( $ => $.stats.avgEarnings ) }</span>
           </Heading>
+          <p className= 'mb-6'>
+            { i18n.t( $ => $.stats.avgEarningsInfo ) }
+          </p>
         </Card>
       </div>
     </div>
