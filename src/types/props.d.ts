@@ -130,7 +130,6 @@ export interface DataPointsEditorProps {
 }
 
 export interface ReportRowProps {
-  key: string | number;
   label: string;
   value: number;
   percentage: number;

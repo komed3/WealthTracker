@@ -13,8 +13,8 @@ import type { ClassReportProps, ReportRowProps } from '@/src/types/props';
 import { BookOpenText, CircleAlert, Layers3, PiggyBank, TrendingDown, TrendingUp } from 'lucide-react';
 import { useEffect, useMemo, useState } from 'react';
 
-const ReportRow = ( { key, label, value, percentage, display }: ReportRowProps ) => {
-  return ( <div key= { key } className= 'space-y-1'>
+const ReportRow = ( { label, value, percentage, display }: ReportRowProps ) => {
+  return ( <div className= 'space-y-1'>
     <div className= 'flex justify-between items-baseline'>
       <span className= 'min-w-0 truncate font-medium text-sm text-slate-800'>
         { label }
@@ -215,7 +215,7 @@ export const Report = () => {
               display= { display }
             />
             <ReportRow
-              key= { 'real' }
+              key= { 'notional' }
               label= { i18n.t( $ => $.report.notional ) }
               value= { snapshot.realization.nonReal.value }
               percentage= { snapshot.realization.nonReal.percentage }
