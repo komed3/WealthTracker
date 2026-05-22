@@ -4,7 +4,7 @@ import { Heading } from '@/src/components/ui/Heading';
 import { NoData } from '@/src/components/ui/NoData';
 import { useData } from '@/src/context/DataCtx';
 import { useIsMobile, useLayout } from '@/src/context/LayoutCtx';
-import { formatCurrency, formatPercent } from '@/src/lib/formatter';
+import { formatCurrency, formatPercent, formatUnit } from '@/src/lib/formatter';
 import i18n from '@/src/lib/i18n';
 import { useEffect, useMemo } from 'react';
 import {
@@ -208,6 +208,20 @@ export const Dashboard = () => {
             </ComposedChart>
         </ResponsiveContainer>
       </Card>
+
+      { /** Further Metrics */ }
+      { portfolioStats && (
+        <div className= 'grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-6 w-full'>
+          <InfoCard
+            label= { i18n.t( $ => $.dashboard.percentile ) }
+            value= { formatPercent( portfolioStats.globalPercentile, display ) }
+          />
+          <InfoCard
+            label= { i18n.t( $ => $.dashboard.gold ) }
+            value= { formatUnit( 'gram', portfolioStats.equivalents?.gold, display ) }
+          />
+        </div>
+      ) }
     </div>
   );
 };

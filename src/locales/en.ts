@@ -118,10 +118,12 @@ export default ( {
       avgGrowth: 'Avg. Growth / Year',
       chartSubtitle: 'Temporal progression of your wealth, including assets, liabilities and estimated range',
       chartTitle: 'Wealth Development',
+      gold: 'Gold Equivalent',
       liabilities: 'Liabilities',
       maximum: 'High',
       minimum: 'Low',
       netWorth: 'Total Net Worth',
+      percentile: 'Global Percentile',
       title: 'Dashboard'
     },
     editor: {
