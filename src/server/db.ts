@@ -1,7 +1,5 @@
-import {
-  CURRENCY_CONV, EQUIV_FACTOR, EQUIVALENTS,
-  type STABILITY, type TREND, type VOLATILITY
-} from '@/src/config/constants';
+import type { STABILITY, TREND, VOLATILITY } from '@/src/config/constants';
+import { CURRENCY_CONV, EQUIV_FACTOR, EQUIVALENTS } from '@/src/config/constants';
 import type {
   Breakdown, ComputedData, Data, EntryRecord, EntryStats, Milestone,
   PortfolioStats, Settings, YearSnapshot
