@@ -418,7 +418,7 @@ export class Database {
 
     const inUSD = latestNetWorth * CURRENCY_CONV[ currency ];
     const equivalents = Object.fromEntries( EQUIVALENTS.map( e => ( [
-      e, round( inUSD * EQUIV_FACTOR[ e ] )
+      e, round( inUSD / EQUIV_FACTOR[ e ] )
     ] ) ) ) as PortfolioStats[ 'equivalents' ];
 
     const globalPercentile = inUSD < 1e3 ? 100 - ( inUSD / 1e3 ) * 45
