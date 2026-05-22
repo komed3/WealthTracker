@@ -127,5 +127,5 @@ export const CURRENCY_CONV: Record< CURRENCY, number > = {
 
 export const EQUIV_FACTOR: Record< EQUIVALENTS, number > = {
   gold: 150, coinStack: 500, savings: 8000, income: 66600,
-  burger: 5, workingHrs: 15
+  burger: 5, workingHrs: 30
 };
