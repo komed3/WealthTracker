@@ -7,7 +7,7 @@ import { useLayout } from '@/src/context/LayoutCtx';
 import { formatCurrency, formatNumber, formatPercent, formatUnit } from '@/src/lib/formatter';
 import i18n from '@/src/lib/i18n';
 import { BriefcaseBusiness, PiggyBank, Scale } from 'lucide-react';
-import { useEffect, useMemo, useState } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 
 export const Stats = () => {
   const { data, settings } = useData();
@@ -16,11 +16,48 @@ export const Stats = () => {
 
   useEffect( () => { setTitle( i18n.t( $ => $.stats.title ) ) }, [ setTitle, display.language ] );
 
+  if ( data?.entries.length === 0 || ! data?.computed.portfolio ) return <NoData />;
+  const stats = data.computed.portfolio;
+
   const [ hourlyWage, setHourlyWage ] = useState( 30 );
   const percent = ( ( hourlyWage - 5 ) / ( 500 - 5 ) ) * 100;
 
-  if ( data?.entries.length === 0 || ! data?.computed.portfolio ) return <NoData />;
-  const stats = data.computed.portfolio;
+  const scrollRef = useRef < HTMLDivElement > ( null );
+  const [ canScrollLeft, setCanScrollLeft ] = useState( false );
+  const [ canScrollRight, setCanScrollRight ] = useState( false );
+
+  const updateScrollButtons = () => {
+    if ( scrollRef.current ) {
+      const { scrollLeft, scrollWidth, clientWidth } = scrollRef.current;
+
+      setCanScrollLeft( scrollLeft > 5 );
+      setCanScrollRight( scrollLeft + clientWidth < scrollWidth - 5 );
+    }
+  };
+
+  const scroll = ( direction: 'left' | 'right' ) => {
+    if ( scrollRef.current ) {
+      const { scrollLeft, scrollWidth, clientWidth } = scrollRef.current;
+      const firstChild = scrollRef.current.firstElementChild?.firstElementChild as HTMLElement;
+      const itemWidth = firstChild ? firstChild.getBoundingClientRect().width : clientWidth / 5;
+      const scrollAmount = itemWidth;
+
+      let targetScroll = direction === 'left' ? scrollLeft - scrollAmount : scrollLeft + scrollAmount;
+      targetScroll = Math.max( 0, Math.min( targetScroll, scrollWidth - clientWidth ) );
+
+      scrollRef.current.scrollTo( { left: targetScroll, behavior: 'smooth' } );
+    }
+  };
+
+  useEffect( () => {
+    const timer = setTimeout( updateScrollButtons, 150 );
+    window.addEventListener( 'resize', updateScrollButtons );
+
+    return () => {
+      clearTimeout( timer );
+      window.removeEventListener( 'resize', updateScrollButtons );
+    };
+  }, [ data ] );
 
   const avgEarnings = useMemo( () => {
     if ( ! settings?.profile?.birthDate ) return ;
