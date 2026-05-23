@@ -155,34 +155,34 @@ export const Dashboard = () => {
                     return (
                       <CustomTooltip
                         label= { String( dataPoint.year ) }
-                        value= { formatCurrency( dataPoint.netWorth, display ) }
+                        value= { visibleSeries.netWorth ? formatCurrency( dataPoint.netWorth, display ) : undefined }
                         color= '#2563eb'
                       >
-                        { dataPoint.maxNetWorth !== dataPoint.netWorth && (
+                        { visibleSeries.range && dataPoint.maxNetWorth !== dataPoint.netWorth && (
                           <TooltipRow
                             label= { i18n.t( $ => $.dashboard.maximum ) }
                             value= { formatCurrency( dataPoint.maxNetWorth, display ) }
                           />
                         ) }
-                        { dataPoint.minNetWorth !== dataPoint.netWorth && (
+                        { visibleSeries.range && dataPoint.minNetWorth !== dataPoint.netWorth && (
                           <TooltipRow
                             label= { i18n.t( $ => $.dashboard.minimum ) }
                             value= { formatCurrency( dataPoint.minNetWorth, display ) }
                           />
                         ) }
-                        { dataPoint.assets !== 0 && (
+                        { visibleSeries.assets && dataPoint.assets !== 0 && (
                           <TooltipRow
                             label= { i18n.t( $ => $.dashboard.assets ) }
                             value= { formatCurrency( dataPoint.assets, display ) }
                           />
                         ) }
-                        { dataPoint.liabilities !== 0 && (
+                        { visibleSeries.liabilities && dataPoint.liabilities !== 0 && (
                           <TooltipRow
                             label= { i18n.t( $ => $.dashboard.liabilities ) }
                             value= { formatCurrency( Math.abs( dataPoint.liabilities ), display ) }
                           />
                         ) }
-                        { dataPoint.real !== dataPoint.netWorth && (
+                        { visibleSeries.real && dataPoint.real !== dataPoint.netWorth && (
                           <TooltipRow
                             label= { i18n.t( $ => $.dashboard.real ) }
                             value= { formatCurrency( dataPoint.real, display ) }
