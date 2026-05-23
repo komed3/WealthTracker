@@ -40,3 +40,15 @@ Run the server:
 ```bash
 npm run start
 ```
+
+Now you can access the application at `http://localhost:3000`.
+
+## Disclaimer
+
+**No warranty or liability for any damage or loss resulting from the use of this software. Use at your own risk.**  
+**This app will not give you financial advice. Always consult a professional for financial decisions.**
+
+## License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.  
+(c) 2024 by Paul Köhler ([komed3](https://komed3.de)). All rights reserved.
