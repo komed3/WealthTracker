@@ -286,6 +286,8 @@ export default ( {
       equivalents: 'Equivalents',
       equivalentsInfo: 'Understand the real-world equivalents of your wealth, from burgers to working hours.',
       growth: 'Avg. Growth / Year',
+      hourlyWage: '{{value}} per hr.',
+      hourlyWageLabel: 'Hourly Wage',
       netWorth: 'Total Net Worth',
       percentile: 'Global Percentile',
       rank: 'Global Rank',

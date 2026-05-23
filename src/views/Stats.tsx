@@ -7,7 +7,7 @@ import { useLayout } from '@/src/context/LayoutCtx';
 import { formatCurrency, formatNumber, formatPercent, formatUnit } from '@/src/lib/formatter';
 import i18n from '@/src/lib/i18n';
 import { BriefcaseBusiness, PiggyBank, Scale } from 'lucide-react';
-import { useEffect, useMemo } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 
 export const Stats = () => {
   const { data, settings } = useData();
@@ -15,6 +15,9 @@ export const Stats = () => {
   const display = settings!.display;
 
   useEffect( () => { setTitle( i18n.t( $ => $.stats.title ) ) }, [ setTitle, display.language ] );
+
+  const [ hourlyWage, setHourlyWage ] = useState( 30 );
+  const percent = ( ( hourlyWage - 5 ) / ( 500 - 5 ) ) * 100;
 
   if ( data?.entries.length === 0 || ! data?.computed.portfolio ) return <NoData />;
   const stats = data.computed.portfolio;
@@ -103,7 +106,7 @@ export const Stats = () => {
               <span>{ i18n.t( $ => $.stats.equivalents ) }</span>
             </Heading>
             <p>{ i18n.t( $ => $.stats.equivalentsInfo ) }</p>
-            <div className= 'my-6 border-t border-dashed border-slate-300' />
+            <div className= 'my-6 border-t-2 border-dashed border-slate-300' />
             <div className= 'space-y-3'>
               <div className= 'flex justify-between items-baseline gap-4'>
                 <span className= 'min-w-0 truncate text-sm text-slate-500'>
@@ -158,6 +161,38 @@ export const Stats = () => {
           <p className= 'mb-6'>
             { i18n.t( $ => $.stats.workingHrsInfo ) }
           </p>
+
+          { /** Wage Slider */ }
+          <div className= 'space-y-4 mb-6 p-4 rounded-xl border-2 border-dashed border-slate-200'>
+            <div className= 'flex justify-between items-center text-sm'>
+              <span className= 'min-w-0 truncate text-sm text-slate-500'>
+                { i18n.t( $ => $.stats.hourlyWageLabel ) }
+              </span>
+              <span className= 'font-bold text-primary text-lg'>
+                { i18n.t( $ => $.stats.hourlyWage, {
+                  value: formatCurrency( hourlyWage, { ...display, currency: 'USD', decimals: 0 } )
+                } ) }
+              </span>
+            </div>
+            <input
+              type= 'range'
+              min= { 5 }
+              max= { 500 }
+              step= { 5 }
+              value= { hourlyWage }
+              onChange={ ( e ) => setHourlyWage( Number( e.target.value ) ) }
+              className= {
+                'w-full h-2 rounded-lg appearance-none cursor-pointer [&::-webkit-slider-thumb]:appearance-none ' +
+                '[&::-webkit-slider-thumb]:h-5 [&::-webkit-slider-thumb]:w-5 [&::-webkit-slider-thumb]:rounded-full ' +
+                '[&::-webkit-slider-thumb]:bg-white [&::-webkit-slider-thumb]:border-2 ' +
+                '[&::-webkit-slider-thumb]:border-primary [&::-webkit-slider-thumb]:shadow-md ' +
+                '[&::-moz-range-thumb]:h-5 [&::-moz-range-thumb]:w-5 [&::-moz-range-thumb]:rounded-full ' +
+                '[&::-moz-range-thumb]:bg-white [&::-moz-range-thumb]:border-2 ' +
+                '[&::-moz-range-thumb]:border-primary [&::-moz-range-thumb]:shadow-md'
+              }
+              style={ { background: `linear-gradient(to right, #2563eb ${percent}%, #e2e8f0 ${percent}%)` } }
+            />
+          </div>
         </Card>
 
         { /** Average Earnings */ }
@@ -168,7 +203,7 @@ export const Stats = () => {
               <span>{ i18n.t( $ => $.stats.avgEarnings ) }</span>
             </Heading>
             <p>{ i18n.t( $ => $.stats.avgEarningsInfo ) }</p>
-            <div className= 'my-6 border-t border-dashed border-slate-300' />
+            <div className= 'my-6 border-t-2 border-dashed border-slate-300' />
             <div className= 'space-y-3'>
               { Object.entries( avgEarnings ).map( ( [ p, v ] ) => (
                 <div key= { p } className= 'flex justify-between items-baseline gap-4'>

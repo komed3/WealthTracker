@@ -286,6 +286,8 @@ export default ( {
       equivalents: 'Äquivalente',
       equivalentsInfo: 'Verstehe die realen Äquivalente deines Vermögens, von Burgern bis zu Arbeitsstunden.',
       growth: 'Ø Wachstum / Jahr',
+      hourlyWage: '{{value}} pro Std.',
+      hourlyWageLabel: 'Stundenlohn',
       netWorth: 'Gesamtvermögen',
       percentile: 'Globales Perzentil',
       rank: 'Globaler Rang',
