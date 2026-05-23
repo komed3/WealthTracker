@@ -67,6 +67,11 @@ export const EQUIVALENT = [
   'gold', 'coinStack', 'savings', 'income', 'burger', 'workingHrs'
 ] as const;
 
+export type EXPENSE = ( typeof EXPENSE )[ number ];
+export const EXPENSE = [
+  'us', 'de', 'ch', 'sg', 'in', 'za'
+] as const;
+
 export type ICON = ( typeof ICON )[ number ];
 export const ICON = [
   'Wallet', 'WalletCards', 'Vault', 'PiggyBank', 'Landmark',
@@ -128,4 +133,8 @@ export const CURRENCY_CONV: Record< CURRENCY, number > = {
 export const EQUIV_FACTOR: Record< EQUIVALENT, number > = {
   gold: 150, coinStack: 500, savings: 8000, income: 66600,
   burger: 5, workingHrs: 30
+};
+
+export const EXPENSE_FACTOR: Record< EXPENSE, number > = {
+  us: 2500, de: 1800, ch: 3300, sg: 3100, in: 425, za: 1100
 };

@@ -1,5 +1,5 @@
 import type {
-  ASSET_CLASS, COLOR, CONFIDENCE, CURRENCY, EQUIVALENT, GENDER, ICON,
+  ASSET_CLASS, COLOR, CONFIDENCE, CURRENCY, EQUIVALENT, EXPENSE, GENDER, ICON,
   LIABILITY_CLASS, LIQUIDITY, STABILITY, TREND, VOLATILITY
 } from '@/src/config/constants';
 import type { resources } from '@/src/lib/i18n';
@@ -150,6 +150,7 @@ export interface PortfolioStats {
   };
   globalPercentile?: number;
   equivalents?: Record< EQUIVALENT, number >;
+  expenses?: Record< EXPENSE, number >;
 }
 
 export interface ComputedData {
