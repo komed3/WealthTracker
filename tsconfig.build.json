@@ -1,0 +1,25 @@
+{
+  "compilerOptions": {
+    "module": "ESNext",
+    "target": "ES2022",
+    "lib": [ "ES2022" ],
+    "types": [ "node" ],
+    "moduleResolution": "bundler",
+    "jsx": "react-jsx",
+    "paths": {
+      "@/*": [ "./*" ]
+    },
+    "rootDir": ".",
+    "outDir": "dist",
+    "skipLibCheck": true,
+    "isolatedModules": false,
+    "allowJs": false,
+    "resolveJsonModule": true,
+    "noEmit": false
+  },
+  "tsc-alias": {
+    "resolveFullPaths": true,
+    "verbose": false
+  },
+  "include": [ "src/server/**/*.ts" ]
+}
