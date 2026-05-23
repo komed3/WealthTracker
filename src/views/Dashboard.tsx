@@ -6,6 +6,7 @@ import { useData } from '@/src/context/DataCtx';
 import { useIsMobile, useLayout } from '@/src/context/LayoutCtx';
 import { formatCurrency, formatPercent, formatUnit } from '@/src/lib/formatter';
 import i18n from '@/src/lib/i18n';
+import { cn } from '@/src/lib/utils';
 import { useEffect, useMemo, useState } from 'react';
 import {
   Area, CartesianGrid, ComposedChart, Line, ReferenceLine, ResponsiveContainer,
@@ -224,93 +225,124 @@ export const Dashboard = () => {
                 </pattern>
               </defs>
 
-              <Area
-                type= 'monotone'
-                dataKey= 'range'
-                fill= '#2563eb'
-                fillOpacity= { 0.15 }
-                stroke= 'none'
-                activeDot= { false }
-              />
-              <Line
-                type= 'monotone'
-                dataKey= 'maxNetWorth'
-                stroke= '#2563eb'
-                strokeOpacity= { 0.25 }
-                strokeWidth= { 1 }
-                strokeDasharray= '4 4'
-                dot= { false }
-                activeDot= { false }
-              />
-              <Line
-                type= 'monotone'
-                dataKey= 'minNetWorth'
-                stroke= '#2563eb'
-                strokeOpacity= { 0.25 }
-                strokeWidth= { 1 }
-                strokeDasharray= '4 4'
-                dot= { false }
-                activeDot= { false }
-              />
+              { visibleSeries.range && ( <>
+                <Area
+                  type= 'monotone'
+                  dataKey= 'range'
+                  fill= '#2563eb'
+                  fillOpacity= { 0.15 }
+                  stroke= 'none'
+                  activeDot= { false }
+                />
+                <Line
+                  type= 'monotone'
+                  dataKey= 'maxNetWorth'
+                  stroke= '#2563eb'
+                  strokeOpacity= { 0.35 }
+                  strokeWidth= { 1 }
+                  strokeDasharray= '4 4'
+                  dot= { false }
+                  activeDot= { false }
+                />
+                <Line
+                  type= 'monotone'
+                  dataKey= 'minNetWorth'
+                  stroke= '#2563eb'
+                  strokeOpacity= { 0.35 }
+                  strokeWidth= { 1 }
+                  strokeDasharray= '4 4'
+                  dot= { false }
+                  activeDot= { false }
+                />
+              </> ) }
 
-              <Area
-                type= 'monotone'
-                dataKey= 'assets'
-                fill= 'url(#gradient-assets)'
-                fillOpacity= { 0.15 }
-                stroke= '#10b981'
-                strokeOpacity= { 0.25 }
-                strokeWidth= { 1 }
-                dot= { false }
-                activeDot= { false }
-              />
+              { visibleSeries.assets && (
+                <Area
+                  type= 'monotone'
+                  dataKey= 'assets'
+                  fill= 'url(#gradient-assets)'
+                  fillOpacity= { 0.2 }
+                  stroke= '#10b981'
+                  strokeOpacity= { 0.5 }
+                  strokeWidth= { 1 }
+                  dot= { false }
+                  activeDot= { false }
+                />
+              ) }
 
-              <Area
-                type= 'monotone'
-                dataKey= 'liabilities'
-                fill= 'url(#gradient-liabilities)'
-                fillOpacity= { 0.15 }
-                stroke= '#ef4444'
-                strokeOpacity= { 0.25 }
-                strokeWidth= { 1 }
-                dot= { false }
-                activeDot= { false }
-              />
+              { visibleSeries.liabilities && (
+                <Area
+                  type= 'monotone'
+                  dataKey= 'liabilities'
+                  fill= 'url(#gradient-liabilities)'
+                  fillOpacity= { 0.2 }
+                  stroke= '#ef4444'
+                  strokeOpacity= { 0.5 }
+                  strokeWidth= { 1 }
+                  dot= { false }
+                  activeDot= { false }
+                />
+              ) }
 
-              <Area
-                type= 'monotone'
-                dataKey= 'real'
-                fill= 'url(#pattern-real)'
-                fillOpacity= { 0.25 }
-                stroke= '#8884d8'
-                strokeOpacity= { 0.25 }
-                strokeWidth= { 1.5 }
-                dot= { false }
-                activeDot= { false }
-              />
+              { visibleSeries.real && (
+                <Area
+                  type= 'monotone'
+                  dataKey= 'real'
+                  fill= 'url(#pattern-real)'
+                  fillOpacity= { 0.25 }
+                  stroke= '#8884d8'
+                  strokeOpacity= { 0.5 }
+                  strokeWidth= { 1.5 }
+                  dot= { false }
+                  activeDot= { false }
+                />
+              ) }
 
-              <Line
-                type= 'monotone'
-                dataKey= 'netWorth'
-                stroke= '#2563eb'
-                strokeWidth= { 3 }
-                dot= { {
-                  stroke: '#2563eb',
-                  strokeWidth: 2,
-                  fill: '#fff',
-                  r: 5,
-                  fillOpacity: 1
-                } }
-                activeDot= { {
-                  stroke: '#2563eb',
-                  strokeWidth: 3,
-                  fill: '#fff',
-                  r: 7,
-                  fillOpacity: 1
-                } }
-              />
+              { visibleSeries.netWorth && (
+                <Line
+                  type= 'monotone'
+                  dataKey= 'netWorth'
+                  stroke= '#2563eb'
+                  strokeWidth= { 3 }
+                  dot= { {
+                    stroke: '#2563eb',
+                    strokeWidth: 2,
+                    fill: '#fff',
+                    r: 5,
+                    fillOpacity: 1
+                  } }
+                  activeDot= { {
+                    stroke: '#2563eb',
+                    strokeWidth: 3,
+                    fill: '#fff',
+                    r: 7,
+                    fillOpacity: 1
+                  } }
+                />
+              ) }
             </ComposedChart>
         </ResponsiveContainer>
+
+        { /** Legend */ }
+        <div className= 'flex flex-wrap justify-center items-center gap-4 mt-4 pt-6 border-t border-slate-200'>
+          { legendItems.map( item => {
+            const isVisible = visibleSeries[ item.key ];
+
+            return (
+              <button
+                key= { item.key }
+                onClick= { () => toggleSeries( item.key ) }
+                className= { cn(
+                  'flex items-center gap-2.5 px-2 py-1 text-sm font-medium',
+                  isVisible ? 'text-slate-700' : 'text-slate-400 opacity-60'
+                ) }
+              >
+                <div className= 'w-3 h-3 rounded-full' style= { { backgroundColor: item.color } } />
+                <span>{ item.label }</span>
+              </button>
+            );
+          } ) }
+        </div>
       </Card>
 
       { /** Further Metrics */ }
