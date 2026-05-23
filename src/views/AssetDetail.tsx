@@ -322,7 +322,7 @@ export const AssetDetail = () => {
                 />
                 <Bar
                   dataKey= 'change'
-                  shape={ ( props ) => {
+                  shape= { ( props ) => {
                     const { payload } = props;
                     const isPositive = payload.change >= 0;
 

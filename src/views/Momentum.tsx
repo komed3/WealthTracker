@@ -57,7 +57,7 @@ export const Momentum = () => {
         { hasData && <Tabs
           activeId= { activeTab }
           onChange= { id => setActiveTab( id ) }
-          options={ [
+          options= { [
             { id: 'relative', label: i18n.t( $ => $.momentum.relative ), icon: Percent },
             { id: 'absolute', label: i18n.t( $ => $.momentum.absolute ), icon: Sigma }
           ] }
@@ -161,7 +161,7 @@ export const Momentum = () => {
             />
             <Bar
               dataKey= 'value'
-              shape={ ( props ) => {
+              shape= { ( props ) => {
                 const { payload } = props;
                 const isPositive = payload.value >= 0;
 

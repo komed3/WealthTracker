@@ -116,7 +116,7 @@ export const Editor = () => {
         { entries.length > 0 && <Tabs
           activeId= { activeTab }
           onChange= { id => setActiveTab( id ) }
-          options={ [
+          options= { [
             { id: 'entries', label: i18n.t( $ => $.editor.positions ), icon: Settings2 },
             { id: 'history', label: i18n.t( $ => $.editor.dataPoints ), icon: ListTree }
           ] }

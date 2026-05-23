@@ -33,12 +33,12 @@ export const Tabs = ( { options, activeId, onChange, className }: TabsProps ) =>
           }
         >
           <span className= 'flex items-center gap-2 truncate'>
-            { activeOption?.icon && <activeOption.icon size={ 16 } className= 'shrink-0 text-primary' /> }
+            { activeOption?.icon && <activeOption.icon size= { 16 } className= 'shrink-0 text-primary' /> }
             <span className= 'truncate'>{ activeOption?.label }</span>
           </span>
           { isOpen
-            ? <ChevronUp size={ 18 } className= 'shrink-0 text-slate-500' />
-            : <ChevronDown size={ 18 } className= 'shrink-0 text-slate-500' />
+            ? <ChevronUp size= { 18 } className= 'shrink-0 text-slate-500' />
+            : <ChevronDown size= { 18 } className= 'shrink-0 text-slate-500' />
           }
         </button>
 
@@ -75,7 +75,7 @@ export const Tabs = ( { options, activeId, onChange, className }: TabsProps ) =>
       </div>
 
       { /** Desktop View */ }
-      <div className={ cn( 'hidden md:inline-flex gap-1.5 p-1.5 bg-slate-100 rounded-xl border border-slate-200 shadow-inner' ) }>
+      <div className= { cn( 'hidden md:inline-flex gap-1.5 p-1.5 bg-slate-100 rounded-xl border border-slate-200 shadow-inner' ) }>
         { options.map( opt => (
           <button
             key= { opt.id }
@@ -87,7 +87,7 @@ export const Tabs = ( { options, activeId, onChange, className }: TabsProps ) =>
                 : 'text-slate-500 hover:text-slate-700 hover:bg-white/50'
             ) }
           >
-            { opt.icon && <opt.icon size={ 16 } /> }
+            { opt.icon && <opt.icon size= { 16 } /> }
             { opt.label }
           </button>
         ) ) }

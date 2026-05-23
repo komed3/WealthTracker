@@ -197,7 +197,7 @@ export const Breakdown = () => {
                   innerRadius= '65%'
                   outerRadius= '90%'
                   paddingAngle= { 2 }
-                  shape={ ( props ) => {
+                  shape= { ( props ) => {
                     return (
                       <Sector
                         { ...props }
