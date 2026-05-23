@@ -8,7 +8,7 @@ import { useLayout } from '@/src/context/LayoutCtx';
 import { formatCurrency, formatNumber, formatPercent, formatUnit } from '@/src/lib/formatter';
 import i18n from '@/src/lib/i18n';
 import { cn } from '@/src/lib/utils';
-import { BriefcaseBusiness, ChartColumn, ChevronLeft, ChevronRight, PiggyBank, Scale } from 'lucide-react';
+import { BriefcaseBusiness, ChartColumn, ChevronLeft, ChevronRight, Globe, PiggyBank, Scale } from 'lucide-react';
 import { useEffect, useMemo, useRef, useState } from 'react';
 
 export const Stats = () => {
@@ -203,60 +203,6 @@ export const Stats = () => {
 
       { /** Masonry Grid */ }
       <div className= 'columns-1 md:columns-2 gap-8 space-y-8'>
-        { /** Equivalents */ }
-        { stats.equivalents && (
-          <Card className= 'break-inside-avoid'>
-            <Heading level= { 4 } className= 'flex items-center gap-4 mb-6'>
-              <Scale size= { 20 } />
-              <span>{ i18n.t( $ => $.stats.equivalents ) }</span>
-            </Heading>
-            <p>{ i18n.t( $ => $.stats.equivalentsInfo ) }</p>
-            <div className= 'my-6 border-t-2 border-dashed border-slate-300' />
-            <div className= 'space-y-3'>
-              <div className= 'flex justify-between items-baseline gap-4'>
-                <span className= 'min-w-0 truncate text-sm text-slate-500'>
-                  { i18n.t( $ => $.equivalent.gold ) }
-                </span>
-                <span className= 'font-mono font-semibold text-2xl text-slate-800'>
-                  { formatUnit( 'gram', stats.equivalents.gold, display ) }
-                </span>
-              </div>
-              <div className= 'flex justify-between items-baseline gap-4'>
-                <span className= 'min-w-0 truncate text-sm text-slate-500'>
-                  { i18n.t( $ => $.equivalent.coinStack ) }
-                </span>
-                <span className= 'font-mono font-semibold text-2xl text-slate-800'>
-                  { formatUnit( 'meter', stats.equivalents.coinStack, display ) }
-                </span>
-              </div>
-              <div className= 'flex justify-between items-baseline gap-4'>
-                <span className= 'min-w-0 truncate text-sm text-slate-500'>
-                  { i18n.t( $ => $.equivalent.savings ) }
-                </span>
-                <span className= 'font-mono font-semibold text-2xl text-slate-800'>
-                  { formatPercent( stats.equivalents.savings, display ) }
-                </span>
-              </div>
-              <div className= 'flex justify-between items-baseline gap-4'>
-                <span className= 'min-w-0 truncate text-sm text-slate-500'>
-                  { i18n.t( $ => $.equivalent.income ) }
-                </span>
-                <span className= 'font-mono font-semibold text-2xl text-slate-800'>
-                  { formatPercent( stats.equivalents.income, display ) }
-                </span>
-              </div>
-              <div className= 'flex justify-between items-baseline gap-4'>
-                <span className= 'min-w-0 truncate text-sm text-slate-500'>
-                  { i18n.t( $ => $.equivalent.burger ) }
-                </span>
-                <span className= 'font-mono font-semibold text-2xl text-slate-800'>
-                  { formatNumber( stats.equivalents.burger, { ...display, decimals: 0 } ) }
-                </span>
-              </div>
-            </div>
-          </Card>
-        ) }
-
         { /** Working Hours */ }
         <Card className= 'break-inside-avoid'>
           <Heading level= { 4 } className= 'flex items-center gap-4 mb-6'>
@@ -343,6 +289,92 @@ export const Stats = () => {
             </div>
           </div>
         </Card>
+
+        { /** Living Expenses */ }
+        { stats.expenses && (
+          <Card className= 'break-inside-avoid'>
+            <Heading level= { 4 } className= 'flex items-center gap-4 mb-6'>
+              <Globe size= { 20 } />
+              <span>{ i18n.t( $ => $.stats.expenses ) }</span>
+            </Heading>
+            <p>{ i18n.t( $ => $.stats.expensesInfo ) }</p>
+            <div className= 'my-6 border-t-2 border-dashed border-slate-300' />
+            <div className= 'space-y-3'>
+              { Object.entries( stats.expenses ).map( ( [ c, v ] ) => (
+                <div key= { c } className= 'space-y-1'>
+                  <div className= 'flex justify-between items-baseline gap-4'>
+                    <span className= 'min-w-0 truncate text-sm text-slate-800'>
+                      { i18n.t( $ => $.country[ c as keyof typeof $.country ] ) }
+                    </span>
+                    <span className= 'font-mono font-semibold text-2xl text-slate-800'>
+                      { formatUnit( 'month', v, { ...display, decimals: 0 } ) }
+                    </span>
+                  </div>
+                  <div className= 'h-2 bg-slate-200 rounded-full overflow-hidden'>
+                    <div
+                      className= 'h-2 bg-primary transition-all duration-300'
+                      style= { { width: `${ v / stats.expenses!.in * 100 }%` } }
+                    />
+                  </div>
+                </div>
+              ) ) }
+            </div>
+          </Card>
+        ) }
+        
+        { /** Equivalents */ }
+        { stats.equivalents && (
+          <Card className= 'break-inside-avoid'>
+            <Heading level= { 4 } className= 'flex items-center gap-4 mb-6'>
+              <Scale size= { 20 } />
+              <span>{ i18n.t( $ => $.stats.equivalents ) }</span>
+            </Heading>
+            <p>{ i18n.t( $ => $.stats.equivalentsInfo ) }</p>
+            <div className= 'my-6 border-t-2 border-dashed border-slate-300' />
+            <div className= 'space-y-3'>
+              <div className= 'flex justify-between items-baseline gap-4'>
+                <span className= 'min-w-0 truncate text-sm text-slate-500'>
+                  { i18n.t( $ => $.equivalent.gold ) }
+                </span>
+                <span className= 'font-mono font-semibold text-2xl text-slate-800'>
+                  { formatUnit( 'gram', stats.equivalents.gold, display ) }
+                </span>
+              </div>
+              <div className= 'flex justify-between items-baseline gap-4'>
+                <span className= 'min-w-0 truncate text-sm text-slate-500'>
+                  { i18n.t( $ => $.equivalent.coinStack ) }
+                </span>
+                <span className= 'font-mono font-semibold text-2xl text-slate-800'>
+                  { formatUnit( 'meter', stats.equivalents.coinStack, display ) }
+                </span>
+              </div>
+              <div className= 'flex justify-between items-baseline gap-4'>
+                <span className= 'min-w-0 truncate text-sm text-slate-500'>
+                  { i18n.t( $ => $.equivalent.savings ) }
+                </span>
+                <span className= 'font-mono font-semibold text-2xl text-slate-800'>
+                  { formatPercent( stats.equivalents.savings, display ) }
+                </span>
+              </div>
+              <div className= 'flex justify-between items-baseline gap-4'>
+                <span className= 'min-w-0 truncate text-sm text-slate-500'>
+                  { i18n.t( $ => $.equivalent.income ) }
+                </span>
+                <span className= 'font-mono font-semibold text-2xl text-slate-800'>
+                  { formatPercent( stats.equivalents.income, display ) }
+                </span>
+              </div>
+              <div className= 'flex justify-between items-baseline gap-4'>
+                <span className= 'min-w-0 truncate text-sm text-slate-500'>
+                  { i18n.t( $ => $.equivalent.burger ) }
+                </span>
+                <span className= 'font-mono font-semibold text-2xl text-slate-800'>
+                  { formatNumber( stats.equivalents.burger, { ...display, decimals: 0 } ) }
+                </span>
+              </div>
+            </div>
+          </Card>
+        ) }
 
         { /** Average Earnings */ }
         { avgEarnings && (
