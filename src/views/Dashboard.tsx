@@ -6,7 +6,7 @@ import { useData } from '@/src/context/DataCtx';
 import { useIsMobile, useLayout } from '@/src/context/LayoutCtx';
 import { formatCurrency, formatPercent, formatUnit } from '@/src/lib/formatter';
 import i18n from '@/src/lib/i18n';
-import { useEffect, useMemo } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import {
   Area, CartesianGrid, ComposedChart, Line, ReferenceLine, ResponsiveContainer,
   Tooltip, XAxis, YAxis
@@ -29,7 +29,6 @@ export const Dashboard = () => {
     Object.values( data?.computed.years ?? {} ).sort( ( a, b ) => a.year - b.year )
   ), [ data ] );
 
-  // Assemble details and derive boundaries for visualization
   const yearDetails = useMemo( () => snapshots.map( ( s ) => {
     const netWorth = s.netWorth;
     const minNetWorth = s.minNetWorth ?? s.netWorth;
@@ -45,6 +44,36 @@ export const Dashboard = () => {
   } ), [ snapshots ] );
 
   const latest = useMemo( () => yearDetails.slice().reverse()[ 0 ], [ yearDetails ] );
+
+  const [ visibleSeries, setVisibleSeries ] = useState( {
+    netWorth: true, range: true, assets: true, liabilities: true, real: true
+  } );
+
+  const toggleSeries = ( key: keyof typeof visibleSeries ) => {
+    setVisibleSeries( prev => ( { ...prev, [ key ]: ! prev[ key ] } ) );
+  };
+
+  const legendItems = useMemo( () => [ {
+    key: 'netWorth' as const,
+    label: i18n.t( $ => $.dashboard.netWorth ),
+    color: '#2563eb'
+  }, {
+    key: 'range' as const,
+    label: i18n.t( $ => $.dashboard.range ),
+    color: '#3b82f6'
+  }, {
+    key: 'assets' as const,
+    label: i18n.t( $ => $.momentum.assets ),
+    color: '#10b981'
+  }, {
+    key: 'liabilities' as const,
+    label: i18n.t( $ => $.dashboard.liabilities ),
+    color: '#ef4444'
+  }, {
+    key: 'real' as const,
+    label: i18n.t( $ => $.dashboard.real ),
+    color: '#8884d8'
+  } ], [ display.language ] );
 
   return (
     <div className= 'space-y-8'>

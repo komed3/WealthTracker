@@ -122,7 +122,7 @@ export default ( {
       USD: 'US Dollar (USD)'
     },
     dashboard: {
-      assets: 'Nettovermögen',
+      assets: 'Assets',
       avgGrowth: 'Avg. Growth / Year',
       chartSubtitle: 'Temporal progression of your wealth, including assets, liabilities, estimated range and real value.',
       chartTitle: 'Wealth Development',
@@ -131,6 +131,7 @@ export default ( {
       minimum: 'Low',
       netWorth: 'Total Net Worth',
       percentile: 'Global Percentile',
+      range: 'Value Range',
       real: 'Real Value',
       title: 'Dashboard'
     },
