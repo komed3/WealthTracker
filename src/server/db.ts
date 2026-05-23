@@ -1,5 +1,5 @@
 import type { STABILITY, TREND, VOLATILITY } from '@/src/config/constants';
-import { CURRENCY_CONV, EQUIV_FACTOR, EQUIVALENT } from '@/src/config/constants';
+import { CURRENCY_CONV, EQUIV_FACTOR, EQUIVALENT, EXPENSE, EXPENSE_FACTOR } from '@/src/config/constants';
 import type {
   Breakdown, ComputedData, Data, EntryRecord, EntryStats, Milestone,
   PortfolioStats, Settings, YearSnapshot
@@ -417,9 +417,14 @@ export class Database {
     }
 
     const inUSD = latestNetWorth * CURRENCY_CONV[ currency ];
+
     const equivalents = Object.fromEntries( EQUIVALENT.map( e => ( [
       e, round( inUSD / EQUIV_FACTOR[ e ] )
     ] ) ) ) as PortfolioStats[ 'equivalents' ];
+
+    const expenses = Object.fromEntries( EXPENSE.map( e => ( [
+      e, round( inUSD / EXPENSE_FACTOR[ e ] )
+    ] ) ) ) as PortfolioStats[ 'expenses' ];
 
     const globalPercentile = inUSD < 1e3 ? 100 - ( inUSD / 1e3 ) * 45
       : inUSD < 1e4 ? 55 - ( ( inUSD - 1e3 ) / 9e3 ) * 15
@@ -436,8 +441,8 @@ export class Database {
       realValue: round( portfolioSummary.realValue ),
       nonRealValue: round( portfolioSummary.nonRealValue ),
       totalGrowth, averageAnnualGrowth, bestYear, worstYear,
-      milestones, equivalents, inUSD: round( inUSD ),
       globalPercentile: round( Math.max( 0.01, globalPercentile ) ) / 100,
+      milestones, equivalents, expenses, inUSD: round( inUSD ),
       count: {
         asset: portfolioSummary.assetCount,
         liability: portfolioSummary.liabilityCount,
