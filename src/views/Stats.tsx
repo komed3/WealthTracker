@@ -6,7 +6,8 @@ import { useData } from '@/src/context/DataCtx';
 import { useLayout } from '@/src/context/LayoutCtx';
 import { formatCurrency, formatNumber, formatPercent, formatUnit } from '@/src/lib/formatter';
 import i18n from '@/src/lib/i18n';
-import { BriefcaseBusiness, PiggyBank, Scale } from 'lucide-react';
+import { cn } from '@/src/lib/utils';
+import { BriefcaseBusiness, ChevronLeft, ChevronRight, PiggyBank, Scale } from 'lucide-react';
 import { useEffect, useMemo, useRef, useState } from 'react';
 
 export const Stats = () => {
@@ -110,26 +111,70 @@ export const Stats = () => {
       ) }
 
       { /** Milestones */ }
-      { stats.milestones && (
-        <div className= 'flex py-12'>
-          { stats.milestones.slice( -6 ).map( ( m, i ) => (
-            <div key= { i } className= 'flex-1 w-full space-y-6'>
-              <div className= 'relative h-0 border-t-3 border-slate-800'>
-                <div className= {
-                  'absolute left-[50%] -translate-x-1.5 -translate-y-2 w-4 h-4 bg-white ' +
-                  'border-3 border-slate-800 rounded-full'
-                } />
-              </div>
-              <div className= 'flex flex-col items-center'>
-                <span className= 'font-bold text-2xl text-slate-800'>
-                  { formatCurrency( m.milestone, { ...display, decimals: 0 } ) }
-                </span>
-                <span className= 'font-medium text-sm text-slate-400'>
-                  { m.year }
-                </span>
-              </div>
+      { stats.milestones && stats.milestones.length > 0 && (
+        <div className= 'group/milestones relative w-full py-4'>
+          { /** Scroll Container */ }
+          <div
+            ref= { scrollRef }
+            onScroll= { updateScrollButtons }
+            className= 'mx-12 py-6 overflow-x-auto scrollbar-none scroll-smooth'
+            style= { { scrollbarWidth: 'none', msOverflowStyle: 'none' } }
+          >
+            <div className= 'flex gap-0 min-w-full'>
+              { stats.milestones.map( ( m, i ) => (
+                <div key= { i } className= 'relative space-y-6 flex flex-col items-center shrink-0 w-full sm:w-1/2 md:w-1/3 lg:w-1/4 xl:w-1/5'>
+                  <div className= 'relative flex justify-center items-center w-full h-8'>
+                    { /** Horizontal Connector */ }
+                    <div className= { cn(
+                      'absolute top-1/2 translate-y-[-1.5px] h-0 border-t-3 border-slate-800',
+                      i === 0 ? 'left-1/2 right-0' : i === stats.milestones.length - 1 ? 'left-0 right-1/2' : 'left-0 right-0'
+                    ) } />
+                    { /** Circle Indicator */ }
+                    <div className= 'relative w-4 h-4 bg-white border-3 border-slate-800 rounded-full shadow-sm z-10' />
+                  </div>
+                  <div className= 'flex flex-col items-center text-center'>
+                    <span className= 'font-bold text-xl sm:text-2xl text-slate-800'>
+                      { formatCurrency( m.milestone, { ...display, decimals: 0 } ) }
+                    </span>
+                    <span className= 'font-medium text-xs sm:text-sm text-slate-400'>
+                      { m.year }
+                    </span>
+                  </div>
+                </div>
+              ) ) }
             </div>
-          ) ) }
+          </div>
+
+          { /** Navigation Arrows */ }
+          <button
+            onClick= { () => scroll( 'left' ) }
+            disabled= { ! canScrollLeft }
+            className= { cn(
+              'absolute z-20 left-0 top-14 -translate-y-1/2 flex justify-center items-center p-2',
+              'text-slate-600 hover:text-primary bg-white border border-slate-200',
+              'shadow hover:shadow-md rounded-full active:scale-95 transition-all duration-300',
+              ! canScrollLeft
+                ? 'pointer-events-none text-slate-500 bg-slate-100 opacity-50 shadow-none'
+                : 'hover:scale-105 opacity-100'
+            ) }
+          >
+            <ChevronLeft size= { 16 } />
+          </button>
+
+          <button
+            onClick= { () => scroll( 'right' ) }
+            disabled= { ! canScrollRight }
+            className= { cn(
+              'absolute z-20 right-0 top-14 -translate-y-1/2 flex justify-center items-center p-2',
+              'text-slate-600 hover:text-primary bg-white border border-slate-200',
+              'shadow hover:shadow-md rounded-full active:scale-95 transition-all duration-300',
+              ! canScrollRight
+                ? 'pointer-events-none text-slate-500 bg-slate-100 opacity-50 shadow-none'
+                : 'hover:scale-105 opacity-100'
+            ) }
+          >
+            <ChevronRight size= { 16 } />
+          </button>
         </div>
       ) }
 
@@ -217,7 +262,7 @@ export const Stats = () => {
               max= { 500 }
               step= { 5 }
               value= { hourlyWage }
-              onChange={ ( e ) => setHourlyWage( Number( e.target.value ) ) }
+              onChange= { ( e ) => setHourlyWage( Number( e.target.value ) ) }
               className= {
                 'w-full h-2 rounded-lg appearance-none cursor-pointer [&::-webkit-slider-thumb]:appearance-none ' +
                 '[&::-webkit-slider-thumb]:h-5 [&::-webkit-slider-thumb]:w-5 [&::-webkit-slider-thumb]:rounded-full ' +
@@ -227,7 +272,7 @@ export const Stats = () => {
                 '[&::-moz-range-thumb]:bg-white [&::-moz-range-thumb]:border-2 ' +
                 '[&::-moz-range-thumb]:border-primary [&::-moz-range-thumb]:shadow-md'
               }
-              style={ { background: `linear-gradient(to right, #2563eb ${percent}%, #e2e8f0 ${percent}%)` } }
+              style= { { background: `linear-gradient(to right, #2563eb ${percent}%, #e2e8f0 ${percent}%)` } }
             />
           </div>
 
