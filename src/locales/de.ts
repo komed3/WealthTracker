@@ -91,6 +91,14 @@ export default ( {
       low: 'Niedrig',
       medium: 'Mittel'
     },
+    country: {
+      ch: 'Schweiz',
+      de: 'Deutschland',
+      in: 'Indien',
+      sg: 'Singapur',
+      us: 'Vereinige Staaten',
+      za: 'Südafrika'
+    },
     currencies: {
       AED: 'Dirham (AED)',
       AUD: 'Australischer Dollar (AUD)',
@@ -286,6 +294,8 @@ export default ( {
       description: 'Erhalte Einblick in Meilensteine, Durchschnittsverdienste und spannende Vermögensvergleiche.',
       equivalents: 'Äquivalente',
       equivalentsInfo: 'Verstehe die realen Äquivalente deines Vermögens, von Burgern bis zu Arbeitsstunden.',
+      expenses: 'Lebenshaltungskosten',
+      expensesInfo: 'Wie lange würden deine aktuellen Vermögenswerte deine Lebenshaltungskosten in diesen Ländern decken?',
       growth: 'Ø Wachstum / Jahr',
       hourlyWage: '{{value}} pro Std.',
       hourlyWageLabel: 'Stundenlohn',

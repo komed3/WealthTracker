@@ -91,6 +91,14 @@ export default ( {
       low: 'Low',
       medium: 'Medium'
     },
+    country: {
+      ch: 'Switzerland',
+      de: 'Germany',
+      in: 'India',
+      sg: 'Singapore',
+      us: 'United States',
+      za: 'South Africa'
+    },
     currencies: {
       AED: 'Dirham (AED)',
       AUD: 'Australian Dollar (AUD)',
@@ -286,6 +294,8 @@ export default ( {
       description: 'Gain insights into milestones, average earnings, and comparative metrics of your wealth.',
       equivalents: 'Equivalents',
       equivalentsInfo: 'Understand the real-world equivalents of your wealth, from burgers to working hours.',
+      expenses: 'Living Expenses',
+      expensesInfo: 'How long would your current wealth cover your living expenses in those countries?',
       growth: 'Avg. Growth / Year',
       hourlyWage: '{{value}} per hr.',
       hourlyWageLabel: 'Hourly Wage',
