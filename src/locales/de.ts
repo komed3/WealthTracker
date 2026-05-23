@@ -124,13 +124,14 @@ export default ( {
     dashboard: {
       assets: 'Nettovermögen',
       avgGrowth: 'Ø Wachstum / Jahr',
-      chartSubtitle: 'Zeitlicher Verlauf deines Vermögens, umfasst Vermögenswerte, Verbindlichkeiten und geschätzte Spanne',
+      chartSubtitle: 'Zeitlicher Verlauf deines Vermögens, umfasst Vermögenswerte, Verbindlichkeiten, geschätzte Spanne und Realwert.',
       chartTitle: 'Vermögensentwicklung',
       liabilities: 'Verbindlichkeiten',
       maximum: 'Hoch',
       minimum: 'Niedrig',
       netWorth: 'Gesamtvermögen',
       percentile: 'Globales Perzentil',
+      real: 'Realwert',
       title: 'Dashboard'
     },
     editor: {

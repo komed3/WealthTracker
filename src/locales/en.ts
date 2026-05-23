@@ -124,13 +124,14 @@ export default ( {
     dashboard: {
       assets: 'Nettovermögen',
       avgGrowth: 'Avg. Growth / Year',
-      chartSubtitle: 'Temporal progression of your wealth, including assets, liabilities and estimated range',
+      chartSubtitle: 'Temporal progression of your wealth, including assets, liabilities, estimated range and real value.',
       chartTitle: 'Wealth Development',
       liabilities: 'Liabilities',
       maximum: 'High',
       minimum: 'Low',
       netWorth: 'Total Net Worth',
       percentile: 'Global Percentile',
+      real: 'Real Value',
       title: 'Dashboard'
     },
     editor: {

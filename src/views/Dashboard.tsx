@@ -34,10 +34,13 @@ export const Dashboard = () => {
     const netWorth = s.netWorth;
     const minNetWorth = s.minNetWorth ?? s.netWorth;
     const maxNetWorth = s.maxNetWorth ?? s.netWorth;
+    const real = s.realization?.real.value ?? s.assets ?? s.netWorth;
+    const assets = s.assets ?? 0;
+    const liabilities = ( s.liabilities ?? 0 ) * -1;
 
     return {
-      ...s, netWorth, minNetWorth, maxNetWorth,
-      range: [ minNetWorth, maxNetWorth ]
+      ...s, netWorth, minNetWorth, maxNetWorth, real, assets,
+      liabilities, range: [ minNetWorth, maxNetWorth ]
     };
   } ), [ snapshots ] );
 
@@ -58,7 +61,7 @@ export const Dashboard = () => {
           />
           <InfoCard
             label= { i18n.t( $ => $.dashboard.liabilities ) }
-            value= { formatCurrency( latest.liabilities, display ) }
+            value= { formatCurrency( Math.abs( latest.liabilities ), display ) }
           />
           <InfoCard
             label= { i18n.t( $ => $.dashboard.avgGrowth ) }
@@ -137,6 +140,24 @@ export const Dashboard = () => {
                             value= { formatCurrency( dataPoint.minNetWorth, display ) }
                           />
                         ) }
+                        { dataPoint.assets !== 0 && (
+                          <TooltipRow
+                            label= { i18n.t( $ => $.dashboard.assets ) }
+                            value= { formatCurrency( dataPoint.assets, display ) }
+                          />
+                        ) }
+                        { dataPoint.liabilities !== 0 && (
+                          <TooltipRow
+                            label= { i18n.t( $ => $.dashboard.liabilities ) }
+                            value= { formatCurrency( Math.abs( dataPoint.liabilities ), display ) }
+                          />
+                        ) }
+                        { dataPoint.real !== dataPoint.netWorth && (
+                          <TooltipRow
+                            label= { i18n.t( $ => $.dashboard.real ) }
+                            value= { formatCurrency( dataPoint.real, display ) }
+                          />
+                        ) }
                       </CustomTooltip>
                     );
                   }
@@ -150,17 +171,38 @@ export const Dashboard = () => {
                 style= { { opacity: 0.6 } }
               />
 
-              { /** Semi-transparent range area band as backdrop */ }
+              <defs>
+                <linearGradient id= 'gradient-assets' x1= '0' y1= '0' x2= '0' y2= '1'>
+                  <stop offset= '0%' stopColor= '#10b981' stopOpacity= { 1 } />
+                  <stop offset= '100%' stopColor= '#10b981' stopOpacity= { 0 } />
+                </linearGradient>
+                <linearGradient id= 'gradient-liabilities' x1= '0' y1= '0' x2= '0' y2= '1'>
+                  <stop offset= '0%' stopColor= '#ef4444' stopOpacity= { 0 } />
+                  <stop offset= '100%' stopColor= '#ef4444' stopOpacity= { 1 } />
+                </linearGradient>
+                <pattern
+                  id= 'pattern-real'
+                  width= { 6 }
+                  height= { 6 }
+                  patternUnits= 'userSpaceOnUse'
+                  patternTransform= 'rotate(45)'
+                >
+                  <line
+                    x1= { 0 } y= { 0 } x2= { 0 } y2= { 6 }
+                    stroke= '#8884d8'
+                    strokeWidth= { 2 }
+                  />
+                </pattern>
+              </defs>
+
               <Area
                 type= 'monotone'
                 dataKey= 'range'
                 fill= '#2563eb'
-                fillOpacity= { 0.08 }
+                fillOpacity= { 0.15 }
                 stroke= 'none'
                 activeDot= { false }
               />
-
-              { /** Subtle dashed upper boundary line */ }
               <Line
                 type= 'monotone'
                 dataKey= 'maxNetWorth'
@@ -171,8 +213,6 @@ export const Dashboard = () => {
                 dot= { false }
                 activeDot= { false }
               />
-
-              { /** Subtle dashed lower boundary line */ }
               <Line
                 type= 'monotone'
                 dataKey= 'minNetWorth'
@@ -184,7 +224,42 @@ export const Dashboard = () => {
                 activeDot= { false }
               />
 
-              { /** Prominent styled primary actual timeline line with customized circular markers */ }
+              <Area
+                type= 'monotone'
+                dataKey= 'assets'
+                fill= 'url(#gradient-assets)'
+                fillOpacity= { 0.15 }
+                stroke= '#10b981'
+                strokeOpacity= { 0.25 }
+                strokeWidth= { 1 }
+                dot= { false }
+                activeDot= { false }
+              />
+
+              <Area
+                type= 'monotone'
+                dataKey= 'liabilities'
+                fill= 'url(#gradient-liabilities)'
+                fillOpacity= { 0.15 }
+                stroke= '#ef4444'
+                strokeOpacity= { 0.25 }
+                strokeWidth= { 1 }
+                dot= { false }
+                activeDot= { false }
+              />
+
+              <Area
+                type= 'monotone'
+                dataKey= 'real'
+                fill= 'url(#pattern-real)'
+                fillOpacity= { 0.25 }
+                stroke= '#8884d8'
+                strokeOpacity= { 0.25 }
+                strokeWidth= { 1.5 }
+                dot= { false }
+                activeDot= { false }
+              />
+
               <Line
                 type= 'monotone'
                 dataKey= 'netWorth'
