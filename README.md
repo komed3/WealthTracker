@@ -50,5 +50,5 @@ Now you can access the application at `http://localhost:3000`.
 
 ## License
 
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.  
-(c) 2026 by Paul Köhler ([komed3](https://komed3.de)). All rights reserved.
+This project is licensed under the MIT License — see the [LICENSE](LICENSE) file for details.  
+© 2026 by Paul Köhler ([komed3](https://komed3.de)). All rights reserved.
