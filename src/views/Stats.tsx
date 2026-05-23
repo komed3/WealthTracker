@@ -1,4 +1,5 @@
 import { Card, InfoCard } from '@/src/components/ui/Card';
+import { CustomTooltip, TooltipRow, xAxisInterval, yAxisFormatter } from '@/src/components/ui/Chart';
 import { Heading } from '@/src/components/ui/Heading';
 import { Intro } from '@/src/components/ui/Intro';
 import { NoData } from '@/src/components/ui/NoData';
@@ -10,7 +11,6 @@ import { cn } from '@/src/lib/utils';
 import { BriefcaseBusiness, ChartColumn, ChevronLeft, ChevronRight, Globe, PiggyBank, Scale } from 'lucide-react';
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { Bar, BarChart, Rectangle, ReferenceLine, ResponsiveContainer, Tooltip, XAxis, YAxis } from 'recharts';
-import { CustomTooltip, xAxisInterval, yAxisFormatter } from '../components/ui/Chart';
 
 export const Stats = () => {
   const { setTitle } = useLayout();
@@ -228,33 +228,29 @@ export const Stats = () => {
                   return (
                     <CustomTooltip
                       label= { dataPoint.year }
-                      value= { formatCurrency( Math.abs( dataPoint.value ), display ) }
-                      color= { isPositive ? '#10b981' : '#ef4444' }
+                      value= { ( <div className= 'space-x-1'>
+                        <span style= { { color: isPositive ? '#10b981' : '#ef4444' } } >
+                          { formatCurrency( Math.abs( dataPoint.value ), display ) }
+                        </span>
+                        <span className= 'font-sans text-xs'> / { i18n.t( $ => $.period.day ) }</span>
+                      </div> ) }
                     >
-                      <div className= 'flex justify-between gap-4'>
-                        <span>{ i18n.t( $ => $.period.month ) }</span>
-                        <span className= 'font-semibold text-slate-800'>
-                          { formatCurrency( dataPoint.raw.netWorth / 12, display ) }
-                        </span>
-                      </div>
-                      <div className= 'flex justify-between gap-4'>
-                        <span>{ i18n.t( $ => $.period.week ) }</span>
-                        <span className= 'font-semibold text-slate-800'>
-                          { formatCurrency( dataPoint.raw.netWorth / 52.1775, display ) }
-                        </span>
-                      </div>
-                      <div className= 'flex justify-between gap-4'>
-                        <span>{ i18n.t( $ => $.period.hour ) }</span>
-                        <span className= 'font-semibold text-slate-800'>
-                          { formatCurrency( dataPoint.raw.netWorth / 8766, display ) }
-                        </span>
-                      </div>
-                      <div className= 'flex justify-between gap-4'>
-                        <span>{ i18n.t( $ => $.period.minute ) }</span>
-                        <span className= 'font-semibold text-slate-800'>
-                          { formatCurrency( dataPoint.raw.netWorth / 525960, display ) }
-                        </span>
-                      </div>
+                      <TooltipRow
+                        label= { i18n.t( $ => $.period.month ) }
+                        value= { formatCurrency( dataPoint.raw.netWorth / 12, display ) }
+                      />
+                      <TooltipRow
+                        label= { i18n.t( $ => $.period.week ) }
+                        value= { formatCurrency( dataPoint.raw.netWorth / 52.1775, display ) }
+                      />
+                      <TooltipRow
+                        label= { i18n.t( $ => $.period.hour ) }
+                        value= { formatCurrency( dataPoint.raw.netWorth / 8766, display ) }
+                      />
+                      <TooltipRow
+                        label= { i18n.t( $ => $.period.minute ) }
+                        value= { formatCurrency( dataPoint.raw.netWorth / 525960, display ) }
+                      />
                     </CustomTooltip>
                   );
                 }
