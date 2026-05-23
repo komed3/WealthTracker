@@ -1,4 +1,5 @@
 import { formatCurrency, formatPercent } from '@/src/lib/formatter';
+import { hasRenderableChildren } from '@/src/lib/utils';
 import type { CustomTooltipProps, TooltipRowProps, xAxisIntervalProps, yAxisFormatterProps } from '@/src/types/props';
 
 export const CustomTooltip = ( { label, value, children, color }: CustomTooltipProps ) => {
@@ -8,7 +9,7 @@ export const CustomTooltip = ( { label, value, children, color }: CustomTooltipP
       <div className= 'font-mono text-lg font-semibold' style= { { color } }>
         { value }
       </div>
-      { children && (
+      { hasRenderableChildren( children ) && (
         <div className= 'space-y-1.5 mt-2 pt-2 text-xs text-slate-500 border-t border-dashed border-slate-300'>
           { children }
         </div>
