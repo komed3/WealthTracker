@@ -292,8 +292,12 @@ export default ( {
       percentile: 'Global Percentile',
       rank: 'Global Rank',
       title: 'Wealth Stats',
+      workingDays: 'Days (8 hrs)',
       workingHrs: 'Working Hours',
-      workingHrsInfo: 'How long would you have to work to generate your current wealth?'
+      workingHrsInfo: 'How long would you have to work to generate your current wealth?',
+      workingMonths: 'Months (160 hrs)',
+      workingWeeks: 'Weeks (40 hrs)',
+      workingYears: 'Years'
     },
     status: {
       active: 'Active',

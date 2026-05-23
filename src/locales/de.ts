@@ -292,8 +292,12 @@ export default ( {
       percentile: 'Globales Perzentil',
       rank: 'Globaler Rang',
       title: 'Statistiken',
+      workingDays: 'Tage (8 Std.)',
       workingHrs: 'Arbeitsstunden',
-      workingHrsInfo: 'Wie lange müsstest du arbeiten, um dein aktuelles Vermögen zu generieren?'
+      workingHrsInfo: 'Wie lange müsstest du arbeiten, um dein aktuelles Vermögen zu generieren?',
+      workingMonths: 'Monate (160 Std.)',
+      workingWeeks: 'Wochen (40 Std.)',
+      workingYears: 'Jahre'
     },
     status: {
       active: 'Aktiv',

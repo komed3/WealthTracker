@@ -193,6 +193,50 @@ export const Stats = () => {
               style={ { background: `linear-gradient(to right, #2563eb ${percent}%, #e2e8f0 ${percent}%)` } }
             />
           </div>
+
+          { /** Calculated Results */ }
+          <div className= 'space-y-3'>
+            <div className= 'flex justify-between items-baseline gap-4'>
+              <span className= 'min-w-0 truncate text-sm text-slate-500'>
+                { i18n.t( $ => $.stats.workingHrs ) }
+              </span>
+              <span className= 'font-mono font-bold text-2xl text-slate-800'>
+                { formatUnit( 'hour', stats.inUSD / hourlyWage, { ...display, decimals: 0 } ) }
+              </span>
+            </div>
+            <div className= 'flex justify-between items-baseline gap-4'>
+              <span className= 'min-w-0 truncate text-sm text-slate-500'>
+                { i18n.t( $ => $.stats.workingDays ) }
+              </span>
+              <span className= 'font-mono font-medium text-lg text-slate-600'>
+                { formatUnit( 'day', stats.inUSD / hourlyWage / 8, { ...display, decimals: 0 } ) }
+              </span>
+            </div>
+            <div className= 'flex justify-between items-baseline gap-4'>
+              <span className= 'min-w-0 truncate text-sm text-slate-500'>
+                { i18n.t( $ => $.stats.workingWeeks ) }
+              </span>
+              <span className= 'font-mono font-medium text-lg text-slate-600'>
+                { formatUnit( 'week', stats.inUSD / hourlyWage / 40, { ...display, decimals: 0 } ) }
+              </span>
+            </div>
+            <div className= 'flex justify-between items-baseline gap-4'>
+              <span className= 'min-w-0 truncate text-sm text-slate-500'>
+                { i18n.t( $ => $.stats.workingMonths ) }
+              </span>
+              <span className= 'font-mono font-medium text-lg text-slate-600'>
+                { formatUnit( 'month', stats.inUSD / hourlyWage / 160, { ...display, decimals: 0 } ) }
+              </span>
+            </div>
+            <div className= 'flex justify-between items-baseline gap-4'>
+              <span className= 'min-w-0 truncate text-sm text-slate-500'>
+                { i18n.t( $ => $.stats.workingYears ) }
+              </span>
+              <span className= 'font-mono font-medium text-lg text-slate-600'>
+                { formatUnit( 'year', stats.inUSD / hourlyWage / 1840, { ...display, decimals: 0 } ) }
+              </span>
+            </div>
+          </div>
         </Card>
 
         { /** Average Earnings */ }
