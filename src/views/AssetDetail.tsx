@@ -112,7 +112,7 @@ export const AssetDetail = () => {
         { /** Asset Value */ }
         <div className= 'flex justify-between lg:justify-end items-center gap-6 lg:gap-8 w-full lg:w-auto text-right'>
           <div className= 'flex flex-col items-start lg:items-end'>
-            <span className= 'leading-none font-mono text-xl lg:text-2xl font-bold text-slate-900'>
+            <span className= 'leading-none font-mono text-xl lg:text-2xl font-semibold text-slate-900'>
               { formatCurrency( currentAbs, display ) }
             </span>
             <span className= 'mt-1.5 truncate uppercase tracking-wider text-xs font-medium text-slate-400'>
@@ -121,7 +121,7 @@ export const AssetDetail = () => {
           </div>
 
           <div className= 'flex flex-col items-end'>
-            <span className= 'font-mono text-xl lg:text-2xl font-bold leading-none'>
+            <span className= 'font-mono text-xl lg:text-2xl font-semibold leading-none'>
               { formatPercent( currentRel, display ) }
             </span>
             <span className= 'mt-1.5 truncate uppercase tracking-wider text-xs font-medium text-slate-400'>

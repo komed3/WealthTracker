@@ -274,7 +274,7 @@ export const DataPointsEditor = ( { entries, onUpdateHistory, setActiveTab }: Da
                   </td>
 
                   { /** Value */ }
-                  <td className= 'px-6 py-4 text-right font-mono text-lg font-semibold text-primary'>
+                  <td className= 'px-6 py-4 text-right font-mono text-lg font-medium text-primary'>
                     { formatCurrency( yearVal.value, settings?.display ) }
                   </td>
 

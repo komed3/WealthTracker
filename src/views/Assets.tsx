@@ -232,7 +232,7 @@ export const Assets = () => {
                       </Link>
 
                       { /** Value / Fraction Indicator */ }
-                      <div className= 'shrink-0 text-right font-mono text-lg font-bold text-slate-950'>
+                      <div className= 'shrink-0 text-right font-mono text-lg font-semibold text-slate-950'>
                         { viewMode === 'absolute'
                           ? formatCurrency( currentAbs, display )
                           : formatPercent( currentRel, display )

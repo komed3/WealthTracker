@@ -260,10 +260,10 @@ export const Breakdown = () => {
                         </p>
                       </div>
                       <div className= 'shrink-0 flex items-baseline gap-4 text-right text-slate-800'>
-                        <p className= 'font-mono font-bold text-lg leading-none'>
+                        <p className= 'font-mono font-semibold text-lg leading-none'>
                           { formatCurrency( item.value, display ) }
                         </p>
-                        <p className= 'font-mono font-semibold text-xs leading-none'>
+                        <p className= 'font-mono font-medium text-xs leading-none'>
                           ({ formatPercent( item.share, display ) })
                         </p>
                       </div>

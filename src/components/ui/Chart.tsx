@@ -5,7 +5,7 @@ export const CustomTooltip = ( { label, value, children, color }: CustomTooltipP
   return (
     <div className= 'min-w-50 p-4 bg-white border border-slate-200 rounded-xl shadow-md'>
       <p className= 'uppercase font-bold text-sm text-slate-400 tracking-wider'>{ label }</p>
-      <div className= 'font-mono text-lg font-bold' style= { { color } }>
+      <div className= 'font-mono text-lg font-semibold' style= { { color } }>
         { value }
       </div>
       { children && (

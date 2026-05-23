@@ -67,7 +67,7 @@ export const Input = ( {
           className= { cn(
             'w-full h-11 px-4 text-slate-800 placeholder:text-slate-400 bg-white border border-slate-200 rounded-xl focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/10 transition-all duration-200',
             isDate && 'pr-10 [&::-webkit-calendar-picker-indicator]:absolute [&::-webkit-calendar-picker-indicator]:inset-y-0 [&::-webkit-calendar-picker-indicator]:right-0 [&::-webkit-calendar-picker-indicator]:w-full [&::-webkit-calendar-picker-indicator]:opacity-0 [&::-webkit-calendar-picker-indicator]:cursor-pointer',
-            isCurrency && ! isFocused && 'font-semibold text-primary',
+            isCurrency && ! isFocused && 'font-mono font-medium text-primary',
             error && 'border-red-400 focus:border-red-400 focus:ring-red-100',
             className
           ) }

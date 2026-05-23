@@ -22,7 +22,7 @@ const ReportRow = ( { label, value, percentage, display }: ReportRowProps ) => {
           { label }
         </span>
         <div className= 'flex items-baseline gap-3 font-mono'>
-          <span className= 'text-lg font-bold'>
+          <span className= 'text-lg font-semibold'>
             { formatCurrency( value, display ) }
           </span>
           <span className= 'text-sm'>
@@ -151,7 +151,7 @@ export const Report = () => {
             </span>
           </div>
           <div className= 'flex items-baseline gap-4 shrink-0 font-mono'>
-            <span className= { cn( 'text-xl font-black', trendUp ? 'text-pos' : 'text-neg' ) }>
+            <span className= { cn( 'text-2xl font-semibold', trendUp ? 'text-pos' : 'text-neg' ) }>
               { formatCurrency( snapshot.growth.absolute, display ) }
             </span>
             <span>({ formatPercent( snapshot.growth.relative, display ) })</span>
@@ -173,7 +173,7 @@ export const Report = () => {
             <div className= 'flex flex-col items-center gap-2 p-4'>
               <div className= 'self-stretch flex flex-col xl:flex-row justify-between items-center gap-6'>
                 <div className= 'shrink-0 flex flex-col items-center xl:items-end w-48 text-center xl:text-right'>
-                  <span className= 'font-mono font-bold text-lg'>
+                  <span className= 'font-mono font-semibold text-xl'>
                     { formatCurrency( snapshot.minNetWorth, display ) }
                   </span>
                   <span className= 'uppercase font-bold text-[12px] text-slate-400 tracking-wider'>
@@ -207,7 +207,7 @@ export const Report = () => {
                   </div>
                 </div>
                 <div className= 'shrink-0 flex flex-col items-center xl:items-start w-48 text-center xl:text-left'>
-                  <span className= 'font-mono font-bold text-lg'>
+                  <span className= 'font-mono font-semibold text-xl'>
                     { formatCurrency( snapshot.maxNetWorth, display ) }
                   </span>
                   <span className= 'uppercase font-bold text-[12px] text-slate-400 tracking-wider'>
@@ -216,7 +216,7 @@ export const Report = () => {
                 </div>
               </div>
               <div className= 'hidden xl:flex flex-col items-center text-center'>
-                <span className= 'font-mono font-bold text-xl'>
+                <span className= 'font-mono font-semibold text-2xl'>
                   { formatCurrency( snapshot.netWorth, display ) }
                 </span>
                 <span className= 'uppercase font-bold text-[12px] text-slate-400 tracking-wider'>
@@ -265,7 +265,7 @@ export const Report = () => {
                     <td className= 'px-6 py-4 text-sm text-slate-800'>
                       { i18n.t( $ => $.liquidity[ item.entry.liquidity ] ) }
                     </td>
-                    <td className= 'px-6 py-4 text-right font-mono text-lg font-semibold text-slate-900'>
+                    <td className= 'px-6 py-4 text-right font-mono text-lg font-semibold text-slate-800'>
                       { formatCurrency( item.data.value, display ) }
                     </td>
                     <td className= 'px-6 py-4 text-right font-mono text-sm font-semibold text-slate-800'>

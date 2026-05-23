@@ -133,7 +133,7 @@ export const Stats = () => {
                     <div className= 'relative w-4 h-4 bg-white border-3 border-slate-800 rounded-full shadow-sm z-10' />
                   </div>
                   <div className= 'flex flex-col items-center text-center'>
-                    <span className= 'font-bold text-xl sm:text-2xl text-slate-800'>
+                    <span className= 'font-mono font-semibold text-xl sm:text-2xl text-slate-800 tracking-tight'>
                       { formatCurrency( m.milestone, { ...display, decimals: 0 } ) }
                     </span>
                     <span className= 'font-medium text-xs sm:text-sm text-slate-400'>
@@ -194,7 +194,7 @@ export const Stats = () => {
                 <span className= 'min-w-0 truncate text-sm text-slate-500'>
                   { i18n.t( $ => $.equivalent.gold ) }
                 </span>
-                <span className= 'font-mono font-bold text-2xl text-slate-800'>
+                <span className= 'font-mono font-semibold text-2xl text-slate-800'>
                   { formatUnit( 'gram', stats.equivalents.gold, display ) }
                 </span>
               </div>
@@ -202,7 +202,7 @@ export const Stats = () => {
                 <span className= 'min-w-0 truncate text-sm text-slate-500'>
                   { i18n.t( $ => $.equivalent.coinStack ) }
                 </span>
-                <span className= 'font-mono font-bold text-2xl text-slate-800'>
+                <span className= 'font-mono font-semibold text-2xl text-slate-800'>
                   { formatUnit( 'meter', stats.equivalents.coinStack, display ) }
                 </span>
               </div>
@@ -210,7 +210,7 @@ export const Stats = () => {
                 <span className= 'min-w-0 truncate text-sm text-slate-500'>
                   { i18n.t( $ => $.equivalent.savings ) }
                 </span>
-                <span className= 'font-mono font-bold text-2xl text-slate-800'>
+                <span className= 'font-mono font-semibold text-2xl text-slate-800'>
                   { formatPercent( stats.equivalents.savings, display ) }
                 </span>
               </div>
@@ -218,7 +218,7 @@ export const Stats = () => {
                 <span className= 'min-w-0 truncate text-sm text-slate-500'>
                   { i18n.t( $ => $.equivalent.income ) }
                 </span>
-                <span className= 'font-mono font-bold text-2xl text-slate-800'>
+                <span className= 'font-mono font-semibold text-2xl text-slate-800'>
                   { formatPercent( stats.equivalents.income, display ) }
                 </span>
               </div>
@@ -226,7 +226,7 @@ export const Stats = () => {
                 <span className= 'min-w-0 truncate text-sm text-slate-500'>
                   { i18n.t( $ => $.equivalent.burger ) }
                 </span>
-                <span className= 'font-mono font-bold text-2xl text-slate-800'>
+                <span className= 'font-mono font-semibold text-2xl text-slate-800'>
                   { formatNumber( stats.equivalents.burger, { ...display, decimals: 0 } ) }
                 </span>
               </div>
@@ -250,7 +250,7 @@ export const Stats = () => {
               <span className= 'min-w-0 truncate text-sm text-slate-500'>
                 { i18n.t( $ => $.stats.hourlyWageLabel ) }
               </span>
-              <span className= 'font-bold text-primary text-lg'>
+              <span className= 'font-semibold text-primary text-lg'>
                 { i18n.t( $ => $.stats.hourlyWage, {
                   value: formatCurrency( hourlyWage, { ...display, currency: 'USD', decimals: 0 } )
                 } ) }
@@ -282,7 +282,7 @@ export const Stats = () => {
               <span className= 'min-w-0 truncate text-sm text-slate-500'>
                 { i18n.t( $ => $.stats.workingHrs ) }
               </span>
-              <span className= 'font-mono font-bold text-2xl text-slate-800'>
+              <span className= 'font-mono font-semibold text-2xl text-slate-800'>
                 { formatUnit( 'hour', stats.inUSD / hourlyWage, { ...display, decimals: 0 } ) }
               </span>
             </div>
@@ -336,7 +336,7 @@ export const Stats = () => {
                   <span className= 'min-w-0 truncate text-sm text-slate-500'>
                     { i18n.t( $ => $.period[ p as keyof typeof $.period ] ) }
                   </span>
-                  <span className= 'font-mono font-bold text-2xl text-slate-800'>
+                  <span className= 'font-mono font-semibold text-2xl text-slate-800'>
                     { formatCurrency( v, display ) }
                   </span>
                 </div>

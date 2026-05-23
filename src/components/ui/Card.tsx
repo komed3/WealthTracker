@@ -15,7 +15,7 @@ export const InfoCard = ( { label, value } : InfoCardProps ) => {
       <div className= 'mb-1 truncate uppercase text-[10px] sm:text-xs font-bold tracking-wider text-slate-400' title= { label }>
         { label }
       </div>
-      <div className= 'truncate font-mono text-xl sm:text-2xl md:text-3xl font-bold tracking-tight text-slate-900' title= { value }>
+      <div className= 'truncate font-mono text-xl sm:text-2xl md:text-3xl font-semibold tracking-tight text-slate-900' title= { value }>
         { value }
       </div>
     </Card>
