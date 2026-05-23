@@ -12,7 +12,7 @@
   "type": "module",
   "scripts": {
     "start": "node dist/src/server/run.js",
-    "dev": "tsx watch src/server/run.ts",
+    "dev": "cross-env NODE_ENV=dev tsx watch src/server/run.ts",
     "build:server": "tsc --project tsconfig.build.json && tsc-alias -p tsconfig.build.json",
     "build": "vite build && npm run build:server",
     "lint": "tsc --noEmit"
@@ -39,6 +39,7 @@
     "@types/react": "^19.2.15",
     "@types/react-dom": "^19.2.3",
     "@vitejs/plugin-react": "^6.0.2",
+    "cross-env": "^10.1.0",
     "tsc-alias": "^1.8.17",
     "tsx": "^4.22.3",
     "typescript": "^6.0.3",
