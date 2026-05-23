@@ -280,8 +280,9 @@ export default ( {
       stable: 'Stabil'
     },
     stats: {
+      annualEarnings: 'Durchschnittsverdienst nach Jahr',
       avgEarnings: 'Durchschnittsverdienst',
-      avgEarningsInfo: 'Verfolge die Geschwindigkeit deiner Vermögensgenerierung aufgeschlüsselt nach genauen Zeiteinheiten.',
+      avgEarningsInfo: 'Verfolge die Geschwindigkeit deiner Vermögensgenerierung aufgeschlüsselt nach genauen Zeiteinheiten seit Geburt.',
       description: 'Erhalte Einblick in Meilensteine, Durchschnittsverdienste und spannende Vermögensvergleiche.',
       equivalents: 'Äquivalente',
       equivalentsInfo: 'Verstehe die realen Äquivalente deines Vermögens, von Burgern bis zu Arbeitsstunden.',

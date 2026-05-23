@@ -2,12 +2,13 @@ import { Card, InfoCard } from '@/src/components/ui/Card';
 import { Heading } from '@/src/components/ui/Heading';
 import { Intro } from '@/src/components/ui/Intro';
 import { NoData } from '@/src/components/ui/NoData';
+import { Select } from '@/src/components/ui/Select';
 import { useData } from '@/src/context/DataCtx';
 import { useLayout } from '@/src/context/LayoutCtx';
 import { formatCurrency, formatNumber, formatPercent, formatUnit } from '@/src/lib/formatter';
 import i18n from '@/src/lib/i18n';
 import { cn } from '@/src/lib/utils';
-import { BriefcaseBusiness, ChevronLeft, ChevronRight, PiggyBank, Scale } from 'lucide-react';
+import { BriefcaseBusiness, ChartColumn, ChevronLeft, ChevronRight, PiggyBank, Scale } from 'lucide-react';
 import { useEffect, useMemo, useRef, useState } from 'react';
 
 export const Stats = () => {
@@ -59,6 +60,11 @@ export const Stats = () => {
       window.removeEventListener( 'resize', updateScrollButtons );
     };
   }, [ data ] );
+
+  const [ selectedOption, setSelectedOption ] = useState( 'day' );
+  const chartOptions = useMemo( () => [ 'month', 'week', 'day', 'hour', 'minute' ].map( t => ( {
+    value: String( t ), label: i18n.t( $ => $.period[ t as keyof typeof $.period ] )
+  } ) ), [ settings ] );
 
   const avgEarnings = useMemo( () => {
     if ( ! settings?.profile?.birthDate ) return ;
@@ -121,7 +127,7 @@ export const Stats = () => {
             style= { { scrollbarWidth: 'none', msOverflowStyle: 'none' } }
           >
             <div className= 'flex gap-0 min-w-full'>
-              { stats.milestones.map( ( m, i ) => (
+              { stats.milestones.slice().reverse().map( ( m, i ) => (
                 <div key= { i } className= 'relative space-y-6 flex flex-col items-center shrink-0 w-full sm:w-1/2 md:w-1/3 lg:w-1/4 xl:w-1/5'>
                   <div className= 'relative flex justify-center items-center w-full h-8'>
                     { /** Horizontal Connector */ }
@@ -177,6 +183,23 @@ export const Stats = () => {
           </button>
         </div>
       ) }
+
+      { /** Annual Earnings */ }
+      <Card>
+        <Heading level= { 4 } className= 'flex justify-between items-center gap-6 mb-6'>
+          <div className= 'flex items-center gap-4'>
+            <ChartColumn size= { 20 } />
+            <span>{ i18n.t( $ => $.stats.annualEarnings ) }</span>
+          </div>
+          <div className= 'shrink-0 w-42'>
+            <Select
+              value= { selectedOption }
+              options= { chartOptions }
+              onChange= { ( e ) => setSelectedOption( e.target.value ) }
+            />
+          </div>
+        </Heading>
+      </Card>
 
       { /** Masonry Grid */ }
       <div className= 'columns-1 md:columns-2 gap-8 space-y-8'>

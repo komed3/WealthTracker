@@ -280,8 +280,9 @@ export default ( {
       stable: 'Stable'
     },
     stats: {
+      annualEarnings: 'Annual Earnings',
       avgEarnings: 'Average Earnings',
-      avgEarningsInfo: 'Track your wealth generation speed broken down across exact units of time.',
+      avgEarningsInfo: 'Track your wealth generation over lifetime speed broken down across exact units of time.',
       description: 'Gain insights into milestones, average earnings, and comparative metrics of your wealth.',
       equivalents: 'Equivalents',
       equivalentsInfo: 'Understand the real-world equivalents of your wealth, from burgers to working hours.',
