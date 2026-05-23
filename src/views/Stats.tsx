@@ -7,7 +7,7 @@ import { useLayout } from '@/src/context/LayoutCtx';
 import { formatCurrency, formatNumber, formatPercent, formatUnit } from '@/src/lib/formatter';
 import i18n from '@/src/lib/i18n';
 import { BriefcaseBusiness, PiggyBank, Scale } from 'lucide-react';
-import { useEffect } from 'react';
+import { useEffect, useMemo } from 'react';
 
 export const Stats = () => {
   const { data, settings } = useData();
@@ -18,6 +18,26 @@ export const Stats = () => {
 
   if ( data?.entries.length === 0 || ! data?.computed.portfolio ) return <NoData />;
   const stats = data.computed.portfolio;
+
+  const avgEarnings = useMemo( () => {
+    if ( ! settings?.profile?.birthDate ) return ;
+    try {
+      const year = stats?.lastYear || new Date().getFullYear();
+      const refTime = new Date( year, 11, 31 ).getTime();
+      const birthTime = new Date( settings?.profile?.birthDate ).getTime();
+      const ageInMs = refTime - birthTime;
+      const ageInYears = ageInMs / ( 1000 * 60 * 60 * 24 * 365.25 );
+
+      return {
+        year: stats.latestNetWorth / ageInYears,
+        month: stats.latestNetWorth / ( ageInYears * 12 ),
+        week: stats.latestNetWorth / ( ageInYears * 52.1775 ),
+        day: stats.latestNetWorth / ( ageInMs / ( 1000 * 24 * 3600 ) ),
+        hour: stats.latestNetWorth / ( ageInMs / ( 1000 * 3600 ) ),
+        minute: stats.latestNetWorth / ( ageInMs / ( 1000 * 60 ) )
+      };
+    } catch {}
+  }, [ stats, settings ] );
 
   return (
     <div className= 'space-y-8'>
@@ -141,15 +161,21 @@ export const Stats = () => {
         </Card>
 
         { /** Average Earnings */ }
-        <Card className= 'break-inside-avoid'>
-          <Heading level= { 4 } className= 'flex items-center gap-4 mb-6'>
-            <PiggyBank size= { 20 } />
-            <span>{ i18n.t( $ => $.stats.avgEarnings ) }</span>
-          </Heading>
-          <p className= 'mb-6'>
-            { i18n.t( $ => $.stats.avgEarningsInfo ) }
-          </p>
-        </Card>
+        { settings?.profile?.birthDate && ( () => {
+          //
+
+          return (
+            <Card className= 'break-inside-avoid'>
+              <Heading level= { 4 } className= 'flex items-center gap-4 mb-6'>
+                <PiggyBank size= { 20 } />
+                <span>{ i18n.t( $ => $.stats.avgEarnings ) }</span>
+              </Heading>
+              <p className= 'mb-6'>
+                { i18n.t( $ => $.stats.avgEarningsInfo ) }
+              </p>
+            </Card>
+          );
+        } )() }
       </div>
     </div>
   );
