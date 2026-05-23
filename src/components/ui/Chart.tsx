@@ -1,5 +1,5 @@
 import { formatCurrency, formatPercent } from '@/src/lib/formatter';
-import type { CustomTooltipProps, xAxisIntervalProps, yAxisFormatterProps } from '@/src/types/props';
+import type { CustomTooltipProps, TooltipRowProps, xAxisIntervalProps, yAxisFormatterProps } from '@/src/types/props';
 
 export const CustomTooltip = ( { label, value, children, color }: CustomTooltipProps ) => {
   return (
@@ -13,6 +13,15 @@ export const CustomTooltip = ( { label, value, children, color }: CustomTooltipP
           { children }
         </div>
       ) }
+    </div>
+  );
+};
+
+export const TooltipRow = ( { label, value }: TooltipRowProps ) => {
+  return (
+    <div className= 'flex justify-between gap-4'>
+      <span>{ label }</span>
+      <span className= 'font-semibold text-slate-800'>{ value }</span>
     </div>
   );
 };
