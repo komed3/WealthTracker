@@ -7,6 +7,7 @@ export default defineConfig ( {
   plugins: [ react(), tailwindcss() ],
   resolve: { alias: { '@': resolve( __dirname, '.' ) } },
   build: {
+    outDir: 'dist/client',
     chunkSizeWarningLimit: 1000,
     rollupOptions: {
       output: {
