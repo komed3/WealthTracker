@@ -2,24 +2,26 @@ import { Card, InfoCard } from '@/src/components/ui/Card';
 import { Heading } from '@/src/components/ui/Heading';
 import { Intro } from '@/src/components/ui/Intro';
 import { NoData } from '@/src/components/ui/NoData';
-import { Select } from '@/src/components/ui/Select';
 import { useData } from '@/src/context/DataCtx';
-import { useLayout } from '@/src/context/LayoutCtx';
+import { useIsMobile, useLayout } from '@/src/context/LayoutCtx';
 import { formatCurrency, formatNumber, formatPercent, formatUnit } from '@/src/lib/formatter';
 import i18n from '@/src/lib/i18n';
 import { cn } from '@/src/lib/utils';
 import { BriefcaseBusiness, ChartColumn, ChevronLeft, ChevronRight, Globe, PiggyBank, Scale } from 'lucide-react';
 import { useEffect, useMemo, useRef, useState } from 'react';
+import { Bar, BarChart, Rectangle, ReferenceLine, ResponsiveContainer, XAxis, YAxis } from 'recharts';
+import { xAxisInterval, yAxisFormatter } from '../components/ui/Chart';
 
 export const Stats = () => {
-  const { data, settings } = useData();
   const { setTitle } = useLayout();
+  const isMobile = useIsMobile();
+  const { data, settings } = useData();
   const display = settings!.display;
 
   useEffect( () => { setTitle( i18n.t( $ => $.stats.title ) ) }, [ setTitle, display.language ] );
 
   if ( data?.entries.length === 0 || ! data?.computed.portfolio ) return <NoData />;
-  const stats = data.computed.portfolio;
+  const { years, portfolio: stats } = data.computed;
 
   const [ hourlyWage, setHourlyWage ] = useState( 30 );
   const percent = ( ( hourlyWage - 5 ) / ( 500 - 5 ) ) * 100;
@@ -61,10 +63,9 @@ export const Stats = () => {
     };
   }, [ data ] );
 
-  const [ selectedOption, setSelectedOption ] = useState( 'day' );
-  const chartOptions = useMemo( () => [ 'month', 'week', 'day', 'hour', 'minute' ].map( t => ( {
-    value: String( t ), label: i18n.t( $ => $.period[ t as keyof typeof $.period ] )
-  } ) ), [ settings ] );
+  const chartData = useMemo( () => Object.values( years ).sort( ( a, b ) => a.year - b.year ).map( y => ( {
+    year: String( y.year ), raw: y, value: y.netWorth / 365.25
+  } ) ), [ stats ] );
 
   const avgEarnings = useMemo( () => {
     if ( ! settings?.profile?.birthDate ) return ;
@@ -186,19 +187,62 @@ export const Stats = () => {
 
       { /** Annual Earnings */ }
       <Card>
-        <Heading level= { 4 } className= 'flex justify-between items-center gap-6 mb-6'>
-          <div className= 'flex items-center gap-4'>
-            <ChartColumn size= { 20 } />
-            <span>{ i18n.t( $ => $.stats.annualEarnings ) }</span>
-          </div>
-          <div className= 'shrink-0 w-42'>
-            <Select
-              value= { selectedOption }
-              options= { chartOptions }
-              onChange= { ( e ) => setSelectedOption( e.target.value ) }
-            />
-          </div>
+        <Heading level= { 4 } className= 'flex items-center gap-4 mb-6'>
+          <ChartColumn size= { 20 } />
+          <span>{ i18n.t( $ => $.stats.annualEarnings ) }</span>
         </Heading>
+
+        <ResponsiveContainer width= '100%' aspect= { 2 } maxHeight= { 320 }>
+          <BarChart
+            data= { chartData }
+            margin= { { top: 10, right: 20, left: 20, bottom: 10 } }
+          >
+            <XAxis
+              dataKey= 'year'
+              interval= { xAxisInterval( { value: chartData.length, isMobile } ) }
+              stroke= '#94a3b8'
+              fontSize= { 12 }
+              fontWeight= { 600 }
+              tickLine= { false }
+              axisLine= { false }
+              dy= { 10 }
+            />
+            <YAxis
+              hide= { isMobile }
+              tickFormatter= { ( value: number ) => yAxisFormatter( {
+                type: 'currency', value, display
+              } ) }
+              stroke= '#94a3b8'
+              fontSize= { 12 }
+              fontWeight= { 600 }
+              tickLine= { false }
+              axisLine= { false }
+              dx= { -10 }
+            />
+            <ReferenceLine
+              y= { 0 }
+              stroke= '#cbd5e1'
+              strokeWidth= { 2 }
+              style= { { opacity: 0.6 } }
+            />
+            <Bar
+              dataKey= 'value'
+              shape= { ( props ) => {
+                const { payload } = props;
+                const isPositive = payload.value >= 0;
+
+                return (
+                  <Rectangle
+                    { ...props }
+                    className= 'transition-all duration-300'
+                    fill= { isPositive ? '#10b981' : '#ef4444' }
+                    radius= { [ 6, 6, 0, 0 ] }
+                  />
+                );
+              } }
+            />
+          </BarChart>
+        </ResponsiveContainer>
       </Card>
 
       { /** Masonry Grid */ }
