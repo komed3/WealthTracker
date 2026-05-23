@@ -9,8 +9,8 @@ import i18n from '@/src/lib/i18n';
 import { cn } from '@/src/lib/utils';
 import { BriefcaseBusiness, ChartColumn, ChevronLeft, ChevronRight, Globe, PiggyBank, Scale } from 'lucide-react';
 import { useEffect, useMemo, useRef, useState } from 'react';
-import { Bar, BarChart, Rectangle, ReferenceLine, ResponsiveContainer, XAxis, YAxis } from 'recharts';
-import { xAxisInterval, yAxisFormatter } from '../components/ui/Chart';
+import { Bar, BarChart, Rectangle, ReferenceLine, ResponsiveContainer, Tooltip, XAxis, YAxis } from 'recharts';
+import { CustomTooltip, xAxisInterval, yAxisFormatter } from '../components/ui/Chart';
 
 export const Stats = () => {
   const { setTitle } = useLayout();
@@ -218,6 +218,48 @@ export const Stats = () => {
               tickLine= { false }
               axisLine= { false }
               dx= { -10 }
+            />
+            <Tooltip
+              content= { ( { active, payload } ) => {
+                if ( active && payload && payload.length ) {
+                  const dataPoint = payload[ 0 ].payload;
+                  const isPositive = dataPoint.value >= 0;
+
+                  return (
+                    <CustomTooltip
+                      label= { dataPoint.year }
+                      value= { formatCurrency( Math.abs( dataPoint.value ), display ) }
+                      color= { isPositive ? '#10b981' : '#ef4444' }
+                    >
+                      <div className= 'flex justify-between gap-4'>
+                        <span>{ i18n.t( $ => $.period.month ) }</span>
+                        <span className= 'font-semibold text-slate-800'>
+                          { formatCurrency( dataPoint.raw.netWorth / 12, display ) }
+                        </span>
+                      </div>
+                      <div className= 'flex justify-between gap-4'>
+                        <span>{ i18n.t( $ => $.period.week ) }</span>
+                        <span className= 'font-semibold text-slate-800'>
+                          { formatCurrency( dataPoint.raw.netWorth / 52.1775, display ) }
+                        </span>
+                      </div>
+                      <div className= 'flex justify-between gap-4'>
+                        <span>{ i18n.t( $ => $.period.hour ) }</span>
+                        <span className= 'font-semibold text-slate-800'>
+                          { formatCurrency( dataPoint.raw.netWorth / 8766, display ) }
+                        </span>
+                      </div>
+                      <div className= 'flex justify-between gap-4'>
+                        <span>{ i18n.t( $ => $.period.minute ) }</span>
+                        <span className= 'font-semibold text-slate-800'>
+                          { formatCurrency( dataPoint.raw.netWorth / 525960, display ) }
+                        </span>
+                      </div>
+                    </CustomTooltip>
+                  );
+                }
+              } }
+              cursor= { { fill: 'oklch(98.4% 0.003 247.858)' } }
             />
             <ReferenceLine
               y= { 0 }
