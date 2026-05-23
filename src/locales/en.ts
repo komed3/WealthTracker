@@ -226,6 +226,14 @@ export default ( {
       report: 'Report',
       stats: 'Statistics'
     },
+    period: {
+      day: 'Day',
+      hour: 'Hour',
+      minute: 'Minute',
+      month: 'Month',
+      week: 'Week',
+      year: 'Year'
+    },
     report: {
       asset: 'Asset',
       assets: 'Assets',

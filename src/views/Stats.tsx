@@ -161,21 +161,28 @@ export const Stats = () => {
         </Card>
 
         { /** Average Earnings */ }
-        { settings?.profile?.birthDate && ( () => {
-          //
-
-          return (
-            <Card className= 'break-inside-avoid'>
-              <Heading level= { 4 } className= 'flex items-center gap-4 mb-6'>
-                <PiggyBank size= { 20 } />
-                <span>{ i18n.t( $ => $.stats.avgEarnings ) }</span>
-              </Heading>
-              <p className= 'mb-6'>
-                { i18n.t( $ => $.stats.avgEarningsInfo ) }
-              </p>
-            </Card>
-          );
-        } )() }
+        { avgEarnings && (
+          <Card className= 'break-inside-avoid'>
+            <Heading level= { 4 } className= 'flex items-center gap-4 mb-6'>
+              <PiggyBank size= { 20 } />
+              <span>{ i18n.t( $ => $.stats.avgEarnings ) }</span>
+            </Heading>
+            <p>{ i18n.t( $ => $.stats.avgEarningsInfo ) }</p>
+            <div className= 'my-6 border-t border-dashed border-slate-300' />
+            <div className= 'space-y-3'>
+              { Object.entries( avgEarnings ).map( ( [ p, v ] ) => (
+                <div key= { p } className= 'flex justify-between items-baseline gap-4'>
+                  <span className= 'min-w-0 truncate text-sm text-slate-500'>
+                    { i18n.t( $ => $.period[ p as keyof typeof $.period ] ) }
+                  </span>
+                  <span className= 'font-mono font-bold text-2xl text-slate-800'>
+                    { formatCurrency( v, display ) }
+                  </span>
+                </div>
+              ) ) }
+            </div>
+          </Card>
+        ) }
       </div>
     </div>
   );

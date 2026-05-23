@@ -226,6 +226,14 @@ export default ( {
       report: 'Bericht',
       stats: 'Statistiken'
     },
+    period: {
+      day: 'Tag',
+      hour: 'Stunde',
+      minute: 'Minute',
+      month: 'Monat',
+      week: 'Woche',
+      year: 'Jahr'
+    },
     report: {
       asset: 'Vermögenswert',
       assets: 'Vermögenswerte',
