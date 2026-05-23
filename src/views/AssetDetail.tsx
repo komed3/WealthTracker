@@ -215,7 +215,7 @@ export const AssetDetail = () => {
                   type= 'monotone'
                   dataKey= 'range'
                   fill= '#2563eb'
-                  fillOpacity= { 0.08 }
+                  fillOpacity= { 0.15 }
                   stroke= 'none'
                   activeDot= { false }
                 />
@@ -223,7 +223,7 @@ export const AssetDetail = () => {
                   type= 'monotone'
                   dataKey= 'max'
                   stroke= '#2563eb'
-                  strokeOpacity= { 0.25 }
+                  strokeOpacity= { 0.35 }
                   strokeWidth= { 1 }
                   strokeDasharray= '4 4'
                   dot= { false }
@@ -233,7 +233,7 @@ export const AssetDetail = () => {
                   type= 'monotone'
                   dataKey= 'min'
                   stroke= '#2563eb'
-                  strokeOpacity= { 0.25 }
+                  strokeOpacity= { 0.35 }
                   strokeWidth= { 1 }
                   strokeDasharray= '4 4'
                   dot= { false }
