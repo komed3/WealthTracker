@@ -39,6 +39,7 @@ export const DataProvider = ( { children }: { children: ReactNode } ) => {
         if ( savedSettings.display?.language ) await i18n.changeLanguage( savedSettings.display.language );
         setData( prev => prev ? { ...prev, settings: savedSettings } : null );
 
+        await refreshData();
         return true;
       }
 
@@ -63,6 +64,7 @@ export const DataProvider = ( { children }: { children: ReactNode } ) => {
         const savedData = await res.json() as Data;
         setData( savedData );
 
+        await refreshData();
         return true;
       }
 
