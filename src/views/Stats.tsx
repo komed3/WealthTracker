@@ -64,7 +64,7 @@ export const Stats = () => {
   }, [ data ] );
 
   const chartData = useMemo( () => Object.values( years ).sort( ( a, b ) => a.year - b.year ).map( y => ( {
-    year: String( y.year ), raw: y, value: y.netWorth / 365.25
+    year: String( y.year ), raw: y, value: ( y.growth?.absolute ?? 0 ) / 365.25
   } ) ), [ stats ] );
 
   const avgEarnings = useMemo( () => {
@@ -223,6 +223,7 @@ export const Stats = () => {
               content= { ( { active, payload } ) => {
                 if ( active && payload && payload.length ) {
                   const dataPoint = payload[ 0 ].payload;
+                  const growth = Math.abs( dataPoint.raw.growth?.absolute ?? 0 );
                   const isPositive = dataPoint.value >= 0;
 
                   return (
@@ -237,19 +238,19 @@ export const Stats = () => {
                     >
                       <TooltipRow
                         label= { i18n.t( $ => $.period.month ) }
-                        value= { formatCurrency( dataPoint.raw.netWorth / 12, display ) }
+                        value= { formatCurrency( growth / 12, display ) }
                       />
                       <TooltipRow
                         label= { i18n.t( $ => $.period.week ) }
-                        value= { formatCurrency( dataPoint.raw.netWorth / 52.1775, display ) }
+                        value= { formatCurrency( growth / 52.1775, display ) }
                       />
                       <TooltipRow
                         label= { i18n.t( $ => $.period.hour ) }
-                        value= { formatCurrency( dataPoint.raw.netWorth / 8766, display ) }
+                        value= { formatCurrency( growth / 8766, display ) }
                       />
                       <TooltipRow
                         label= { i18n.t( $ => $.period.minute ) }
-                        value= { formatCurrency( dataPoint.raw.netWorth / 525960, display ) }
+                        value= { formatCurrency( growth / 525960, display ) }
                       />
                     </CustomTooltip>
                   );
