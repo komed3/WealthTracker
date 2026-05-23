@@ -1,5 +1,5 @@
 import { Card } from '@/src/components/ui/Card';
-import { CustomTooltip, xAxisInterval, yAxisFormatter } from '@/src/components/ui/Chart';
+import { CustomTooltip, TooltipRow, xAxisInterval, yAxisFormatter } from '@/src/components/ui/Chart';
 import { Heading } from '@/src/components/ui/Heading';
 import { Intro } from '@/src/components/ui/Intro';
 import { NoData } from '@/src/components/ui/NoData';
@@ -217,12 +217,10 @@ export const Breakdown = () => {
                           value= { formatPercent( item.share, display ) }
                           color= { item.color }
                         >
-                          <div className= 'flex justify-between gap-4'>
-                            <span>{ i18n.t( $ => $.breakdown.value ) }</span>
-                            <span className= 'font-mono font-semibold text-slate-800'>
-                              { formatCurrency( item.value, display ) }
-                            </span>
-                          </div>
+                          <TooltipRow
+                            label= { i18n.t( $ => $.breakdown.value ) }
+                            value= { formatCurrency( item.value, display ) }
+                          />
                         </CustomTooltip>
                       );
                     }
@@ -334,17 +332,18 @@ export const Breakdown = () => {
                       value= { formatCurrency( total, display ) }
                     >
                       { sortedPayload.map( ( { dataKey, name, value } ) => (
-                        <div key= { String( dataKey ) } className= 'flex justify-between gap-6'>
-                          <span>{ name }</span>
-                          <span className= 'flex gap-2 font-mono'>
-                            <span className= 'font-semibold text-slate-800'>
-                              { formatCurrency( value, display ) }
+                        <TooltipRow
+                          key= { String( dataKey ) }
+                          label= { String( name ) }
+                          value= { (
+                            <span className= 'flex gap-2'>
+                              <span>{ formatCurrency( value, display ) }</span>
+                              <span className= 'font-normal text-slate-600'>
+                                ({ formatPercent( total ? ( value as number ) / total : 0, display ) })
+                              </span>
                             </span>
-                            <span className= 'text-slate-600'>
-                              ({ formatPercent( total ? ( value as number ) / total : 0, display ) })
-                            </span>
-                          </span>
-                        </div>
+                          ) }
+                        />
                       ) ) }
                     </CustomTooltip>
                   );

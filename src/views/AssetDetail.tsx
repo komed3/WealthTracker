@@ -1,5 +1,5 @@
 import { Card } from '@/src/components/ui/Card';
-import { CustomTooltip, xAxisInterval, yAxisFormatter } from '@/src/components/ui/Chart';
+import { CustomTooltip, TooltipRow, xAxisInterval, yAxisFormatter } from '@/src/components/ui/Chart';
 import { Heading } from '@/src/components/ui/Heading';
 import { Icon } from '@/src/components/ui/Icon';
 import type { ASSET_CLASS, CONFIDENCE, LIABILITY_CLASS } from '@/src/config/constants';
@@ -183,24 +183,22 @@ export const AssetDetail = () => {
                           value= { formatCurrency( dataPoint.value, display ) }
                           color= '#2563eb'
                         >
-                          <div className= 'flex justify-between gap-4'>
-                            <span>{ i18n.t( $ => $.assetDetail.maximum ) }</span>
-                            <span className= 'font-mono font-semibold text-slate-800'>
-                              { formatCurrency( dataPoint.max, display ) }
-                            </span>
-                          </div>
-                          <div className= 'flex justify-between gap-4'>
-                            <span>{ i18n.t( $ => $.assetDetail.minimum ) }</span>
-                            <span className= 'font-mono font-semibold text-slate-800'>
-                              { formatCurrency( dataPoint.min, display ) }
-                            </span>
-                          </div>
-                          <div className= 'flex justify-between gap-4'>
-                            <span>{ i18n.t( $ => $.assetDetail.confidence ) }</span>
-                            <span className= 'font-mono font-semibold text-slate-800'>
-                              { i18n.t( $ => $.confidence[ dataPoint.confidence as CONFIDENCE ] ) }
-                            </span>
-                          </div>
+                          { dataPoint.max !== dataPoint.value && (
+                            <TooltipRow
+                              label= { i18n.t( $ => $.assetDetail.maximum ) }
+                              value= { formatCurrency( dataPoint.max, display ) }
+                            />
+                          ) }
+                          { dataPoint.min !== dataPoint.value && (
+                            <TooltipRow
+                              label= { i18n.t( $ => $.assetDetail.minimum ) }
+                              value= { formatCurrency( dataPoint.min, display ) }
+                            />
+                          ) }
+                          <TooltipRow
+                            label= { i18n.t( $ => $.assetDetail.confidence ) }
+                            value= { i18n.t( $ => $.confidence[ dataPoint.confidence as CONFIDENCE ] ) }
+                          />
                         </CustomTooltip>
                       );
                     }

@@ -1,5 +1,5 @@
 import { Card, InfoCard } from '@/src/components/ui/Card';
-import { CustomTooltip, xAxisInterval, yAxisFormatter } from '@/src/components/ui/Chart';
+import { CustomTooltip, TooltipRow, xAxisInterval, yAxisFormatter } from '@/src/components/ui/Chart';
 import { Intro } from '@/src/components/ui/Intro';
 import { NoData } from '@/src/components/ui/NoData';
 import { Tabs } from '@/src/components/ui/Tabs';
@@ -129,24 +129,18 @@ export const Momentum = () => {
                       value= { formatter( Math.abs( dataPoint.value ), display ) }
                       color= { isPositive ? '#10b981' : '#ef4444' }
                     >
-                      <div className= 'flex justify-between gap-4'>
-                        <span>{ i18n.t( $ => $.momentum.netWorth ) }</span>
-                        <span className= 'font-mono font-semibold text-slate-800'>
-                          { formatCurrency( dataPoint.raw.netWorth, display ) }
-                        </span>
-                      </div>
-                      <div className= 'flex justify-between gap-4'>
-                        <span>{ i18n.t( $ => $.momentum.assets ) }</span>
-                        <span className= 'font-mono font-semibold text-slate-800'>
-                          { formatCurrency( dataPoint.raw.assets, display ) }
-                        </span>
-                      </div>
-                      <div className= 'flex justify-between gap-4'>
-                        <span>{ i18n.t( $ => $.momentum.liabilities ) }</span>
-                        <span className= 'font-mono font-semibold text-slate-800'>
-                          { formatCurrency( dataPoint.raw.liabilities, display ) }
-                        </span>
-                      </div>
+                      <TooltipRow
+                        label= { i18n.t( $ => $.momentum.netWorth ) }
+                        value= { formatCurrency( dataPoint.raw.netWorth, display ) }
+                      />
+                      <TooltipRow
+                        label= { i18n.t( $ => $.momentum.assets ) }
+                        value= { formatCurrency( dataPoint.raw.assets, display ) }
+                      />
+                      <TooltipRow
+                        label= { i18n.t( $ => $.momentum.liabilities ) }
+                        value= { formatCurrency( dataPoint.raw.liabilities, display ) }
+                      />
                     </CustomTooltip>
                   );
                 }

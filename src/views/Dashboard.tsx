@@ -1,5 +1,5 @@
 import { Card, InfoCard } from '@/src/components/ui/Card';
-import { CustomTooltip, xAxisInterval, yAxisFormatter } from '@/src/components/ui/Chart';
+import { CustomTooltip, TooltipRow, xAxisInterval, yAxisFormatter } from '@/src/components/ui/Chart';
 import { Heading } from '@/src/components/ui/Heading';
 import { NoData } from '@/src/components/ui/NoData';
 import { useData } from '@/src/context/DataCtx';
@@ -125,18 +125,18 @@ export const Dashboard = () => {
                         value= { formatCurrency( dataPoint.netWorth, display ) }
                         color= '#2563eb'
                       >
-                        <div className= 'flex justify-between gap-4'>
-                          <span>{ i18n.t( $ => $.dashboard.maximum ) }</span>
-                          <span className= 'font-mono font-semibold text-slate-800'>
-                            { formatCurrency( dataPoint.maxNetWorth, display ) }
-                          </span>
-                        </div>
-                        <div className= 'flex justify-between gap-4'>
-                          <span>{ i18n.t( $ => $.dashboard.minimum ) }</span>
-                          <span className= 'font-mono font-semibold text-slate-800'>
-                            { formatCurrency( dataPoint.minNetWorth, display ) }
-                          </span>
-                        </div>
+                        { dataPoint.maxNetWorth !== dataPoint.netWorth && (
+                          <TooltipRow
+                            label= { i18n.t( $ => $.dashboard.maximum ) }
+                            value= { formatCurrency( dataPoint.maxNetWorth, display ) }
+                          />
+                        ) }
+                        { dataPoint.minNetWorth !== dataPoint.netWorth && (
+                          <TooltipRow
+                            label= { i18n.t( $ => $.dashboard.minimum ) }
+                            value= { formatCurrency( dataPoint.minNetWorth, display ) }
+                          />
+                        ) }
                       </CustomTooltip>
                     );
                   }
