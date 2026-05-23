@@ -5,7 +5,7 @@ import { cn } from '@/src/lib/utils';
 import { ChevronLeft, Settings } from 'lucide-react';
 import { AnimatePresence, motion } from 'motion/react';
 import { useEffect, useState } from 'react';
-import { NavLink } from 'react-router';
+import { NavLink, useLocation } from 'react-router';
 import faviconUrl from '/favicon.svg?url';
 
 const BREAKPOINT = 1024;
@@ -13,6 +13,7 @@ const BREAKPOINT = 1024;
 export const Sidebar = () => {
   const { sidebarOpen, toggleSidebar } = useLayout();
   const [ isMobile, setIsMobile ] = useState( false );
+  const location = useLocation();
 
   useEffect( () => {
     const checkMobile = () => setIsMobile( window.innerWidth < BREAKPOINT );
@@ -67,12 +68,16 @@ export const Sidebar = () => {
               key= { r.to }
               to= { r.to }
               onClick= { () => { if ( isMobile ) toggleSidebar() } }
-              className= { ( { isActive } ) => cn(
-                'group flex items-center gap-4 h-12 px-2 rounded-xl transition-all duration-200',
-                isActive
-                  ? 'font-semibold text-primary bg-primary/5'
-                  : 'text-slate-500 hover:text-slate-900 hover:bg-slate-50'
-              ) }
+              className= { ( { isActive } ) => {
+                const isNavActive = isActive || ( r.to === '/assets' && location.pathname.startsWith( '/asset/' ) );
+
+                return cn(
+                  'group flex items-center gap-4 h-12 px-2 rounded-xl transition-all duration-200',
+                  isNavActive
+                    ? 'font-semibold text-primary bg-primary/5'
+                    : 'text-slate-500 hover:text-slate-900 hover:bg-slate-50'
+                );
+              } }
             >
               <div className= 'flex justify-center items-center shrink-0 w-8'>
                 <r.icon
